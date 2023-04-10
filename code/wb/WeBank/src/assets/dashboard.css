@@ -1,0 +1,109 @@
+    #index{
+	  color: #d3d6dd;
+	  background-color: #000000;
+	  width: 100vw;
+	  height: 100vh;
+	}
+	#index .title-text{
+		font-size: 14px;
+	}
+	#index .bg{
+		padding: 0.2rem 0.2rem 0 0.2rem;
+		background-image: url("../../src/assets/pageBg.png");
+		background-size: cover;
+		background-position: center center;
+	}
+	.host-body .title{
+		position: relative;
+		width: 6.25rem;
+		text-align: center;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+	.host-body .title-text {
+	      font-size:5rem;
+	      position: absolute;
+	      bottom: 0;
+	      left: 50%;
+	      transform: translate(-50%);
+	    }  
+	.host-body .title-bottom {
+	      position: absolute;
+	      bottom: -0.375rem;
+	      left: 50%;
+	      transform: translate(-50%);
+	    }    
+	#container{
+		height: 100vh;
+		display: grid;
+		grid-template-columns: repeat(5,20%);
+		grid-template-rows: repeat(3,330px);
+	}
+	#container .item {
+	  font-size: 14px;
+	  text-align: center;
+	  /* border: 1px solid #e5e4e9; */
+	}
+	
+	#container .item-1 {  
+	  grid-column-start: 2;
+	  grid-column-end: 4;
+	  grid-row-start: 1;
+	  grid-row-end: 3;
+	}
+	#container .item-9 {
+	  
+	  grid-column-start: 2;
+	  grid-column-end: 6;
+	  grid-row-start: 3;
+	  grid-row-end: 4;
+	}
+	#container .item-8 {
+	  
+	  grid-column-start: 1;
+	  grid-column-end: 2;
+	  grid-row-start: 3;
+	  grid-row-end: 4;
+	}
+	/* #container .item-3 {
+	  
+	  grid-column-start: 4;
+	  grid-column-end: 5;
+	  grid-row-start: 1;
+	  grid-row-end: 3;
+	} */
+	.item .chart-item {
+		   height: 335px; 
+		   width: 330px;
+		   margin: 5px 0 0 20px;
+	}
+	.test {
+		   width: 350px; 
+		   height:300px; 
+		   overflow: auto;
+		   margin: 8px 0 0 0;
+	}
+	.scrollbar {
+		   width : 10px;
+		   height: 200px;
+		   margin: 5px auto;
+	}
+	.test-1::-webkit-scrollbar {
+	/*滚动条整体样式*/
+	width : 10px;  /*高宽分别对应横竖滚动条的尺寸*/
+	/* height: 1px; */
+	
+	}
+	.test-1::-webkit-scrollbar-thumb {
+	/*滚动条里面小方块*/
+	border-radius: 1px;
+	box-shadow   : inset 0 0 5px rgba(0, 0, 0, 0.2);
+	background   : #a9a9a9;
+	}
+	.test-1::-webkit-scrollbar-track {
+	/*滚动条里面轨道*/
+	box-shadow   : inset 0 0 5px rgba(0, 0, 0, 0.2);
+	border-radius: 1px;
+	background   : #ededed;
+	}
+	

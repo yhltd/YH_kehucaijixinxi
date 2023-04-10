@@ -1,0 +1,15 @@
+.router-tab__item.is-active {
+	background-color: #FFFFFF;
+    border-color: #FFFFFF!important;
+}
+
+.ivu-menu-vertical.ivu-menu-light:after {
+	width: 0 !important;
+}
+.router-tab {
+	width: 100% !important;
+	height: 100% !important;
+}
+.router-tab__container {
+	
+}

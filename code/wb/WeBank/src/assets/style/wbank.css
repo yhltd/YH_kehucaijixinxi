@@ -1,0 +1,232 @@
+#biaoti{
+		margin-left: 3vw;
+		font-size: 1.5rem;
+		margin-top: 5vh;
+		margin-bottom: 1vw;
+	}
+	#biaoti2{
+		margin-left: 3vw;
+		font-size: 1rem;
+		margin-top: 1vh;
+		margin-bottom: 0.3vh;
+	}
+	#biantikuaiyanse{
+		background-color: white;
+		margin: 0vh 0.3vw 0.3vh 0.3vw;
+		border-radius: 1vh 1vw 1vh 1vw;
+	}
+	#beijingse{
+		background-color: #ececec;
+	}
+	
+	#tupian{
+		padding: 0vh 0vw 0vh 0vw;
+		margin-left: 8vw;
+	}
+	#biaoge{
+		border-collapse: separate;
+		border-spacing: 1rem;
+		border-radius: 0.5rem;
+		width: 100vw;
+	}
+	#tijiao{
+		margin: 5rem 0rem 5rem 39vw;
+		
+		width: 20vw;
+	}
+	#quan2biaoti{
+		background-color: #0000ff;
+		color: #ffffff;
+		font-size: 1rem;
+		padding: 1rem 0rem 1rem 2rem;
+		display: inline-block;
+		width: 63vw;
+	}
+	#biaoge2{
+		display: inline-block;
+		float: left;
+		width: 63vw;
+	}
+	#biaoge3{
+		display: inline-block;
+		float: right;
+		width: 37vw;
+		position: absolute;
+	}
+	#lianggebiao{
+		display: inline-block;
+		float: left;
+	}
+	 .ivu-table .ivu-table-header tr{
+	        background-color: #ff0000;
+	        color: #aaaaff;
+	}
+	#neilian{
+		display: inline-block;
+		float: left;
+	}
+	#zhengxun{
+		background-color: #ffffff;
+		display: inline-block;
+		width: 37vw;
+		padding:  1vh 0vw 1vh 15vw;
+	}
+	#dangqian{
+		margin: 0vh 5vw 0vh 2vw;
+	}
+	#shuaxin{
+		margin:0vh 3vw 0vh 3vw;
+	}
+	#tian{
+		margin:0vh 0vw 0vh 3vw;
+	}
+	#sh{
+		display: inline-block;
+		float: left;
+		margin: 1vh 1vw 0vh 1vw;
+		padding: 0vh 1vw 0vh 1vw;
+		width: 10vw;
+	}
+	#ti{
+		display: inline-block;
+		float: left;
+		margin: 1vh 1vw 0vh 1vw;
+		padding: 0vh 1vw 0vh 1vw;
+		width: 10vw;
+	}
+	#fa{
+		display: inline-block;
+		float: left;
+		margin: 1vh 1vw 0vh 1vw;
+		padding: 0vh 1vw 0vh 1vw;
+		width: 10vw;
+	}
+	#titl3e{
+		position: absolute;
+		padding-bottom: 40vh;
+	}
+	#shuruti{
+		position: absolute;
+		margin: 10vh 1vw 0vh 40vw;
+		padding: 0vh 1vw 0vh 1vw;
+	}
+	#tm{
+		border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+		padding: 1vh 3vw 1vh 1vw;
+		margin: 0vh 0vw 0vh 0vw;
+	}
+	#daan{
+		border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+		padding: 1vh 3vw 1vh 1vw;
+		margin: 1vh 0vw 0vh 0vw;
+	}
+	#bz{
+		border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+		padding: 1vh 3vw 1vh 1vw;
+		margin: 1vh 0vw 1vh 0vw;
+	}
+	#qd{
+		float: left;
+	}
+	#qx{
+		float: right;
+	}
+	#yonghu{		
+		height: 7vh;
+		width: 63vw;
+	}
+	#zh{
+		float: left;
+		margin: 0.5vh 1vw 0vh 10vw;
+	}
+	#mi{
+		float: left;
+		margin: 0.5vh 3vw 0vh 2vw;
+	}
+	#qding{
+		float: left;
+		margin: -3vh 1vw 0vh 1vw;
+	}
+	#da{
+		margin: 0.5rem 2rem 5rem 2rem;
+	}
+	#fah{
+		margin: 0.5rem 2rem 5rem 2rem;
+		padding: 0vh 2vw 0vh 2vw;
+	}
+	#fm{
+		background-color: #ffffff;
+		width: 98.5vw;
+	}
+	#shurukuang{
+		width: 90vw;
+		margin-left: -1vw;
+		margin-top: -2vh;
+	}
+	#wwen{
+		margin-bottom: -3vh;
+		font-size: 1.5rem;
+	}
+	#xing{
+		color: #ff0000;
+		margin-left: -3vw;
+		font-size: 1.5rem;
+	}
+	#zihao{
+		color: #c3c3c3;
+		margin-left: 0vw;
+		margin-top: -5vh;
+		padding:  -5vh 0vw -1vh 0vw;
+		font-size: 0.5rem;
+	}
+	#xianshikuang{
+		position: absolute;
+		margin: -10vh 0vw 0vh 20vw;
+		padding:  10vh 0vw 0vh 10vw;
+		width: 60vw;
+		height: 80vh;
+		z-index: 500;/* 数越大显示级别越高 */
+		background-color: #ffffff ;
+		border-width: 0.1rem;
+		border-color: black;
+		border-style: groove;
+	}
+	#ding{
+		margin: 10vh 5vw 2vh 4vw;
+		padding:  1vh 3vw 1vh 3vw;
+	}
+	#xiao{
+		margin: 10vh 0vw 2vh 0vw;
+		padding:  1vh 3vw 1vh 3vw;
+	}
+	#xm{
+		border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+		padding:  1vh 3vw 1vh 1vw;
+		margin: -9vh 0vw 3vh 5vw;
+	}
+	#zhha{
+		border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+		padding:  1vh 3vw 1vh 1vw;
+		margin: -9vh 0vw 3vh 5vw;
+	}
+	#ma{
+		border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+		padding:  1vh 3vw 1vh 1vw;
+		margin: -9vh 0vw 3vh 5vw;
+	}
+	#ma2{
+		border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+		padding:  1vh 3vw 1vh 1vw;
+		margin: -9vh 0vw 3vh 5vw;
+	}
+	#quxi{
+		border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+		padding:  1vh 3vw 1vh 1vw;
+		margin: -9vh 0vw 3vh 5vw;
+	}
+	
+	
+	
+	
+	
+	
