@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button type="button" value="Add" onclick="javascript:add();"> 增加下拉框</button>
+<select id=" reqs" onchange="selectcity()">
+    <option>请选择</option>
+    <option>清选择1</option>
+    <option>请选择2</option>
+    <option>请选择3</option>
+</select>
+
+
+<script>
+    var reqs_id = 0;
+
+    function removeElement(ev) {
+        var button = ev.target;
+        var field = button.previousSibling;
+        var br=ev.br;
+        var div = button.parentElement;
+        div.removeChild(button);
+        div.removeChild(field);
+        div.removeChild(br);
+    }
+
+    function add() {
+        reqs_id++;
+
+        //create textbox
+        var br = document.createElement('br')
+        var br2 = document.createElement('br')
+        var input = document.createElement('input');
+        input.type = "text";
+        input.setAttribute("class", "w3-input w3-border w3-br");
+        input.setAttribute('id', 'reqs' + reqs_id);
+        br.setAttribute('id', 'reqs' + reqs_id);
+        // input.setAttribute('value', reqs_id);
+        var reqs = document.getElementById("reqs");
+        //create remove button
+        var remove = document.createElement('button');
+        remove.setAttribute('id', 'reqs' + reqs_id);
+        remove.onclick = function(e) {
+            removeElement(e)
+        };
+        remove.setAttribute("type", "button");
+        remove.innerHTML = "删除" ;
+
+        ;
+
+        reqs.appendChild(input);
+        reqs.appendChild(remove);
+        reqs.appendChild(br);
+        reqs.appendChild(br2);
+
+    }
+
+</script>
+</body>
+</html>

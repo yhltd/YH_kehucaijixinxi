@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+
+    window.onload=function(){
+
+        document.getElementById('click').onclick=function(){
+            document.body.innerHTML+='<br><input style=\'display:none\'  id=\'text\' type=text>'
+            if (document.getElementById('text').style.display=='none'){
+                document.getElementById('text').style.display='block'
+            }else{
+                document.getElementById('text').style.display='none'
+            }
+        }
+    }
+</script>
+<!--<button id='click'>文本框</button>-->
+<!--<input type='text' style='display:none'  id='text' />-->
+<!--<button id='click1'>关闭</button>-->
+
+<button id="click" >文本框1</button>
+
+</body>
+</html>

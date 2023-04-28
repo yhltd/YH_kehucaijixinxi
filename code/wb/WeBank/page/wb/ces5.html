@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="row">
+
+    <div class="form-group">
+<!--        <label class="col-md-1 col-sm-1  col-xs-1 control-label">设备编号:</label>-->
+        <div class="col-md-4 col-sm-4 col-xs-4">
+            <input type="search" class="form-control number" placeholder="请输入" id="">
+        </div>
+    </div>
+
+</div>
+<div id="opts"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12  col-xs-12">
+        <div class="form-group">
+
+            <button id="fat-btn" class="btn btn-primary"
+                    type="button">添加
+            </button>
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script>
+    $(function() {
+
+        $("#fat-btn").click(function() {
+
+                var htm = "";
+                htm += "    <div class='row'>";
+                htm += "    <div class='form-group'>";
+                // htm += "    <label class='col-md-1 col-sm-1  col-xs-1 control-label'>设备编号:</label>";
+                htm += "    <div class='col-md-4 col-sm-4  col-xs-4'>";
+                htm += "    <input type='search' class='form-control number' placeholder='请输入' id=''>";
+                htm += "    </div></div>";
+                htm += "</div>";
+
+                $('#opts').append(htm);
+
+        });
+
+    });
+</script>

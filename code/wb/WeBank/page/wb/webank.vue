@@ -42,6 +42,7 @@
 				<Button id="shuaxin" @click="shua()" type="primary" size="small">刷新页面</Button>
 				<Button  @click="xiugai()" type="primary" size="small">修改题目</Button>
 				<Button id="tian"  @click="tian()" type="primary" size="small">添加用户</Button>
+<!--        <Button onclick="javascript:document.body.innerHTML+='<input type=text>';">点我生成一个文本框</Button>-->
 				<input id="zh" v-model="user.account" type="text"placeholder="请输入账号" /><br />
 				<input id="mi" v-model="user.password" type="text"placeholder="请输入密码" /><br />
 				<Button id="qding" @click="queding()" type="primary">确定</Button>
