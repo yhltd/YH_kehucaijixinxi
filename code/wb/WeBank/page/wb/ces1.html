@@ -1,13 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
+<!--<%@ page language="java" contentType="text/html; charset=UTF-8"-->
+<!--pageEncoding="UTF-8" import="java.util.*"%>-->
+<!--<%-->
+<!--String path = request.getContextPath();-->
+<!--%>-->
+<!--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>-->
+
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Title</title>
+    <script type="text/javascript" src="jquery.min.js"></script>
 </head>
 <body>
-<button onclick="javascript:document.body.innerHTML+='<br><input type=text>';">点我生成一个文本框</button>
+<button name="butt1" >提交</button>
 
+<script type="text/javascript">
 
+    $(function () {
+        $("button[name='butt1']").click(function () {
+            $.ajax({
+                url: "<%=path%>/get/submit",
+                //从前端传送过去的数据是json格式的字符串
+                data:JSON.stringify({"id":1,"Number":"1255655","Flag":"illegalID"}),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    //后端返回的数据
+                    for(var i = 0; i < JSON.parse(data).length; i++)
+                    {
+                        console.log(JSON.parse(data)[i]["id"])
+                        console.log(JSON.parse(data)[i]["Number"])
+                        console.log(JSON.parse(data)[i]["Flag"])
+                    }
+                },
+                //一定要有状态码，知道哪里出错
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    // 状态码
+                    console.log(XMLHttpRequest.status);
+                    // 状态
+                    console.log(XMLHttpRequest.readyState);
+                    // 错误信息
+                    console.log(textStatus);
+                }
+            });
+        });
+    })
 
+</script>
 </body>
 </html>

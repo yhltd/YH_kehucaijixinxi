@@ -1,12 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    　　<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    　　<meta charset="utf-8">
-    　　<title></title>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>用AJAX以JSON方式提交数据</title>
+    <script type="text/javascript" src="https://s3.pstatp.com/cdn/expire-1-M/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
+<form >
+    名称：<input type="text" id="name"/><br/>
+    血量：<input type="text" id="hp"/><br/>
+    伤害： <input type="text" name="damage" id="damage"> <br>
+    <input type="button" value="提交" id="sender">
+</form>
 
+<script>
+    $('#sender').click(function(){
+        var name=document.getElementById('name').value;　　　　　　
+        var hp=document.getElementById('hp').value;
+        var hero={"name":name,"hp":hp};　　　　　　　　　　　　　　
+
+        var url="submitServlet";
+        //以post方式提交ajax
+        $.post(
+            url,
+            {"data":JSON.stringify(hero)},　　　　　　　　　　　
+            function(data) {
+                alert("提交成功，请在Tomcat控制台查看服务端接收到的数据");
+            });
+    });
+</script>
 </body>
 </html>

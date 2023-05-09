@@ -1293,5 +1293,113 @@ body{
 #quanye{
     width: 100%;
     height: 1400px;
-    background-color: #5a6268;
+    background-color: #343a40;
+}
+img:hover {
+    transform: scale(0.9);
+}
+.pointer{
+
+    cursor: pointer;
+
+
+}
+#textt{
+    position: absolute;
+    left: 782px;
+    top: 70px;
+    color: #FFFFFF;
+    width: 265px;
+    height: 300px;
+    background-color: #0066CC;
+}
+#texttt{
+    position: absolute;
+    left: 992px;
+    top: -5px;
+}
+#texttt1{
+    position: absolute;
+    left: 1022px;
+    top: -5px;
+}
+#texttt2{
+    position: absolute;
+    left: 992px;
+    top: 45px;
+}
+#texttt22{
+    position: absolute;
+    left: 1022px;
+    top: 45px;
+}
+#textt1{
+    position: absolute;
+    left: 782px;
+    top: 70px;
+    color: #FFFFFF;
+    width: 265px;
+    height: 300px;
+    background-color: #0066CC;
+}
+#tex11{
+    position: absolute;
+    left: 50px;
+    top: 70px;
+    height: 35px;
+
+}
+#tex111{
+    position: absolute;
+    left: 70px;
+    top: 250px;
+    width: 60px;
+    height: 40px;
+}
+#tex{
+    position: absolute;
+    left: 50px;
+    top: 70px;
+    height: 35px;
+}
+#tex1{
+    position: absolute;
+    left: 50px;
+    top: 120px;
+    height: 35px;
+}
+#tex1111{
+    position: absolute;
+    left: 80px;
+    top: 200px;
+    width: 60px;
+    height: 40px;
+}
+#tex11111{
+    position: absolute;
+    left: 80px;
+    top: 250px;
+    width: 60px;
+    height: 40px;
+}
+#shanchu1{
+    position: absolute;
+    left: 150px;
+    top: 250px;
+    width: 60px;
+    height: 40px;
+}
+#shanchu12{
+    position: absolute;
+    left: 140px;
+    top: 200px;
+    width: 60px;
+    height: 40px;
+}
+#shanchu13{
+    position: absolute;
+    left: 140px;
+    top: 250px;
+    width: 60px;
+    height: 40px;
 }

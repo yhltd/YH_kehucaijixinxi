@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button type="button" value="Add" onclick="javascript:createSelect();"> 增加下拉框</button>
+<button type="button" value="Add" onclick="javascript:addOption();"> 内容</button>
+<button type="button" value="Add" onclick="javascript:addOption1();"> 2内容</button>
+<button type="button" value="Add" onclick="javascript:removeOne();"> 删除内容</button>
+<button type="button" value="Add" onclick="javascript:removeOne1();"> 删除内容</button>
+<button type="button" value="Add" onclick="javascript:removeSelect();"> 删除</button>
+
+<select id="mySelect1">
+    <!--        <option value="">请选择</option>-->
+</select>
+<select id="city">
+    <!--        <option value="">请选择</option>-->
+</select>
+
+value: <input type="text" id="val"><br>
+text :<input type="text" id="tex"><br><br>
+<input type="button" value="add" onclick="add()">
+
+value: <input type="text" id="val1"><br>
+text :<input type="text" id="tex1"><br><br>
+<input type="button" value="add1" onclick="add1()">
+
+<!--var valObj = document.getElementById("val");-->
+
+
+<script>
+
+    var mySelect1 = [];
+
+    var city = [];
+    for (var i = 0;i < mySelect1.length;i++){
+        //3.2 创建option对象,并设置对应的值
+        var opt = document.createElement("option");
+        opt.value = i;
+        opt.text = mySelect1[i];
+
+        document.getElementById('mySelect1').appendChild(opt);
+    }
+
+    //4 绑定省份下拉框的onchane事件
+    document.getElementById('mySelect1').onchange = function(){
+
+        // 8 每次切换省份下拉框的下拉选项时，返回城市下拉框的默认选项
+        document.getElementById("city").innerHTML = '<option value ="">请选择</option>';
+
+
+        var index = document.getElementById('mySelect1').value;
+
+
+        var cityList = city[index];
+
+
+        for (var i = 0; i < cityList.length;i++){
+
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.text = cityList[i];
+            document.getElementById('city').appendChild(opt);
+        }
+    }
+
+
+
+
+
+    function createSelect(){
+        var mySelect = document.createElement("select");
+        mySelect.id = "mySelect1";
+        document.body.appendChild(mySelect);
+    }
+    function addOption(){
+
+        var obj=document.getElementById('mySelect1');
+
+        obj.add(new Option("文本","值")); //这个只能在IE中有效
+
+    }
+    function addOption1(){
+        //根据id查找对象，
+        var obj=document.getElementById('city');
+        //添加一个选项
+        obj.add(new Option("文本","值")); //这个只能在IE中有效
+
+    }
+
+    function removeOne(){
+        var obj=document.getElementById('mySelect1');
+        //index,要删除选项的序号，这里取当前选中选项的序号
+        var index=obj.selectedIndex;
+        obj.options.remove(index);
+    }
+    function removeOne1(){
+        var obj=document.getElementById('city');
+        //index,要删除选项的序号，这里取当前选中选项的序号
+        var index=obj.selectedIndex;
+        obj.options.remove(index);
+    }
+    function removeSelect(){
+        var mySelect = document.getElementById("mySelect1");
+        mySelect.parentNode.removeChild(mySelect);
+
+    }
+
+
+
+    function add() {
+        var selObj = document.getElementById("city");
+        var valObj = document.getElementById("val");
+        var texObj = document.getElementById("tex");
+        // 关键是这几句
+        var Option = document.createElement("OPTION");
+        Option.value = valObj.value;
+        Option.text = texObj.value;
+        selObj.options.add(Option);
+    }
+
+
+    function add1() {
+        var selObj = document.getElementById("mySelect1");
+        var valObj = document.getElementById("val1");
+        var texObj = document.getElementById("tex1");
+        // 关键是这几句
+        var Option = document.createElement("OPTION");
+        Option.value = valObj.value;
+        Option.text = texObj.value;
+        selObj.options.add(Option);
+    }
+
+
+</script>
+</body>
+</html>

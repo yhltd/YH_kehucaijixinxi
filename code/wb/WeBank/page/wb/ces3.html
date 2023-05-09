@@ -5,58 +5,126 @@
     <title>Title</title>
 </head>
 <body>
-<button type="button" value="Add" onclick="javascript:add();"> 增加下拉框</button>
-<select id=" reqs" onchange="selectcity()">
-    <option>请选择</option>
-    <option>清选择1</option>
-    <option>请选择2</option>
-    <option>请选择3</option>
-</select>
+<button type="button" value="Add" onclick="javascript:createSelect();"> 增加下拉框</button>
+<button type="button" value="Add" onclick="javascript:addOption();"> 内容</button>
+<button type="button" value="Add" onclick="javascript:addOption1();"> 2内容</button>
+<button type="button" value="Add" onclick="javascript:removeOne();"> 删除内容</button>
+<button type="button" value="Add" onclick="javascript:removeOne1();"> 删除内容</button>
+<button type="button" value="Add" onclick="javascript:removeSelect();"> 删除</button>
+
+    <select id="sel">
+<!--        <option value="">请选择</option>-->
+    </select>
+    <select id="sel1">
+<!--        <option value="">请选择</option>-->
+    </select>
+
+
+
+
+value: <input type="text" id="val1"><br>
+text :<input type="text" id="tex1"><br><br>
+<input type="button" value="add1" onclick="add111()">
+
+
+value: <input type="text" id="val"><br>
+text :<input type="text" id="tex"><br><br>
+<input type="button" value="add" onclick="add11()">
+
+
+
+<!--var valObj = document.getElementById("val");-->
 
 
 <script>
-    var reqs_id = 0;
-
-    function removeElement(ev) {
-        var button = ev.target;
-        var field = button.previousSibling;
-        var br=ev.br;
-        var div = button.parentElement;
-        div.removeChild(button);
-        div.removeChild(field);
-        div.removeChild(br);
+    var sel = [];
+    var sel1 = [];
+    for (var i = 0;i < sel.length;i++){
+        //3.2 创建option对象,并设置对应的值
+        var opt = document.createElement("option");
+        opt.value = i;
+        opt.text = sel[i];
+        document.getElementById('sel').appendChild(opt);
+    }
+    document.getElementById('sel').onchange = function(){
+        document.getElementById("sel1").innerHTML = '<option value ="">请选择</option>';
+        var index = document.getElementById('sel').value;
+        var cityList = sel1[index];
+        for (var i = 0; i < sel1List.length;i++){
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.text = sel1List[i];
+            document.getElementById('sel1').appendChild(opt);
+        }
     }
 
-    function add() {
-        reqs_id++;
 
-        //create textbox
-        var br = document.createElement('br')
-        var br2 = document.createElement('br')
-        var input = document.createElement('input');
-        input.type = "text";
-        input.setAttribute("class", "w3-input w3-border w3-br");
-        input.setAttribute('id', 'reqs' + reqs_id);
-        br.setAttribute('id', 'reqs' + reqs_id);
-        // input.setAttribute('value', reqs_id);
-        var reqs = document.getElementById("reqs");
-        //create remove button
-        var remove = document.createElement('button');
-        remove.setAttribute('id', 'reqs' + reqs_id);
-        remove.onclick = function(e) {
-            removeElement(e)
-        };
-        remove.setAttribute("type", "button");
-        remove.innerHTML = "删除" ;
 
-        ;
 
-        reqs.appendChild(input);
-        reqs.appendChild(remove);
-        reqs.appendChild(br);
-        reqs.appendChild(br2);
 
+    // function createSelect(){
+    //     var mySelect = document.createElement("select");
+    //     mySelect.id = "sel";
+    //     document.body.appendChild(mySelect);
+    // }
+    // function addOption(){
+    //
+    //     var obj=document.getElementById('sel');
+    //
+    //     obj.add(new Option("文本","值")); //这个只能在IE中有效
+    //
+    // }
+    // function addOption1(){
+    //     //根据id查找对象，
+    //     var obj=document.getElementById('sel1');
+    //     //添加一个选项
+    //     obj.add(new Option("文本","值")); //这个只能在IE中有效
+    //
+    // }
+    //
+    // function removeOne(){
+    //     var obj=document.getElementById('sel');
+    //     //index,要删除选项的序号，这里取当前选中选项的序号
+    //     var index=obj.selectedIndex;
+    //     obj.options.remove(index);
+    // }
+    // function removeOne1(){
+    //     var obj=document.getElementById('sel1');
+    //     //index,要删除选项的序号，这里取当前选中选项的序号
+    //     var index=obj.selectedIndex;
+    //     obj.options.remove(index);
+    // }
+    // function removeSelect(){
+    //     var mySelect = document.getElementById("sel");
+    //     mySelect.parentNode.removeChild(mySelect);
+    //
+    // }
+
+
+
+    function add11() {
+        var selObj = document.getElementById("sel1");
+        var valObj = document.getElementById("val");
+        var texObj = document.getElementById("tex");
+        // 关键是这几句
+        var Option = document.createElement("OPTION");
+        Option.value = valObj.value;
+        Option.text = texObj.value;
+        selObj.options.add(Option);
     }
+
+
+    function add111() {
+        var selObj = document.getElementById("sel");
+        var valObj = document.getElementById("val1");
+        var texObj = document.getElementById("tex1");
+        // 关键是这几句
+        var Option = document.createElement("OPTION");
+        Option.value = valObj.value;
+        Option.text = texObj.value;
+        selObj.options.add(Option);
+    }
+
 
 </script>
 </body>
