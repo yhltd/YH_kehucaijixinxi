@@ -28,9 +28,9 @@
     <div id="css33"><a class="pointer" value="Add2" onclick="javascript:add2();" id="css234"><img  width="40px" height="40px" src="选择.png"></a> <a class="pointer"  id="css44" type="button" value="Add2" onclick="javascript:add2();" > 选择</a></div>
     <div id="css55"><a class="pointer" value="Add1" onclick="javascript:add1();" id="css235"><img  width="40px" height="40px" src="下拉.png"></a> <a  class="pointer" id="css66"  type="button" value="Add1" onclick="javascript:add1();"> 下拉</a></div>
     <div id="css77"><a class="pointer" id="css236"  value="Add7" onclick="javascript:add7();"><img  width="40px" height="40px" src="多级下拉.png"></a> <a  class="pointer" id="css88" type="button" value="Add7" onclick="javascript:add7();"> 多级下拉</a></div>
-    <div id="css99"><a class="pointer"  value="Add6" onclick="javascript:add6();"  id="css239"><img  width="40px" height="40px" src="附件.png"></a> <a class="pointer" id="css10"  type="button" value="Add6" onclick="javascript:add6();" > 附件</a></div>
-    <div id="css111"><a href="" id="css240"><img width="40px" height="40px" src="排序.png"></a> <a  href="" id="css12" > 排序</a></div>
-    <div id="css13"><a href="" id="css241"><img  width="40px" height="40px" src="商品.png"></a> <a  href="" id="css14" > 商品</a></div>
+    <div id="css99"><a class="pointer" value="Add6" onclick="javascript:add6();"  id="css239"><img  width="40px" height="40px" src="附件.png"></a> <a class="pointer" id="css10"  type="button" value="Add6" onclick="javascript:add6();" > 附件</a></div>
+    <div id="css111"><a class="pointer" value="Add12" onclick="javascript:add12();" id="css240"><img width="40px" height="40px" src="排序.png"></a> <a  class="pointer" id="css12" type="button" value="Add12" onclick="javascript:add12();" > 排序</a></div>
+    <div id="css13"><a class="pointer" value="Add10" onclick="javascript:add10();" id="css241"><img  width="40px" height="40px" src="商品.png"></a> <a class="pointer" id="css14" type="button" value="Add10" onclick="javascript:add10();" > 商品</a></div>
     <div id="css15"><a href="" id="css247"><img  width="40px" height="40px" src="图片选择.png"></a> <a  href="" id="css16" > 图片选择</a></div>
     <div id="css17"><a class="pointer" value="Add5" onclick="javascript:add5();" id="css237"><img  width="40px" height="40px" src="日期.png"></a> <a class="pointer"  id="css18"  type="button" value="Add5" onclick="javascript:add5();"> 日期时间</a></div>
     <div id="css19"><a class="pointer" value="Add3" onclick="javascript:add3();" id="css238"><img  width="40px" height="40px" src="数字.png"></a> <a class="pointer" id="css20" type="button" value="Add3" onclick="javascript:add3();"> 数字</a></div>
@@ -38,10 +38,9 @@
     <div id="css23"><a href="" id="css243"><img  width="30px" height="30px" src="矩阵.png"></a> <a  href="" id="css24" > 矩阵</a></div>
     <div id="css25"><a class="pointer" value="Add4" onclick="javascript:add4();" id="css244"><img  width="40px" height="40px" src="货币.png"></a> <a class="pointer" id="css26" type="button" value="Add4" onclick="javascript:add4();" > 货币</a></div>
     <div id="css27"><a href="" id="css245"><img  width="40px" height="40px" src="城市.png"></a> <a  href="" id="css28" > 城市</a></div>
-    <div id="css29"><a href="" id="css246"><img  width="40px" height="40px" src="按钮.png"></a> <a  href="" id="css30" > 按钮</a></div>
-    <div id="css31"><a class="pointer"  value="Add6" onclick="javascript:add6();" id="css248"><img  width="40px" height="40px" src="图片上传.png"></a> <a  class="pointer" id="css32" type="button" value="Add6" onclick="javascript:add6();" > 图片上传</a></div>
+    <div id="css29"><a class="pointer" value="Add9" onclick="javascript:add9();" id="css246"><img  width="40px" height="40px" src="按钮.png"></a> <a  class="pointer" id="css30" type="button" value="Add9" onclick="javascript:add9();"> 按钮</a></div>
+    <div id="css31"><a class="pointer" value="Add6" onclick="javascript:add6();" id="css248"><img  width="40px" height="40px" src="图片上传.png"></a> <a  class="pointer" id="css32" type="button" value="Add6" onclick="javascript:add6();" > 图片上传</a></div>
     <div id="css333"><a href="" id="css249"><img width="40px" height="40px" src="图片展示.png"></a> <a  href="" id="css34" > 图片展示</a></div>
-
 </div>
     <div id="xiamian">
         <div id="xia1"><div id="xia2">&ensp;联系人组件</div></div>
@@ -84,7 +83,7 @@
     <div id="cscs222"><img width="40px" height="35px" src="云合.png"></div>
     <div id="cscs111">由云合提供技术支持</div>
 <div id="reqs" >
-    <div id="cece">
+    <div id="cece" style="height: auto">
     <div id="crcr">新的表单</div>
         <div id="crce"><a class="pointer" id="crct" >提交</a></div>
 
@@ -344,6 +343,234 @@
         reqs.appendChild(input);
         reqs.appendChild(remove);
     }
+    //按钮
+    function add9(){
+        reqs_id++;
+        let br = document.createElement('br')
+        let input = document.createElement('input');
+        let option = document.createElement('option');
+        option.innerHTML = "文本框" ;
+        input.type = "button";
+        input.setAttribute("style","width:50px;height:30px;");
+        input.setAttribute("value","按钮")
+        input.setAttribute('id', 'reqs' + reqs_id );
+        br.setAttribute('id', 'reqs' + reqs_id);
+        option.setAttribute('id', 'reqs' + reqs_id );
+        var remove = document.createElement('button');
+        remove.setAttribute('id', 'reqs' + reqs_id);
+        remove.onclick = function(e) {
+            removeElement(e)
+        };
+        remove.setAttribute("type", "button");
+        remove.innerHTML = "删除" ;
+
+        // reqs.appendChild(option);
+        reqs.appendChild(input);
+        reqs.appendChild(remove);
+    }
+    // 商品
+    function add10(){
+        reqs_id++;
+        reqs_id2++;
+
+        let br = document.createElement('br')
+        // let div = document.createElement('div');
+        let p1 = document.createElement('p');
+        let p2 = document.createElement('p');
+        let p3 = document.createElement('p');
+        let input1 = document.createElement('input');
+        let input2 = document.createElement("input");
+        let input3 = document.createElement('input');
+        p1.innerHTML = "商品";
+        p2.innerHTML = "商品名";
+        p3.innerHTML = "￥<a style='color: #2f4b4c'> <span style='font-size: 20px'>0</span>.00</a> 元";
+        input1.type = "button";
+        input2.type = "text";
+        input3.type = "button";
+        br.setAttribute('id', 'reqs' + reqs_id );
+        // div.setAttribute("style","height:200px;width:200px;background-color:red");
+        // div.setAttribute('id', 'divShangPin' );
+        // document.getElementById("divShangPin").innerHTML += "<h3>charu</h3>";
+        input1.setAttribute("style","height:20px;width:20px;");
+        input1.setAttribute("value","-");
+        input1.setAttribute("onclick","javascript:jian();");
+        input1.setAttribute('id', 'reqs' + reqs_id );
+        input2.setAttribute("style","height:15px;width:35px");
+        input2.setAttribute("value","0");
+        input2.setAttribute('id', 'count' );
+        input2.setAttribute("onblur","javascript:count();");
+        input3.setAttribute("style","height:20px;width:20px");
+        input3.setAttribute("value","+");
+        input3.setAttribute("onclick","javascript:jia();");
+        input3.setAttribute('id', 'reqs' + reqs_id );
+        let remove1 = document.createElement('button');
+        remove1.setAttribute('id', 'reqs' + reqs_id);
+        remove1.onclick = function(e) {
+            removeElement(e)
+        };
+        let remove2 = document.createElement('button');
+        remove2.setAttribute('id', 'reqs' + reqs_id2);
+        remove2.onclick = function(ee) {
+            removeElement(ee)
+        };
+        let remove3 = document.createElement('button');
+        remove3.setAttribute('id', 'reqs' + reqs_id2);
+        remove3.onclick = function(eee) {
+            removeElement(eee)
+        };
+        let remove4 = document.createElement('button');
+        remove4.setAttribute('id', 'reqs' + reqs_id2);
+        remove4.onclick = function(eeee) {
+            removeElement(eeee)
+        };
+        let remove5 = document.createElement('button');
+        remove5.setAttribute('id', 'reqs' + reqs_id2);
+        remove5.onclick = function(eeeee) {
+            removeElement(eeeee)
+        };
+        let remove6 = document.createElement('button');
+        remove6.setAttribute('id', 'reqs' + reqs_id2);
+        remove6.onclick = function(eeeeee) {
+            removeElement(eeeeee)
+        };
+        remove1.setAttribute("type", "button");
+        remove1.innerHTML = "删除1" ;
+        remove2.setAttribute("type", "button");
+        remove2.innerHTML = "删除2" ;
+        remove3.setAttribute("type", "button");
+        remove3.innerHTML = "删除3" ;
+        remove4.setAttribute("type", "button");
+        remove4.innerHTML = "删除4" ;
+        remove5.setAttribute("type", "button");
+        remove5.innerHTML = "删除5" ;
+        remove6.setAttribute("type", "button");
+        remove6.innerHTML = "删除6" ;
+        reqs.appendChild(p1);
+        reqs.appendChild(p2);
+        reqs.appendChild(p3);
+        reqs.appendChild(input1);
+        reqs.appendChild(input2);
+        reqs.appendChild(input3);
+        // reqs.appendChild(div);
+
+        reqs.appendChild(remove1);
+        reqs.appendChild(remove2);
+        reqs.appendChild(remove3);
+        reqs.appendChild(remove4);
+        reqs.appendChild(remove5);
+        reqs.appendChild(remove6);
+    }
+//加
+    function jia(){
+       let count = document.getElementById("count").value;
+       count = count * 1;
+       document.getElementById("count").value = count + 1;
+    }
+    //j减
+    function jian(){
+        let count = document.getElementById("count").value;
+        count = count * 1;
+        document.getElementById("count").value = count - 1;
+        if(count == 0){
+            document.getElementById("count").value = 0;
+        }
+    }
+    //输入
+    function count(){
+        let count = document.getElementById("count").value;
+        if (/^([0]|[1-9][0-9]*)$/.exec(count)){
+            return true;
+        }else {
+            alert("您输入的有误，请重新输入")
+            document.getElementById("count").value = 0;
+            return false;
+        }
+    }
+    //排序
+    function add12(){
+        reqs_id++;
+        reqs_id2++;
+
+        let br = document.createElement('br');
+        let p1 = document.createElement('p');
+        let p2 = document.createElement('p');
+        p1.innerHTML = "排序";
+        p2.innerHTML = "请拖动右侧选项，放进左侧次序栏中";
+        let div4 = document.createElement('div');
+        let div5 = document.createElement('div');
+        let div6 = document.createElement('div');
+        let div = document.createElement('div');
+        // let div1 = document.createElement('div');
+        // let div2 = document.createElement('div');
+        // let div3 = document.createElement('div');
+
+        // div.setAttribute("style","width:300px;height:200px;background-color:green");
+        // div.setAttribute('id', 'boxx');
+        // let htmlObj = document.getElementById('boxx');
+        // console.log(htmlObj)
+        div4.setAttribute("style","width:200px;height:50px;background-color:#808080;margin-bottom:10px;margin-top:10px");
+        div4.setAttribute('id', 'reqs' + reqs_id );
+        div4.setAttribute('ondragover',"javascript:tuozhuai()");
+        div4.setAttribute('ondrop',"javascript:tuofang()");
+        div5.setAttribute("style","width:200px;height:50px;background-color:#808080;margin-bottom:10px");
+        div5.setAttribute('id', 'reqs' + reqs_id );
+        div5.setAttribute('ondragover',"javascript:tuozhuai()");
+        div5.setAttribute('ondrop',"javascript:tuofang()");
+        div6.setAttribute("style","width:200px;height:50px;background-color:#808080;margin-bottom:10px");
+        div6.setAttribute('id', 'reqs' + reqs_id );
+        div6.setAttribute('ondragover',"javascript:tuozhuai()");
+        div6.setAttribute('ondrop',"javascript:tuofang()");
+            var div1 = document.createElement('div');
+            var div2 = document.createElement('div');
+            var div3 = document.createElement('div');
+            // htmlObj.appendChild(div1);
+            // htmlObj.appendChild(div2);
+            // htmlObj.appendChild(div3);
+
+            div1.setAttribute("style","width:200px;height:50px;background-color:red;")
+            div1.innerHTML = "选项一"
+            div1.setAttribute("draggable","true");
+            div1.setAttribute("ondragstart","javascript:tuo()");
+            div1.setAttribute('id', 'source');
+
+            div2.setAttribute('id', 'target');
+            div2.innerHTML = "选项二"
+            div2.setAttribute('style',"width:200px;height:50px;background-color:blue;");
+            div2.setAttribute("draggable","true");
+            div2.setAttribute("ondragstart","javascript:tuo()");
+
+            div3.setAttribute('id', 'target2' );
+            div3.innerHTML = "选项三"
+            div3.setAttribute('style',"width:200px;height:50px;background-color:yellow;");
+            div3.setAttribute("draggable","true");
+            div3.setAttribute("ondragstart","javascript:tuo()");
+            // reqs.appendChild(div);
+            reqs.appendChild(div1);
+            reqs.appendChild(div2);
+            reqs.appendChild(div3);
+            reqs.appendChild(div4);
+            reqs.appendChild(div5);
+            reqs.appendChild(div6);
+            reqs.appendChild(br);
+            reqs.appendChild(p1);
+            reqs.appendChild(p2);
+
+
+    }
+    function tuo(){
+        var ev = event || window.event;
+        ev.dataTransfer.setData('text',ev.target.id);
+    }
+    function tuozhuai(event){
+        var event = event || window.event;
+        event.preventDefault();
+    }
+    function tuofang(event){
+        var ev = event || window.event;
+        var data = ev.dataTransfer.getData('text');
+        ev.target.appendChild(document.getElementById(data));
+    }
+
     //附件
     function add6() {
         reqs_id++;
@@ -430,14 +657,6 @@
         }
     }
     }
-
-
-
-
-
-
-
-
     //评分
     function add8() {
         reqs_id++;
