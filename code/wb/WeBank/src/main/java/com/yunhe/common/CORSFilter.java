@@ -16,14 +16,16 @@ public class CORSFilter implements Filter {
             throws IOException, ServletException {
         HttpServletResponse res = (HttpServletResponse) response;
         HttpServletRequest req = (HttpServletRequest) request;
-        // 设置允许Cookie
-        res.addHeader("Access-Control-Allow-Credentials", "true");
 
-        res.addHeader("Access-Control-Allow-Origin", req.getHeader("Origin"));
+        res.setHeader("Access-Control-Allow-Origin","*");
+        // 设置允许Cookie
+        res.setHeader("Access-Control-Allow-Credentials", "true");
         // 设置允许跨域请求的方法
-        res.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
+        res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
+        res.setHeader("Access-Control-Max-Age","3600");
         // 允许跨域请求包含content-type
-        res.addHeader("Access-Control-Allow-Headers", "Content-Type,X-CAF-Authorization-Token,sessionToken,X-TOKEN");
+        res.setHeader("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept");
+//        res.setHeader("Access-Control-Allow-Headers", "Content-Type,X-CAF-Authorization-Token,sessionToken,X-TOKEN");
 
         chain.doFilter(request, response);
     }

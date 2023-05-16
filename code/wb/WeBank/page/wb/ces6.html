@@ -117,7 +117,7 @@
 </div>
 
 <script>
-
+    // import axios from 'axios';
     var reqs_id = 0;
     var reqs_id2 = 0;
 
@@ -1009,24 +1009,57 @@
         obj.options.remove(index);
     }
 
+    // function save(){
+    //     let reqs = $('#reqs').html;
+    //     console.log(reqs)
+    //     axios({
+    //         method: 'post',
+    //         params: {data: JSON.stringify(reqs)},
+    //         url: "/form/save",
+    //     }).then((res)=>{
+    //         alert("cg")
+    //     })
+    // }
     function save(){
-        var reqs = $('#reqs').html;
+        let reqs = document.getElementById("reqs").innerHTML;
         console.log(reqs)
         $.ajax({
-            url: "/form/save",
-            type: "post",
+            url: "http://localhost:8060/form/save",
+            type: "POST",
             data: JSON.stringify(reqs),
             dataType: 'json',
+            async: true,
+            xhrField: {withCredentials: true},
+            crossDomain: true,
             contentType: 'application/json;charset=utf-8',
             success: function (data){
                 alert("提交成功")
             },
-            error: function (){
-                alert("cuowu")
+            error: function (XMLHttpRequest, textStatus, errorThrown){
+                // 状态码
+                console.log(XMLHttpRequest.status);
+                // 状态
+                console.log(XMLHttpRequest.readyState);
+                // 错误信息
+                console.log(textStatus);
             }
         })
     }
-
+    // function addScriptTag(src){
+    //     var script = document.createElement('script');
+    //     script.setAttribute("type","text/javascript");
+    //     script.src = src;
+    //     document.body.appendChild(script);
+    // }
+    // window.onload = function (){
+    //     addScriptTag('http://example.com/ip?callback=foo')
+    // }
+    // function foo(data){
+    //     console.log('response data:'+ JSON.stringify(data))
+    // }
+    // foo({
+    //     "test": "testData"
+    // })
 </script>
 </body>
 </html>
