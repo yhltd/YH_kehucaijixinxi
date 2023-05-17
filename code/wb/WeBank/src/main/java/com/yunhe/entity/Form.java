@@ -18,7 +18,7 @@ public class Form {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String text;
+    private String html;
 
     private Date addtime;
 }

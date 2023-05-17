@@ -79,13 +79,16 @@
         <div id="zuixia1">色系</div>
 
     </div>
+    <div>
+
+    </div>
 <div id="cscs">
     <div id="cscs222"><img width="40px" height="35px" src="云合.png"></div>
     <div id="cscs111">由云合提供技术支持</div>
 <div id="reqs" >
     <div id="cece" style="height: auto">
     <div id="crcr">新的表单</div>
-        <div id="crce" onclick="javascript:save();"><a class="pointer" id="crct" >提交</a></div>
+        <div id="crce" ><a class="pointer" id="crct" >提交</a></div>
 
 
     </div>
@@ -111,13 +114,23 @@
     <button id="texttt2" onclick="document.getElementById('textt1').style.display='block'">弹出</button>
     <button id="texttt22" onclick="document.getElementById('textt1').style.display='none'">关闭</button>
 
+<!--    下一步 -->
+<!--    保存 -->
 </div>
-
+    <a title="下一步" onclick="window.location.href='./ces9.html'">
+        <svg id="icon1" aria-hidden="true" >
+            <use xlink:href="#icon-down" ></use>
+        </svg>
+    </a>
+    <a title="保存">
+        <svg id="icon2" aria-hidden="true" onclick="javascript:save()">
+            <use xlink:href="#icon-baocun"></use>
+        </svg>
+    </a>
 </div>
 </div>
-
+<script src="./iconfont.js"></script>
 <script>
-    // import axios from 'axios';
     var reqs_id = 0;
     var reqs_id2 = 0;
 
@@ -131,7 +144,6 @@
         // div.removeChild(div);
 
     }
-
     //文本
     function add() {
         reqs_id++;
@@ -460,7 +472,7 @@
         reqs.appendChild(remove5);
         reqs.appendChild(remove6);
     }
-//加
+    //加
     function jia(){
        let count = document.getElementById("count").value;
        count = count * 1;
@@ -944,8 +956,6 @@
     //     Option.text = texObj.value;
     //     selObj.options.add(Option);
     // }
-
-
     function add11() {
         var selObj = document.getElementById("sel1");
         var valObj = document.getElementById("val");
@@ -956,8 +966,6 @@
         Option.text = texObj.value;
         selObj.options.add(Option);
     }
-
-
     function add111() {
         var selObj = document.getElementById("sel");
         var valObj = document.getElementById("val1");
@@ -968,11 +976,6 @@
         Option.text = texObj.value;
         selObj.options.add(Option);
     }
-
-
-
-
-
     //单下拉
     function add1111() {
         var selObj = document.getElementById("sel11");
@@ -1008,32 +1011,20 @@
         var index=obj.selectedIndex;
         obj.options.remove(index);
     }
-
-    // function save(){
-    //     let reqs = $('#reqs').html;
-    //     console.log(reqs)
-    //     axios({
-    //         method: 'post',
-    //         params: {data: JSON.stringify(reqs)},
-    //         url: "/form/save",
-    //     }).then((res)=>{
-    //         alert("cg")
-    //     })
-    // }
+    //保存
     function save(){
         let reqs = document.getElementById("reqs").innerHTML;
         console.log(reqs)
+        var form = {"html": reqs}
         $.ajax({
             url: "http://localhost:8060/form/save",
             type: "POST",
-            data: JSON.stringify(reqs),
+            data: JSON.stringify(form),
             dataType: 'json',
             async: true,
-            xhrField: {withCredentials: true},
-            crossDomain: true,
             contentType: 'application/json;charset=utf-8',
             success: function (data){
-                alert("提交成功")
+                alert("保存成功")
             },
             error: function (XMLHttpRequest, textStatus, errorThrown){
                 // 状态码
@@ -1045,21 +1036,10 @@
             }
         })
     }
-    // function addScriptTag(src){
-    //     var script = document.createElement('script');
-    //     script.setAttribute("type","text/javascript");
-    //     script.src = src;
-    //     document.body.appendChild(script);
+    // 下一步
+    // function next(){
+    //     window.Location.href = "ces9.html";
     // }
-    // window.onload = function (){
-    //     addScriptTag('http://example.com/ip?callback=foo')
-    // }
-    // function foo(data){
-    //     console.log('response data:'+ JSON.stringify(data))
-    // }
-    // foo({
-    //     "test": "testData"
-    // })
 </script>
 </body>
 </html>
