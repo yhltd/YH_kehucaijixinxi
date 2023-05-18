@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title>云合</title>
     <script type="text/javascript" src="jquery.min.js"  ></script>
+    <script src="./iconfont.js"></script>
 </head>
 <link rel="stylesheet" href="ces10.css"></link>
 <body>
-
 <div id="quanye">
     <div id="taitou">
 
@@ -33,7 +33,29 @@
     <div id="newform">
         <p id="p1">新的表单</p>
         <div id="url">
-            <p id="p2"><span id="span1">https://</span></p>
+            <p id="p2">
+                <svg id="icon1" aria-hidden="true"><use xlink:href="#icon-suozhu"></use></svg>
+                <a id="a1"> https://</a>
+                <a id="a4"></a>
+            </p>
+            <a id="a3" onclick="javascript:openURL()">打开</a>
+            <a id="a2" onclick="javascript:copyURL()">复制</a>
+            <div id="ulli">
+                <ul>
+                    <li><a title="分享到Telegram"><svg class="icon2" aria-hidden="true"><use xlink:href="#icon-telegram"></use></svg></a></li>
+                    <li><a title="分享到Linkedln"><svg class="icon2" aria-hidden="true"><use xlink:href="#icon-linkedlnlogo"></use></svg></a></li>
+                    <li><a title="分享到Google+"><svg class="icon2" aria-hidden="true"><use xlink:href="#icon-google"></use></svg></a></li>
+                    <li><a title="分享到Twitter"><svg class="icon2" aria-hidden="true"><use xlink:href="#icon-tuite"></use></svg></a></li>
+                    <li><a title="分享到Facebook"><svg class="icon2" aria-hidden="true"><use xlink:href="#icon-facebook"></use></svg></a></li>
+                    <li><a title="分享到QQ"><svg class="icon2" aria-hidden="true"><use xlink:href="#icon-QQ"></use></svg></a></li>
+                    <li><a title="分享到微信"><svg class="icon2" aria-hidden="true"><use xlink:href="#icon-weixin"></use></svg></a></li>
+                    <li><a title="分享到微博"><svg class="icon2" aria-hidden="true"><use xlink:href="#icon-xinlangweibo"></use></svg></a></li>
+                    <li id="li1">分享:</li>
+                </ul>
+            </div>
+            <div id="erweima">
+
+            </div>
         </div>
     </div>
     <div id="fabu">
@@ -45,10 +67,32 @@
         </a>
     </div>
 </div>
-<script src="./iconfont.js"></script>
 
 <script>
+    //复制url
+    function copyURL(){
+        let url = document.getElementById('a4').innerText;
 
+        console.log(url)
+    }
+    //打开url
+    function openURL(){
+        // let url = document.getElementById('a4').innerText;
+        window.location.href=GetRequest().url
+    }
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = {};
+        if (url.indexOf("?") !== -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+    document.getElementById('a4').innerText = GetRequest().url.substring(7);
 </script>
 </body>
 </html>

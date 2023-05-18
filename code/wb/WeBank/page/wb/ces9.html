@@ -24,11 +24,12 @@
     <div id="asa"><img width="40px" height="35px" src="云合.png"></div>
 
     <div id="blue">
-<!--        <a onclick="window.location.href='./ces6.html'">-->
+<!--        onclick="window.location.href='./ces6.html'"-->
+        <a title="返回表单列表页">
             <svg id="icon3" aria-hidden="true">
                 <use xlink:href="#icon-left"></use>
             </svg>
-<!--        </a>-->
+        </a>
     </div>
     <div id="newform">
         <svg id="icon1" aria-hidden="true">
@@ -43,8 +44,8 @@
     <div id="fabu">
         <p id="p3">点击发布按钮, 生成表单的访问链接</p>
 
-        <input id="btn" type="button" value="发布表单" onclick="window.location.href='./ces10.html'"/>
-        <a onclick="window.location.href='./ces6.html'">
+        <input id="btn" type="button" value="发布表单" onclick="javascript:fabu()"/>
+        <a title="上一步" onclick="window.location.href='./ces6.html'">
             <svg id="icon4" aria-hidden="true">
                 <use xlink:href="#icon-up"></use>
             </svg>
@@ -56,7 +57,43 @@
 <script src="./iconfont.js"></script>
 
 <script>
-
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+    console.log(GetRequest().url);
+    // window.location.href='./ces10.html?url='+GetRequest().url
+    function fabu(){
+        var form = {"userId": 1,"url":GetRequest().url}
+        $.ajax({
+            url: "http://localhost:8060/form/init9",
+            type: "POST",
+            data: JSON.stringify(form),
+            dataType: 'json',
+            async: true,
+            contentType: 'application/json;charset=utf-8',
+            success: function (data){
+                console.log(data)
+                window.location.href='./ces10.html?url='+GetRequest().url
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown){
+                // 状态码
+                console.log(XMLHttpRequest.status);
+                // 状态
+                console.log(XMLHttpRequest.readyState);
+                // 错误信息
+                console.log(textStatus);
+            }
+        })
+    }
 </script>
 </body>
-</html
+</html>

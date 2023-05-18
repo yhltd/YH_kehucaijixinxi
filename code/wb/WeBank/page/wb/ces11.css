@@ -1,0 +1,24 @@
+body {
+    background-color: #d3d6dd;
+}
+#head {
+    width: 900px;
+    height: 70px;
+    background-color: #003D79;
+    position: relative;
+    left: 250px;
+}
+#p1 {
+    color: #FFFFFF;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 70px;
+}
+#body {
+    width: 900px;
+    height: auto;
+    background-color: #FFFFFF;
+    position: relative;
+    left: 250px;
+}

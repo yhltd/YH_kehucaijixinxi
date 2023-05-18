@@ -89,7 +89,7 @@
     <div id="cece" style="height: auto">
     <div id="crcr">新的表单</div>
         <div id="crce" ><a class="pointer" id="crct" >提交</a></div>
-
+<!--        <input class="pointer" id="crct" type="submit" value="提交">-->
 
     </div>
     <div id="textt"   style="display:none;">
@@ -103,21 +103,20 @@
         <button id="shanchu12" type="button" value="Add" onclick="javascript:removeOne1();"> 删除</button>
         <button id="shanchu13" type="button" value="Add" onclick="javascript:removeOne2();"> 删除</button>
         </div>
-    <button id="texttt" onclick="document.getElementById('textt').style.display='block'">多出</button>
-    <button id="texttt1" onclick="document.getElementById('textt').style.display='none'">关闭</button>
-
+<!--    <button id="texttt" onclick="document.getElementById('textt').style.display='block'">多出</button>-->
+<!--    <button id="texttt1" onclick="document.getElementById('textt').style.display='none'">关闭</button>-->
     <div id="textt1"   style="display:none;">
         下拉填写<input type="text" id="tex11"><br>
         <input type="button" value="增加" onclick="add1111()" id="tex111"><br>
         <button id="shanchu1" type="button" value="Add" onclick="javascript:removeOne();"> 删除</button>
     </div>
-    <button id="texttt2" onclick="document.getElementById('textt1').style.display='block'">弹出</button>
-    <button id="texttt22" onclick="document.getElementById('textt1').style.display='none'">关闭</button>
+<!--    <button id="texttt2" onclick="document.getElementById('textt1').style.display='block'">弹出</button>-->
+<!--    <button id="texttt22" onclick="document.getElementById('textt1').style.display='none'">关闭</button>-->
 
 <!--    下一步 -->
 <!--    保存 -->
 </div>
-    <a title="下一步" onclick="window.location.href='./ces9.html'">
+    <a title="下一步" onclick="javascript:save()">
         <svg id="icon1" aria-hidden="true" >
             <use xlink:href="#icon-down" ></use>
         </svg>
@@ -1014,7 +1013,7 @@
     //保存
     function save(){
         let reqs = document.getElementById("reqs").innerHTML;
-        console.log(reqs)
+        // console.log(reqs)
         var form = {"html": reqs}
         $.ajax({
             url: "http://localhost:8060/form/save",
@@ -1024,7 +1023,9 @@
             async: true,
             contentType: 'application/json;charset=utf-8',
             success: function (data){
-                alert("保存成功")
+                // alert("保存成功")
+                console.log(data)
+                window.location.href='./ces9.html?url='+data.resultData;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown){
                 // 状态码
@@ -1036,10 +1037,6 @@
             }
         })
     }
-    // 下一步
-    // function next(){
-    //     window.Location.href = "ces9.html";
-    // }
 </script>
 </body>
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>云合</title>
+</head>
+<script type="text/javascript" src="jquery.min.js"  ></script>
+<link rel="stylesheet" href="./ces11.css">
+<body onload='javascript:init()'>
+    <div id="head"><p id="p1">新的表单</p></div>
+    <div id="body"></div>
+</body>
+<script>
+    function init(){
+        var form = {"userId": 1,"url":window.location.href}
+        $.ajax({
+            url: "http://localhost:8060/form/init11",
+            type: "POST",
+            data: JSON.stringify(form),
+            dataType: 'json',
+            async: true,
+            contentType: 'application/json;charset=utf-8',
+            success: function (data){
+                document.getElementById('body').innerHTML = data.resultData;
+                // console.log(data)
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown){
+                // 状态码
+                console.log(XMLHttpRequest.status);
+                // 状态
+                console.log(XMLHttpRequest.readyState);
+                // 错误信息
+                console.log(textStatus);
+            }
+        })
+    }
+</script>
+</html>
