@@ -1,6 +1,7 @@
 package com.yunhe.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yunhe.entity.Form;
 import com.yunhe.mapper.FormMapper;
 import com.yunhe.service.IFormService;
@@ -39,13 +40,19 @@ public class FormController {
         return Result.success(url);
     }
 
-    @PostMapping("/init9")
+    @PostMapping("/init10")
     public Result creatMa(@RequestBody Form form){
         String url = form.getUrl();
         String base= (new PicBaseUtil()).getBase64(url);
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("user_id",1);
+        wrapper.eq("url",form.getUrl());
+        Form one = formService.getOne(wrapper);
+        UpdateWrapper<Form> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id",one.getId());
         form.setErweima(base);
-        formService.save(form);
-        return Result.success(base);
+        formService.update(form,updateWrapper);
+        return Result.success("data:image/jpeg;base64,"+base);
     }
 
     @PostMapping("/init11")

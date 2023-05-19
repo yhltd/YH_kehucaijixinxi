@@ -7,7 +7,7 @@
     <script src="./iconfont.js"></script>
 </head>
 <link rel="stylesheet" href="ces10.css"></link>
-<body>
+<body onload = 'javascript:init()'>
 <div id="quanye">
     <div id="taitou">
 
@@ -54,7 +54,7 @@
                 </ul>
             </div>
             <div id="erweima">
-
+                <img id="img">
             </div>
         </div>
     </div>
@@ -69,6 +69,29 @@
 </div>
 
 <script>
+    function init(){
+        var form = {"userId": 1,"url":GetRequest().url}
+        $.ajax({
+            url: "http://localhost:8060/form/init10",
+            type: "POST",
+            data: JSON.stringify(form),
+            dataType: 'json',
+            async: true,
+            contentType: 'application/json;charset=utf-8',
+            success: function (data){
+                let obj = document.getElementById('img');
+                obj.src = data.resultData;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown){
+                // 状态码
+                console.log(XMLHttpRequest.status);
+                // 状态
+                console.log(XMLHttpRequest.readyState);
+                // 错误信息
+                console.log(textStatus);
+            }
+        })
+    }
     //复制url
     function copyURL(){
         let url = document.getElementById('a4').innerText;
