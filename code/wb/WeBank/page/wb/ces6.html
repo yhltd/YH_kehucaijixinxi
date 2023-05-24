@@ -116,13 +116,13 @@
 <!--    下一步 -->
 <!--    保存 -->
 </div>
-    <a title="下一步" onclick="javascript:save()">
+    <a title="下一步" onclick="javascript:save(1)">
         <svg id="icon1" aria-hidden="true" >
             <use xlink:href="#icon-down" ></use>
         </svg>
     </a>
-    <a title="保存">
-        <svg id="icon2" aria-hidden="true" onclick="javascript:save()">
+    <a title="保存" onclick="javascript:save(2)">
+        <svg id="icon2" aria-hidden="true" >
             <use xlink:href="#icon-baocun"></use>
         </svg>
     </a>
@@ -1011,7 +1011,7 @@
         obj.options.remove(index);
     }
     //保存
-    function save(){
+    function save(obj){
         let reqs = document.getElementById("reqs").innerHTML;
         // console.log(reqs)
         var form = {"html": reqs}
@@ -1023,9 +1023,12 @@
             async: true,
             contentType: 'application/json;charset=utf-8',
             success: function (data){
-                // alert("保存成功")
-                console.log(data)
-                window.location.href='./ces9.html?url='+data.resultData;
+                if(obj == 1){
+                    window.location.href='./ces9.html?url='+data.resultData;
+                }
+                if(obj == 2){
+                    alert("保存成功")
+                }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown){
                 // 状态码
