@@ -6,7 +6,7 @@
     <script type="text/javascript" src="jquery.min.js"  ></script>
 </head>
 <link rel="stylesheet" href="ces6.css"></link>
-<body>
+<body ONLOAD="init()">
 
 <div id="quanye">
 <div id="taitou">
@@ -14,7 +14,7 @@
     <div id="aa"><a id="aaa" href="" >云合</a></div>
     <div id="kk"><a id="kkk" href="" ><img src="个人标准版2.png"></a></div>
     <div id="bb"><a id="bbb" href="" ><img src="三.png" ></a></div>
-    <div id="cc"><a id="ccc" href="" > 丶 极简 &ensp;</a></div>
+    <div id="cc"><a id="ccc" href="" > 极简 &ensp;</a></div>
     <div id="dd"><a id="ddd" href="" > <div id="ddd1">1</div><div id="ddd2">编辑</div></a></div>
     <div id="ee"><a id="eee" href="" > <div id="eee1">2</div><div id="eee2">发布</div></a></div>
     <div id="ff"><a id="fff" href="" ><img src="+.png"></a></div>
@@ -48,6 +48,7 @@
         <div id="xia13"><a class="pointer" value="Add16" onclick="javascript:add16();" id="xia22"><img  width="50px" height="40px" src="手机.png"></a> <a class="pointer" id="xia14" type="button" value="Add16" onclick="javascript:add16();"> 手机</a></div>
         <div id="xia15"><a class="pointer" value="Add17" onclick="javascript:add17();" id="xia23"><img  width="40px" height="35px" src="邮箱.png"></a> <a class="pointer" id="xia16" type="button" value="Add17" onclick="javascript:add17();"> 邮箱</a></div>
     </div>
+    <div>
     <div id="you1"><div id="you2">&ensp;设置/外观</div></div>
     <div id="youxia">
         <div id="youxia1">提示语言</div>
@@ -77,7 +78,7 @@
     </div>
     <div id="zuixia">
         <div id="zuixia1">色系</div>
-
+    </div>
     </div>
     <div>
 
@@ -85,14 +86,15 @@
 <div id="cscs">
     <div id="cscs222"><img width="40px" height="35px" src="云合.png"></div>
     <div id="cscs111">由云合提供技术支持</div>
-<div id="reqs" >
-    <div id="cece" style="height: auto">
-    <div id="crcr">新的表单</div>
-        <div id="crce" ><a class="pointer" id="crct" >提交</a></div>
-<!--        <input class="pointer" id="crct" type="submit" value="提交">-->
+    <div id="crcr" >
+        <div id="biaodan" style="background-color: #003D79; text-align: center;color: white">新的表单</div>
+        <div id="reqs" style="overflow: scroll">
+            <div id="cece" style="height: auto">
 
-    </div>
-    <div id="textt"   style="display:none;">
+
+        <!--        <input class="pointer" id="crct" type="submit" value="提交">-->
+            </div>
+            <div id="textt"   style="display:none;">
 <!--    value: <input type="text" id="val"><br>-->
         <input type="text" id="val"><br>
     多级下拉<input type="text" id="tex"><br>
@@ -116,6 +118,7 @@
 <!--    下一步 -->
 <!--    保存 -->
 </div>
+    </div>
     <a title="下一步" onclick="javascript:save(1)">
         <svg id="icon1" aria-hidden="true" >
             <use xlink:href="#icon-down" ></use>
@@ -127,9 +130,25 @@
         </svg>
     </a>
 </div>
+    <div id="crce" ><a class="pointer" id="crct" >提交</a></div>
 </div>
 <script src="./iconfont.js"></script>
 <script>
+    function init(){
+        document.getElementById("sub_menu_1").hidden=true;
+        document.getElementById("sub_menu_2").hidden=true;
+        document.getElementById("sub_menu_3").hidden=true;
+    }
+    function f(str) {
+        var sub_menu = document.getElementById(str);
+        var dis_v = sub_menu.style.display;
+        if (dis_v == "block")
+            sub_menu.style.display = "none";
+        else
+            sub_menu.style.display = "block";
+
+    }
+
     var reqs_id = 0;
     var reqs_id2 = 0;
 
@@ -147,13 +166,13 @@
     function add() {
         reqs_id++;
         reqs_id2++;
-        var br = document.createElement('br')
+        var br = document.createElement('br');
         var input = document.createElement('input');
         var option = document.createElement('option');
         option.innerHTML = "文本框" ;
         input.setAttribute('value', "文本框");
         input.type = "text";
-        input.setAttribute("style","width:690px;height:50px;");
+        input.setAttribute("style","width:690px;height:40px;");
         input.setAttribute('id', 'reqs' + reqs_id );
         br.setAttribute('id', 'reqs' + reqs_id);
         option.setAttribute('id', 'reqs' + reqs_id );
@@ -176,6 +195,7 @@
         reqs.appendChild(input);
         reqs.appendChild(remove);
         // reqs.appendChild(remove2);
+
 
     }
     //下拉
@@ -212,12 +232,9 @@
         reqs.appendChild(remove);
         reqs.appendChild(remove2);
 
-
-
-
     }
     //选择
-    function add2() {
+    function add2(){
         reqs_id++;
         reqs_id2++;
         var br = document.createElement('br')
@@ -225,9 +242,9 @@
         var option = document.createElement('option');
         var input2 = document.createElement('input');
         var option2 = document.createElement('option');
+        input.type = "checkbox";
         option.innerHTML = "男" ;
-        input.type = "radio";
-        input2.type = "radio";
+        input2.type = "checkbox";
         option2.innerHTML = "女" ;
         input.setAttribute("style","width:15px;height:15px;");
         input2.setAttribute("style","width:15px;height:15px;");
@@ -471,13 +488,13 @@
         reqs.appendChild(remove5);
         reqs.appendChild(remove6);
     }
-    //加
+    //增加
     function jia(){
        let count = document.getElementById("count").value;
        count = count * 1;
        document.getElementById("count").value = count + 1;
     }
-    //j减
+    //减少
     function jian(){
         let count = document.getElementById("count").value;
         count = count * 1;
@@ -633,15 +650,15 @@
         let input222 = document.createElement('input');
         let input333 = document.createElement('input');
 
-        input1.type = "radio";
-        input2.type = "radio";
-        input3.type = "radio";
-        input11.type = "radio";
-        input22.type = "radio";
-        input33.type = "radio";
-        input111.type = "radio";
-        input222.type = "radio";
-        input333.type = "radio";
+        input1.type = "checkbox";
+        input2.type = "checkbox";
+        input3.type = "checkbox";
+        input11.type = "checkbox";
+        input22.type = "checkbox";
+        input33.type = "checkbox";
+        input111.type = "checkbox";
+        input222.type = "checkbox";
+        input333.type = "checkbox";
 
         td2.innerHTML = "选项一";
         td3.innerHTML = "选项二";
@@ -786,6 +803,39 @@
         let br = document.createElement('br');
         let option = document.createElement('option');
         option.innerHTML = "邮箱<span style='color: red'>*</span>";
+        let input = document.createElement('input');
+        input.type = "text";
+        input.setAttribute("style","width:690px;height:50px;");
+        input.setAttribute('id', 'reqs' + reqs_id );
+
+        let remove1 = document.createElement('button');
+        remove1.setAttribute('id', 'reqs' + reqs_id);
+        remove1.onclick = function(e) {
+            removeElement(e)
+        };
+        remove1.setAttribute("type", "button");
+        remove1.innerHTML = "删除" ;
+
+        let remove2 = document.createElement('button');
+        remove2.setAttribute('id', 'reqs' + reqs_id2);
+        remove2.onclick = function(ee) {
+            removeElement(ee)
+        };
+        remove2.setAttribute("type", "button");
+        remove2.innerHTML = "删除" ;
+
+        reqs.appendChild(option);
+        reqs.appendChild(input);
+        reqs.appendChild(remove1);
+        reqs.appendChild(remove2);
+    }
+    function add88(){
+        reqs_id++;
+        reqs_id2++;
+
+        let br = document.createElement('br');
+        let option = document.createElement('option');
+        option.innerHTML = "公司<span style='color: red'>*</span>";
         let input = document.createElement('input');
         input.type = "text";
         input.setAttribute("style","width:690px;height:50px;");
@@ -1011,7 +1061,7 @@
         obj.options.remove(index);
     }
     //保存
-    function save(obj){
+    function save(obj) {
         let reqs = document.getElementById("reqs").innerHTML;
         // console.log(reqs)
         var form = {"html": reqs}
@@ -1022,15 +1072,15 @@
             dataType: 'json',
             async: true,
             contentType: 'application/json;charset=utf-8',
-            success: function (data){
-                if(obj == 1){
-                    window.location.href='./ces9.html?url='+data.resultData;
+            success: function (data) {
+                if (obj == 1) {
+                    window.location.href = './ces9.html?url=' + data.resultData;
                 }
-                if(obj == 2){
+                if (obj == 2) {
                     alert("保存成功")
                 }
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown){
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
                 // 状态码
                 console.log(XMLHttpRequest.status);
                 // 状态
