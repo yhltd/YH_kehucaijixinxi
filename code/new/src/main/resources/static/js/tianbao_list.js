@@ -1,6 +1,5 @@
 let list = []
-
-
+let columns = []
 function getList() {
     $('#query').val('')
     $ajax({
@@ -12,7 +11,82 @@ function getList() {
     }, false, '', function (res) {
         if (res.code == 200) {
             list = res.data
-            setTable(res.data);
+            console.log(list)
+            if(list.length == 0){
+                columns = [
+                            {
+                                field: 'id',
+                                title: '序号',
+                                align: 'center',
+                                width: 50,
+                                formatter: function (value, row, index) {
+                                    return index + 1;
+                                }
+                            },
+                            {
+                                field: 'insertDate',
+                                title: '提交时间',
+                                align: 'center',
+                                sortable: true,
+                                width: 150,
+                            },
+                            {
+                                field: 'insertText',
+                                title: '提交内容',
+                                align: 'center',
+                                sortable: true,
+                                width: 150,
+                            }
+                        ]
+            }else{
+                columns = [
+                                {
+                                    field: 'id',
+                                    title: '序号',
+                                    align: 'center',
+                                    width: 50,
+                                    formatter: function (value, row, index) {
+                                        return index + 1;
+                                    }
+                                },
+                                {
+                                    field: 'insertDate',
+                                    title: '提交时间',
+                                    align: 'center',
+                                    sortable: true,
+                                    width: 150,
+                                },
+                            ]
+
+                var arr = list[0].insertText.split("<br/>")
+                for(var i=0; i< arr.length; i++){
+                    columns.push({
+                        field: i,
+                        title: '',
+                        align: 'center',
+                        sortable: true,
+                        width: 150,
+                    })
+                }
+
+                var list_upd = []
+                for(var i=0; i<list.length; i++){
+                    var list_item = {}
+                    list_item.formId = list[i].formId
+                    list_item.id = list[i].id
+                    list_item.insertDate = list[i].insertDate
+                    var arr = list[i].insertText.split("<br/>")
+                    for(var j=0; j<arr.length; j++){
+                        list_item[j] = arr[j]
+                    }
+                    list_upd.push(list_item)
+                }
+                console.log(list_upd)
+                list = list_upd
+            }
+
+
+            setTable(list);
         }
     })
 }
@@ -75,43 +149,7 @@ function setTable(data) {
         toolbar: '#table-toolbar',
         toolbarAlign: 'left',
         theadClasses: "thead-light",//这里设置表头样式
-        columns: [
-            {
-                field: 'id',
-                title: '序号',
-                align: 'center',
-                width: 50,
-                formatter: function (value, row, index) {
-                    return index + 1;
-                }
-            },
-            {
-                field: 'insertDate',
-                title: '提交时间',
-                align: 'center',
-                sortable: true,
-                width: 150,
-                formatter:function(value, row , index){
-                    if(value == null || value == ''){
-                        value = '-'
-                    }
-                    return "<div title='"+value+"'; style='overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width: 100%;word-wrap:break-all;word-break:break-all;' href='javascript:edit(\""+row.id+"\",true)'>"+value+"</div>";
-                }
-            },
-            {
-                field: 'insertText',
-                title: '提交内容',
-                align: 'center',
-                sortable: true,
-                width: 400,
-                formatter:function(value, row , index){
-                    if(value == null || value == ''){
-                        value = '-'
-                    }
-                    return "<div title='"+value+"'; style='overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width: 100%;word-wrap:break-all;word-break:break-all;' href='javascript:edit(\""+row.id+"\",true)'>"+value+"</div>";
-                }
-            }
-        ],
+        columns: columns,
 
         onClickRow: function (row, el) {
             let isSelect = $(el).hasClass('selected')
