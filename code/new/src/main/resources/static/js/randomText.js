@@ -1,3 +1,86 @@
+let fileType = ""
+let body_pic = ""
+let head_pic = ""
+
+function getList() {
+    $ajax({
+        type: 'post',
+        url: '/formCreate/queryListById',
+        data:{
+            id:$.session.get('id')
+        },
+        async: false
+    }, false, '', function (res) {
+        if (res.code == 200) {
+            console.log(res.data[0])
+            $(".col-md-12.droppable.sortable.ui-droppable.ui-sortable").html(res.data[0].formBody)
+            $("#head_title").html(res.data[0].formName)
+            var type = $.session.get('type')
+            $("#head_title").html(res.data[0].formName)
+            if(type == "修改"){
+                $(".col-md-12.droppable.sortable.ui-droppable.ui-sortable").html(res.data[0].bodyUpd)
+                setup_draggable();
+            }else if(type == "预览"){
+                $(".col-md-12.droppable.sortable.ui-droppable.ui-sortable").html(res.data[0].formBody)
+                setup_draggable();
+                $('.btn-yulan').click()
+                $('.btn-yulan').hide()
+                $("#copy-to-clipboard").hide()
+                $("#title").hide()
+            }
+            if(res.data[0].headImg != ""){
+                $('.set-til.col-md-10').css('background','url(' + res.data[0].headImg + ') no-repeat')
+                $('.set-til.col-md-10').css('background-size','cover')
+                head_pic = res.data[0].headImg
+            }
+            if(res.data[0].bodyImg != ""){
+                $('body').css('background','url(' + res.data[0].bodyImg + ') no-repeat')
+                $('body').css('background-size','cover')
+                body_pic = res.data[0].bodyImg
+            }
+
+            $(".form_datetime").datetimepicker({
+                language: 'zh-CN', //日期
+                format: "yyyy/mm/dd hh:ii",
+                initialDate: new Date(), //初始化当前日期
+                autoclose: true, //选中自动关闭
+                todayBtn: true //显示今日按钮
+            });
+            //上传初始化
+            $('.uploadfile').fileinput({
+                language: 'zh',
+                showUpload: false,
+                showCaption: false,
+                maxFileCount: 1
+            });
+            //省市区初始化
+            $('.distpicker').distpicker({
+                province: '省份名',
+                city: '城市名',
+                district: '区名',
+                autoSelect: true,
+                placeholder: false
+            });
+            //评分初始化
+            $(".rating_simple").webwidget_rating_sex({
+                rating_star_length: '5',
+                rating_initial_value: '',
+                rating_function_name: '',
+                directory: '../img/'
+            });
+
+            $(".col-sm-7").each(function(){
+                console.log($(this))
+                var pingfen = $(this).children('.webwidget_rating_sex')
+                console.log(pingfen)
+                for(var i=pingfen.length-1; i>0; i--){
+                    pingfen.eq(i).remove()
+                }
+            });
+        }
+    })
+}
+
 //自定义表单开始
 $(document).ready(function() {
     //预览
@@ -23,8 +106,6 @@ $(document).ready(function() {
         document.location.href = 'form_list.html'
     });
 
-    setup_draggable();
-
     //点击添加表单
     $(".btntext,.btntexts").click(function() {
         $(tableList($(this).attr("id"))).appendTo($(".ui-sortable"));
@@ -46,7 +127,10 @@ $(document).ready(function() {
         });
         //上传初始化
         $('.uploadfile').fileinput({
-            language: 'zh'
+            language: 'zh',
+            showUpload: false,
+            showCaption: false,
+            maxFileCount: 1
         });
         //省市区初始化
         $('.distpicker').distpicker({
@@ -56,36 +140,106 @@ $(document).ready(function() {
             autoSelect: true,
             placeholder: false
         });
+        //评分初始化
+        $(".rating_simple").webwidget_rating_sex({
+            rating_star_length: '5',
+            rating_initial_value: '',
+            rating_function_name: '',
+            directory: '../img/'
+        });
+
+        $(".col-sm-7").each(function(){
+            console.log($(this))
+            var pingfen = $(this).children('.webwidget_rating_sex')
+            console.log(pingfen)
+            for(var i=pingfen.length-1; i>0; i--){
+                pingfen.eq(i).remove()
+            }
+        });
     });
 });
 
 
 $(function () {
 
-    var type = $.session.get('type')
-
-    if(type == "修改"){
-        $(".form-body").html($.session.get('bodyUpd'))
-    }else if(type == "预览"){
-        $(".form-body").html($.session.get('formBody'))
-        $('.btn-yulan').click()
-        $('.btn-yulan').hide()
-        $("#copy-to-clipboard").hide()
-        $("#title").hide()
-    }
+    // getList();
 
 
+    $('#head_insert').click(function () {
+        fileType = "head"
+        $('#pic_file').trigger('click');
+    });
+
+    $('#head_delete').click(function () {
+        fileType = "head"
+        $('.set-til.col-md-10').css('background','')
+        head_pic = ""
+    });
+
+    $('#body_insert').click(function () {
+        $('#pic_file').trigger('click');
+        fileType = "body"
+    });
+
+    $('#body_delete').click(function () {
+        fileType = "body"
+        $('body').css('background','')
+        body_pic = ""
+    });
+
+    $('#pic_file').change(function () {
+        var file = document.getElementById("pic_file").files;
+        var oFReader = new FileReader();
+        var this_file = file[0];
+        var fileName = file[0].name;
+        oFReader.readAsDataURL(this_file);
+        oFReader.onloadend = function (oFRevent) {
+            this_file = oFRevent.target.result;
+            console.log(fileType)
+            console.log(this_file)
+            if(fileType == 'head'){
+                head_pic = this_file
+                $('.set-til.col-md-10').css('background','url(' + this_file + ') no-repeat')
+                $('.set-til.col-md-10').css('background-size','cover')
+            }else if(fileType = 'body'){
+                body_pic = this_file
+                $('body').css('background','url(' + this_file + ') no-repeat')
+                $('body').css('background-size','cover')
+            }
+            $('#pic_file').val('')
+        };
+    });
 
     $("#copy-to-clipboard").on("click", function() {
 
-        var $copy = $(".form-body").clone().appendTo(document.body);
+        var $copy = $(".col-md-12.droppable.sortable.ui-droppable.ui-sortable").clone().appendTo(document.body);
+        console.log($copy)
+        var $copy2 = $copy.eq(0).children('.form-group.draggable.ui-draggable.dropped.file')
+        console.log($copy2)
+        for(var i=0; i<$copy2.length; i++){
+            var title_text = $copy.eq(0).children('.form-group.draggable.ui-draggable.dropped.file').eq(i).children('label').eq(0)[0].innerText
+            console.log(title_text)
+            var file_html = "\t<label class=\"col-sm-2 control-label\">" + title_text + "</label>\n" +
+                "\t<div class=\"col-sm-7\">\n" +
+                "\t\t<input class=\"file uploadfile\" type=\"file\" multiple data-min-file-count=\"1\">\n" +
+                "\t</div>\n" +
+                "\t<p class=\"tools col-sm-3\">\n" +
+                "\t\t<a class=\"edit-link\" name=\"file\" title=\"设置\">\n" +
+                "\t\t\t<i class=\"fa fa-cog fa-fw\"></i>\n" +
+                "\t\t</a>\n" +
+                "\t\t<a class=\"remove-link\">\n" +
+                "\t\t\t<i class=\"fa fa-trash-o\"></i>\n" +
+                "\t\t</a>\n" +
+                "\t</p>"
+            $copy.eq(0).children('.form-group.draggable.ui-draggable.dropped.file').eq(i).html(file_html)
+        }
         var yuan_html = html_beautify($copy.html());
         $copy.find(".tools").remove();
-
         var html = html_beautify($copy.html());
-        console.log(html)
         $copy.remove();
 
+        console.log(yuan_html)
+        console.log(html)
         $ajax({
             type: 'post',
             url: '/formCreate/updateBody',
@@ -94,19 +248,33 @@ $(function () {
                 id: $.session.get('id'),
                 bodyUpd: yuan_html,
             },
-
+            async: false,
         }, false, '', function (res) {
             if (res.code == 200) {
-                alert(res.msg);
+                $ajax({
+                    type: 'post',
+                    url: '/formCreate/updateImg',
+                    data: {
+                        userInfoJson: JSON.stringify({
+                            id: $.session.get('id'),
+                            headImg: head_pic,
+                            bodyImg: body_pic
+                        }),
+                    },
+                    dataType: 'json',
+                    contentType: 'application/json;charset=utf-8',
+                    async: false,
+                }, false, '', function (res) {
+                    if (res.code == 200) {
+                        alert(res.msg);
+                    } else {
+                        alert(res.msg);
+                    }
+                })
             } else {
                 alert(res.msg);
             }
         })
-
-        // $modal = get_modal(html, 'cont').modal("show");
-        // $modal.find(".btn").remove();
-        // $modal.find(".modal-title").html("复制HTML代码");
-        // $modal.find(":input:first").select().focus();
 
         return false
     })
@@ -128,6 +296,7 @@ var setup_draggable = function() {
             if (!$(ui.draggable).hasClass("dropped")) {
                 $(tableList($orig.attr("id"))).appendTo(this);
                 //时间初始化
+                console.log('asd')
                 $(".form_datetime").datetimepicker({
                     language: 'zh-CN', //日期
                     format: "yyyy/mm/dd hh:ii",
@@ -137,7 +306,10 @@ var setup_draggable = function() {
                 });
                 //上传初始化
                 $('.uploadfile').fileinput({
-                    language: 'zh'
+                    language: 'zh',
+                    showUpload: false,
+                    showCaption: false,
+                    maxFileCount: 1
                 });
                 //省市区初始化
                 $('.distpicker').distpicker({
@@ -146,6 +318,22 @@ var setup_draggable = function() {
                     district: '区名',
                     autoSelect: true,
                     placeholder: false
+                });
+                //评分初始化
+                $(".rating_simple").webwidget_rating_sex({
+                    rating_star_length: '5',
+                    rating_initial_value: '',
+                    rating_function_name: '',
+                    directory: '../img/'
+                });
+
+                $(".col-sm-7").each(function(){
+                    console.log($(this))
+                    var pingfen = $(this).children('.webwidget_rating_sex')
+                    console.log(pingfen)
+                    for(var i=pingfen.length-1; i>0; i--){
+                        pingfen.eq(i).remove()
+                    }
                 });
             } else {
                 if ($(this)[0] != $orig.parent()[0]) {
@@ -195,58 +383,17 @@ function tableList(id) {
         case "file":
             //上传
             var file = '<input class="file uploadfile" type="file" multiple data-min-file-count="1">';
-            content = '<div class="form-group draggable ui-draggable dropped"><label class="col-sm-2 control-label">上传：</label><div class="col-sm-7">' + file + '</div><p class="tools col-sm-3"><a class="edit-link" name="file" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
+            content = '<div class="form-group draggable ui-draggable dropped file" style="border: 0px"><label class="col-sm-2 control-label">上传：</label><div class="col-sm-7">' + file + '</div><p class="tools col-sm-3"><a class="edit-link" name="file" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
             break;
         case "picker":
             //省市区
             var picker = '<form class="form-inline"><div class="distpicker"><div class="form-group" style="margin:0px; padding-right:10px;"><label class="sr-only" for="province10">Province</label><select class="form-control" id="province10"></select></div><div class="form-group" style="margin:0px; padding-right:10px;"><label class="sr-only" for="city10">City</label><select class="form-control" id="city10"></select></div><div class="form-group" style="margin:0px; padding-right:10px;"><label class="sr-only" for="district10">District</label><select class="form-control" id="district10"></select></div></div></form>';
             content = '<div class="form-group draggable ui-draggable dropped"><label class="col-sm-2 control-label">省市区：</label><div class="col-sm-7">' + picker + '</div><p class="tools col-sm-3"><a class="edit-link" name="picker" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
             break;
-        case "name":
-            //姓名
-            var text = '<input type="text" class="form-control" placeholder="请输入你的姓名">';
-            content = '<div class="form-group draggable ui-draggable dropped"><label class="col-sm-2 control-label">姓名：</label><div class="col-sm-7">' + text + '</div><p class="tools col-sm-3"><a class="edit-link" name="text" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
-            break;
-        case "phone":
-            //电话
-            var text = '<input type="text" class="form-control" placeholder="请输入你的电话">';
-            content = '<div class="form-group draggable ui-draggable dropped"><label class="col-sm-2 control-label">电话：</label><div class="col-sm-7">' + text + '</div><p class="tools col-sm-3"><a class="edit-link" name="text" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
-            break;
-        case "email":
-            //邮箱
-            var text = '<input type="text" class="form-control" placeholder="请输入你的邮箱">';
-            content = '<div class="form-group draggable ui-draggable dropped"><label class="col-sm-2 control-label">邮箱：</label><div class="col-sm-7">' + text + '</div><p class="tools col-sm-3"><a class="edit-link" name="text" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
-            break;
-        case "card":
-            //身份证
-            var text = '<input type="text" class="form-control" placeholder="请输入你的身份证">';
-            content = '<div class="form-group draggable ui-draggable dropped"><label class="col-sm-2 control-label">身份证：</label><div class="col-sm-7">' + text + '</div><p class="tools col-sm-3"><a class="edit-link" name="text" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
-            break;
-        case "www":
-            //姓名
-            var text = '<input type="text" class="form-control" placeholder="请输入你的个人网站地址">';
-            content = '<div class="form-group draggable ui-draggable dropped"><label class="col-sm-2 control-label">个人网站：</label><div class="col-sm-7">' + text + '</div><p class="tools col-sm-3"><a class="edit-link" name="text" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
-            break;
-        case "logo":
-            //姓名
-            var file = '<input class="file uploadfile" type="file" multiple data-min-file-count="1">';
-            content = '<div class="form-group draggable ui-draggable dropped"><label class="col-sm-2 control-label">上传Logo：</label><div class="col-sm-7">' + file + '</div><p class="tools col-sm-3"><a class="edit-link" name="file" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
-            break;
-        case "sex":
-            //性别
-            var radom = Math.ceil(Math.random() * 100000);
-            var radio = '<label class="radio-inline"><input type="radio" value="男" name="rad' + radom + '" checked> 男</label><label class="radio-inline"><input type="radio" name="rad' + radom + '" value="女"> 女</label>';
-            content = '<div class="form-group draggable ui-draggable dropped"><label class="col-sm-2 control-label">性别：</label><div class="col-sm-7">' + radio + '</div><p class="tools col-sm-3"><a class="edit-link" name="radio" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
-            break;
-        case "occupation":
-            //职位
-            var text = '<input type="text" class="form-control" placeholder="请输入你的职位">';
-            content = '<div class="form-group draggable ui-draggable dropped"><label class="col-sm-2 control-label">职位：</label><div class="col-sm-7">' + text + '</div><p class="tools col-sm-3"><a class="edit-link" name="text" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
-            break;
-        case "profile":
-            //个人简介
-            var textarea = '<textarea class="form-control" placeholder="请输入你的简介"></textarea>';
-            content = '<div class="form-group draggable ui-draggable dropped"><label class="col-sm-2 control-label">个人简介：</label><div class="col-sm-7">' + textarea + '</div><p class="tools col-sm-3"><a class="edit-link" name="textarea" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
+        case "pingfen":
+            //评分
+            var pingfen = '<input name="my_input" value="5" class="rating_simple" type="hidden" />';
+            content = '<div class="form-group draggable ui-draggable dropped"><label class="col-sm-2 control-label">评分：</label><div class="col-sm-7">' + pingfen + '</div><p class="tools col-sm-3"><a class="edit-link" name="pingfen" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
             break;
     }
     return content;
@@ -312,6 +459,10 @@ function tabUp(tabL, $el) {
             break;
         case "picker":
             //省市区
+            content = '<div class="row tabup"><div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">标题：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("label:eq(0)").html().substring(0, $el.find("label:eq(0)").html().length - 1) + '" placeholder="请输入标题"></div></div></div>';
+            break;
+        case "pingfen":
+            //评分
             content = '<div class="row tabup"><div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">标题：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("label:eq(0)").html().substring(0, $el.find("label:eq(0)").html().length - 1) + '" placeholder="请输入标题"></div></div></div>';
             break;
     }
@@ -458,6 +609,12 @@ $(document).on("click", ".edit-link", function(ev) {
                     $el.find("div[class='col-sm-7']").html(option);
                     $modal.modal("hide");
                 }
+                return false;
+                break;
+            case "pingfen":
+                //评分
+                $el.find("label:eq(0)").html($(this).parent().find("input:eq(0)").val() + "：");
+                $modal.modal("hide");
                 return false;
                 break;
         }

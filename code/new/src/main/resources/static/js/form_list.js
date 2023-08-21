@@ -292,28 +292,12 @@ function setTable(data) {
 
 function pass(id) {
     $.session.set('id', id)
-    var bodyUpd = ""
-    for(var i=0; i<list.length; i++){
-        if(list[i].id == id){
-            bodyUpd = list[i].bodyUpd
-            break;
-        }
-    }
-    $.session.set('bodyUpd', bodyUpd)
     $.session.set('type', "修改")
     document.location.href = 'randomText.html'
 }
 
 function pass2(id) {
     $.session.set('id', id)
-    var bodyUpd = ""
-    for(var i=0; i<list.length; i++){
-        if(list[i].id == id){
-            bodyUpd = list[i].formBody
-            break;
-        }
-    }
-    $.session.set('formBody', bodyUpd)
     $.session.set('type', "预览")
     document.location.href = 'randomText.html'
 }

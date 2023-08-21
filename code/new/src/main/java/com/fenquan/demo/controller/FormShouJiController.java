@@ -54,26 +54,19 @@ public class FormShouJiController {
      *添加
      * */
     @RequestMapping("/add")
-    public ResultInfo add(String insertText,int formId,HttpSession session){
-        String token = SessionUtil.getToken(session);
-        String[] token_list = token.split(",");
-        String[] nameArr = token_list[1].split("\"");
-        token_list = token_list[5].split("\"");
-        String login_company = token_list[3];
-        String name = nameArr[3];
-        FormShouJi formShouJi = new FormShouJi();
+    public ResultInfo add(@RequestBody String menuSettingsJson,HttpSession session){
+        FormShouJi formShouJi = null;
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         String formattedDate = formatter.format(date);
         try{
-            formShouJi.setInsertText(insertText);
-            formShouJi.setFormId(formId);
+            formShouJi = DecodeUtil.decodeToJson(menuSettingsJson, FormShouJi.class);
             formShouJi.setInsertDate(formattedDate);
             formShouJi = iFormShouJiService.add(formShouJi);
             if (StringUtils.isNotNull(formShouJi)) {
-                return ResultInfo.success("添加成功", formShouJi);
+                return ResultInfo.success("提交成功", formShouJi);
             } else {
-                return ResultInfo.success("添加失败", null);
+                return ResultInfo.success("提交失败", null);
             }
         }catch (Exception e){
             e.printStackTrace();

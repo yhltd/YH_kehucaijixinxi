@@ -19,7 +19,11 @@ public class DecodeUtil {
      */
     public static <T> T decodeToJson(String json,Class<T> tClass)
             throws Exception{
+        String[] json_arr = URLDecoder.decode(json,"UTF-8").split("=");
         json = URLDecoder.decode(json,"UTF-8").split("=")[1];
+        for(int i=2; i<json_arr.length; i++){
+            json = json + "=" + json_arr[i];
+        }
         return GsonUtil.toEntity(json,tClass);
     }
 

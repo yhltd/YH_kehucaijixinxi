@@ -1,5 +1,6 @@
 let list = []
 let columns = []
+let list_len = 1
 function getList() {
     $('#query').val('')
     $ajax({
@@ -57,8 +58,14 @@ function getList() {
                                     width: 150,
                                 },
                             ]
-
                 var arr = list[0].insertText.split("<br/>")
+                for(var i=0; i<list.length; i++){
+                    var this_arr = list[0].insertText.split("<br/>")
+                    if(arr.length < this_arr.length){
+                        arr = this_arr
+                    }
+                }
+                list_len = arr.length
                 for(var i=0; i< arr.length; i++){
                     columns.push({
                         field: i,
@@ -66,6 +73,21 @@ function getList() {
                         align: 'center',
                         sortable: true,
                         width: 150,
+                        formatter: function (value, row, index) {
+                            if(value.indexOf("```") != -1){
+                                var this_text = ""
+                                var text_arr = value.split("：")
+                                this_text = text_arr[0] + "："
+                                if(text_arr.length > 1){
+                                    var text = text_arr[1].split("```")[1]
+                                    this_text = this_text + text
+                                }
+                                return '<a href="#" onclick="javascript:downloadFileByBase64(\'' + text_arr[1].split("```")[1] + '\',\''+ text_arr[1].split("```")[2] +'\')">' + this_text + '</a>'
+                                // return this_text;
+                            }else{
+                                return value;
+                            }
+                        }
                     })
                 }
 
@@ -98,6 +120,53 @@ $(function () {
 
     $("#refresh-btn").click(function () {
         getList();
+    })
+
+    //点击修改按钮显示弹窗
+    $('#update-btn').click(function () {
+        let rows = getTableSelection('#labelTable')
+        if (rows.length > 1 || rows.length == 0) {
+            alert('请选择一条数据查看');
+            return;
+        }
+        $('#update-modal').modal('show');
+        var this_body = $("#update_modal_list")
+        var data = rows[0].data
+        var this_html = ""
+        console.log(rows[0].data)
+        console.log(this_body)
+        for(var i=0; i<list_len; i++){
+            if(data[i] != undefined){
+                var this_list = data[i].split("：")
+                if(this_list.length > 1){
+                    this_title = this_list[0]
+
+                    if(this_list[1].indexOf("```") != -1){
+                        this_html = this_html + "<div class=\"form-group\">\n" +
+                            "                    <label >" + this_list[0] + "：</label>\n" +
+                            '                    <a href="#" onclick="javascript:downloadFileByBase64(\'' + this_list[1].split("```")[1] + '\',\''+ this_list[1].split("```")[2] +'\')">' + this_list[1].split("```")[1] + '</a>' +
+                            "                </div>"
+                    }else{
+                        this_html = this_html + "<div class=\"form-group\">\n" +
+                            "                    <label >" + this_list[0] + "：</label>\n" +
+                            "                    <label style=\"margin-left: 5px\">" + this_list[1] + "</label>\n" +
+                            "                </div>"
+                    }
+                }else{
+                    this_html = this_html + "<div class=\"form-group\">\n" +
+                            "                    <label >" + this_list[0] + "：</label>\n" +
+                            "                    <label style=\"margin-left: 5px\"></label>\n" +
+                            "                </div>"
+                }
+            }
+        }
+        console.log(this_html)
+        $("#update_modal_list").html(this_html)
+    })
+
+    //修改弹窗点击关闭按钮
+    $('#update-close-btn').click(function () {
+        $('#update-modal').modal('hide');
     })
 
     //点击删除按钮
@@ -162,4 +231,33 @@ function setTable(data) {
 
     })
 
+}
+
+function dataURLtoBlob(dataurl, name) {//name:文件名
+    var mime = name.substring(name.lastIndexOf('.') + 1)//后缀名
+    var bstr = atob(dataurl), n = bstr.length, u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], {type: mime});
+}
+
+function downloadFile(url, name = '默认文件名') {
+    var a = document.createElement("a")//创建a标签触发点击下载
+    a.setAttribute("href", url)//附上
+    a.setAttribute("download", name);
+    a.setAttribute("target", "_blank");
+    let clickEvent = document.createEvent("MouseEvents");
+    clickEvent.initEvent("click", true, true);
+    a.dispatchEvent(clickEvent);
+}
+
+//主函数
+function downloadFileByBase64(name, base64) {
+    console.log(base64)
+    base64 = base64.split(",")[1]
+    console.log(name)
+    var myBlob = dataURLtoBlob(base64, name);
+    var myUrl = URL.createObjectURL(myBlob);
+    downloadFile(myUrl, name)
 }

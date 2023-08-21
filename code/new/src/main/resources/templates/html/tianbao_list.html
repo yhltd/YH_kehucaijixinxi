@@ -31,6 +31,10 @@
 
 <div id="table-toolbar">
     <div class="btn-group" role="group">
+        <button id="update-btn" class="btn btn-primary">
+            <i class="bi bi-pencil-square icon"></i>
+            查看
+        </button>
         <button id="refresh-btn" class="btn btn-primary">
             <i class="bi bi-arrow-clockwise icon"></i>
             刷新
@@ -64,6 +68,46 @@
                 <button id="delete-close-btn" type="button" class="btn btn-primary left-margin">
                     <i class="bi bi-x-circle icon"></i>
                     取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="update-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">查看</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="update_modal_list">
+                <div class="form-group">
+                    <label >姓名：</label>
+                    <label style="margin-left: 5px">姓名</label>
+                </div>
+                <div class="form-group">
+                    <label for="update-username">账号</label>
+                    <input id="update-username" name="username" type="text" class="form-control" autocomplete="off" style="width:100%">
+                </div>
+                <div class="form-group">
+                    <label for="update-password">密码</label>
+                    <input id="update-password" name="password" type="text" class="form-control" autocomplete="off" style="width:100%">
+                </div>
+                <div class="form-group">
+                    <label for="update-power">权限</label>
+                    <select id="update-power" name="power" class="form-control">
+                        <option  value="管理员">管理员</option>
+                        <option  value="用户">用户</option>
+                    </select>
+                </div>
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="update-close-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    关闭
                 </button>
             </div>
         </div>

@@ -61,7 +61,7 @@ li{list-style-type: none;}
 .logo-own li i{ color: #66d9ff; font-size: 18px; padding-right:5px; }
 /*创建会议*/
 .set-nav li{ float:left; }
-.set-til{ position: absolute;margin-left:-10px; margin-top:10px;letter-spacing:2px;width:1090px; height:61px; padding-left:40px; line-height: 61px; font-size: 25px; color:#fff;  background-image: url(../img/set-til.png); }
+.set-til{ position: absolute; margin-top:10px;margin-left: 2%;letter-spacing:2px;width:96%; height:61px; padding-left:40px; line-height: 61px; font-size: 25px; color:#fff;}
 .conference-cont{float:left;width:100%; position: relative; background-color:#fff; box-shadow: 0px 0px 2px #999;}
 .conference-tab{ margin-top:80px;margin-bottom:30px; letter-spacing:2px; }
 .conference-tab tr td:nth-child(1){ padding-right:5px; text-align:right;}

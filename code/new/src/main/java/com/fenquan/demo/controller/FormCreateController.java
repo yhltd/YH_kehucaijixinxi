@@ -111,12 +111,12 @@ public class FormCreateController {
         String formattedDate = formatter.format(date);
         try{
             formCreate.setFormName(formName);
-            formCreate.setFormBody("<div class=\"col-md-12 droppable sortable ui-droppable ui-sortable\"></div>");
+            formCreate.setFormBody("");
             formCreate.setFormType(formType);
             formCreate.setFormState(formState);
             formCreate.setInsertDate(formattedDate);
             formCreate.setUpdateDate("");
-            formCreate.setBodyUpd("<div class=\"col-md-12 droppable sortable ui-droppable ui-sortable\"></div>");
+            formCreate.setBodyUpd("");
             formCreate.setCreateName(name);
             formCreate.setCompany(login_company);
             formCreate = iFormCreateService.add(formCreate);
@@ -167,6 +167,31 @@ public class FormCreateController {
             formCreate.setFormBody(formBody);
             formCreate.setBodyUpd(bodyUpd);
             formCreate.setId(id);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = new Date();
+            String formattedDate = formatter.format(date);
+            formCreate.setUpdateDate(formattedDate);
+            if (iFormCreateService.update(formCreate)) {
+                return ResultInfo.success("修改成功", formCreate);
+            } else {
+                return ResultInfo.success("修改失败", formCreate);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("修改失败：{}", e.getMessage());
+            return ResultInfo.error("修改失败");
+        }
+    }
+
+
+    /*
+     *修改
+     * */
+    @RequestMapping(value = "/updateImg", method = RequestMethod.POST)
+    public ResultInfo updateBody(@RequestBody String menuSettingsJson ,HttpSession session){
+        FormCreate formCreate = null;
+        try{
+            formCreate = DecodeUtil.decodeToJson(menuSettingsJson, FormCreate.class);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date();
             String formattedDate = formatter.format(date);

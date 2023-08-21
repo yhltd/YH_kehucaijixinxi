@@ -1,6 +1,7 @@
 server:
   port: 9086
-  max-http-header-size: 100000
+  max-http-header-size: 10485760
+  max-http-form-post-size: 10485760
 spring:
   datasource:
     dynamic:

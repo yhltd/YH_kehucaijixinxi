@@ -61,5 +61,13 @@ public class FormCreate {
      */
     private String bodyUpd;
 
+    /**
+     * 表头图片(base64)
+     */
+    private String headImg;
 
+    /**
+     * 表单图片(base64)
+     */
+    private String bodyImg;
 }
