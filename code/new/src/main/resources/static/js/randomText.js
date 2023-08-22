@@ -159,11 +159,37 @@ $(document).ready(function() {
     });
 });
 
+$(document).on("click", ".add", function() {
+    var number = $(this).parent().eq(0).children('input').eq(0).val()
+    $(this).parent().eq(0).children('input').eq(0).val((number * 1) + 1)
+});
+
+$(document).on("click", ".reduce", function() {
+    var number = $(this).parent().eq(0).children('input').eq(0).val()
+    number = (number * 1) - 1
+    if(number < 0){
+        number = 0
+    }
+    $(this).parent().eq(0).children('input').eq(0).val(number)
+});
 
 $(function () {
 
-    // getList();
+    getList();
 
+    // $('.add').click(function () {
+    //     var number = $(this).parent().eq(0).children('input').eq(0).val()
+    //     $(this).parent().eq(0).children('input').eq(0).val((number * 1) + 1)
+    // });
+    //
+    // $('.reduce').click(function () {
+    //     var number = $(this).parent().eq(0).children('input').eq(0).val()
+    //     number = (number * 1) - 1
+    //     if(number < 0){
+    //         number = 0
+    //     }
+    //     $(this).parent().eq(0).children('input').eq(0).val(number)
+    // });
 
     $('#head_insert').click(function () {
         fileType = "head"
@@ -243,11 +269,15 @@ $(function () {
         $ajax({
             type: 'post',
             url: '/formCreate/updateBody',
-            data: {
-                formBody: html,
-                id: $.session.get('id'),
-                bodyUpd: yuan_html,
+            data:{
+                userInfoJson: JSON.stringify( {
+                    formBody: html,
+                    id: $.session.get('id'),
+                    bodyUpd: yuan_html,
+                }),
             },
+            dataType: 'json',
+            contentType: 'application/json;charset=utf-8',
             async: false,
         }, false, '', function (res) {
             if (res.code == 200) {
@@ -395,6 +425,66 @@ function tableList(id) {
             var pingfen = '<input name="my_input" value="5" class="rating_simple" type="hidden" />';
             content = '<div class="form-group draggable ui-draggable dropped"><label class="col-sm-2 control-label">评分：</label><div class="col-sm-7">' + pingfen + '</div><p class="tools col-sm-3"><a class="edit-link" name="pingfen" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
             break;
+        case "image":
+            //评分
+            var image = '<img style="max-width: 100%" src="" >';
+            content = '<div class="form-group draggable ui-draggable dropped"><label class="col-sm-2 control-label">图片：</label><div class="col-sm-7">' + image + '</div><p class="tools col-sm-3"><a class="edit-link" name="image" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
+            break;
+        case "product":
+            //商品
+            content = "<div class=\"form-group draggable ui-draggable dropped\">\n" +
+                "                                                    <label class=\"col-sm-2 control-label\">商品名：</label>\n" +
+                "                                                    <div class=\"col-sm-7\" style=\"margin: 0 auto;text-align: center\">\n" +
+                "                                                        <label class=\"col-sm-2\" style=\"font-size: 20px\">￥0.0</label>\n" +
+                "                                                        <img class=\"add\" style=\"margin: 0 auto;\" src=\"../img/add.png\">\n" +
+                "                                                        <input type=\"number\" style=\"margin: 0 auto;width: 50px;text-align:center;\" type=\"text\" style=\"width: 30px\">\n" +
+                "                                                        <img class=\"reduce\" style=\"margin: 0 auto;\" src=\"../img/reduce.png\">\n" +
+                "                                                    </div>\n" +
+                "                                                    <p class=\"tools col-sm-3\">\n" +
+                "                                                        <a class=\"edit-link\" name=\"product\" title=\"设置\">\n" +
+                "                                                            <i class=\"fa fa-cog fa-fw\"></i>\n" +
+                "                                                        </a>\n" +
+                "                                                        <a class=\"remove-link\">\n" +
+                "                                                            <i class=\"fa fa-trash-o\"></i>\n" +
+                "                                                        </a>\n" +
+                "                                                    </p>\n" +
+                "                                                </div>"
+            break;
+
+        case "juzhen":
+            //矩阵
+            var juzhen = "";
+            var radom = Math.ceil(Math.random() * 100000);
+            juzhen = juzhen + "                                                        <table class=\"tab02\" style=\"width: 100%\">\n" +
+                "                                                            <tr>\n" +
+                "                                                                <td style=\"width: 25%\"></td>\n" +
+                "                                                                <td style=\"width: 25%\">选项1</td>\n" +
+                "                                                                <td style=\"width: 25%\">选项2</td>\n" +
+                "                                                                <td style=\"width: 25%\">选项3</td>\n" +
+                "                                                            </tr>\n" +
+                "                                                            <tr>\n" +
+                "                                                                <td>问题1</td>\n" +
+                "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"选项1\"></td>\n" +
+                "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"选项2\"></td>\n" +
+                "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"选项3\"></td>\n" +
+                "                                                            </tr>"
+            radom = Math.ceil(Math.random() * 100000);
+            juzhen = juzhen + "                                                            <tr>\n" +
+                "                                                                <td>问题2</td>\n" +
+                "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"选项1\"></td>\n" +
+                "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"选项2\"></td>\n" +
+                "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"选项3\"></td>\n" +
+                "                                                            </tr>"
+            radom = Math.ceil(Math.random() * 100000);
+            juzhen = juzhen + "                                                            <tr>\n" +
+                "                                                                <td>问题3</td>\n" +
+                "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"选项1\"></td>\n" +
+                "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"选项2\"></td>\n" +
+                "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"选项3\"></td>\n" +
+                "                                                            </tr>\n" +
+                "                                                        </table>"
+            content = '<div class="form-group draggable ui-draggable dropped"><label class="col-sm-2 control-label">矩阵：</label><div class="col-sm-7">' + juzhen + '</div><p class="tools col-sm-3"><a class="edit-link" name="juzhen" title="设置"><i class="fa fa-cog fa-fw"></i></a><a class="remove-link"><i class="fa fa-trash-o"></i></a></p></div>';
+            break;
     }
     return content;
 }
@@ -464,6 +554,50 @@ function tabUp(tabL, $el) {
         case "pingfen":
             //评分
             content = '<div class="row tabup"><div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">标题：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("label:eq(0)").html().substring(0, $el.find("label:eq(0)").html().length - 1) + '" placeholder="请输入标题"></div></div></div>';
+            break;
+        case "image":
+            //图片
+            content = '<div class="row tabup">' +
+                '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">标题：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("label:eq(0)").html().substring(0, $el.find("label:eq(0)").html().length - 1) + '" placeholder="请输入标题"></div></div>' +
+                '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">图片：</label><div class="col-sm-9"><input type="file" class="form-control" value="' + $el.find("label:eq(0)").html().substring(0, $el.find("label:eq(0)").html().length - 1) + '" placeholder="请输入标题"></div></div>' +
+                '</div>';
+            break;
+        case "product":
+            //商品
+            content = '<div class="row tabup">' +
+                '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">商品名：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("label:eq(0)").html().substring(0, $el.find("label:eq(0)").html().length - 1) + '" placeholder="请输入标题"></div></div>' +
+                '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">价格：</label><div class="col-sm-9"><input type="number" class="form-control" value="' + $el.eq(0).children('.col-sm-7').eq(0).children('label:eq(0)').html().replace("￥","") + '" placeholder="请输入价格"></div></div>' +
+                '</div>';
+            break;
+        case "juzhen":
+            //矩阵
+            console.log($el)
+            console.log($el.find("tr"))
+            console.log($el.find("tr").eq(0).find("td"))
+            content += '<div class="row tabup">';
+            content += '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">标题：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("label:eq(0)").html().substring(0, $el.find("label:eq(0)").html().length - 1) + '" placeholder="请输入标题"></div></div>';
+            var xuanxiang = $el.find("tr").eq(0).find("td")
+            if(xuanxiang.length >0){
+                console.log($el.find("tr").eq(0).find("td").eq(1).html())
+                for(var i=1; i<xuanxiang.length; i++){
+                    if(i == 1){
+                        content += '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">选项' + i + '：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("tr").eq(0).find("td").eq(i).html() + '" placeholder="请输入选项"></div><label class="col-sm-1 control-label"><i class="fa fa-plus-square select-add" title="添加" style="font-size:18px; cursor:pointer;"></i></label></div>';
+                    }else{
+                        content += '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">选项' + i + '：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("tr").eq(0).find("td").eq(i).html() + '" placeholder="请输入选项"></div><label class="col-sm-1 control-label"><i class="fa fa-trash-o select-del" title="删除" style="font-size:18px; cursor:pointer;"></i></label></div>';
+                    }
+                }
+            }
+            var wenti = $el.find("tr")
+            if(wenti.length > 0){
+                for(var i=1; i<xuanxiang.length; i++){
+                    if(i == 1){
+                        content += '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">问题' + i + '：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("tr").eq(i).find("td").eq(0).html() + '" placeholder="请输入问题"></div><label class="col-sm-1 control-label"><i class="fa fa-plus-square select-add" title="添加" style="font-size:18px; cursor:pointer;"></i></label></div>';
+                    }else{
+                        content += '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">问题' + i + '：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("tr").eq(i).find("td").eq(0).html() + '" placeholder="请输入问题"></div><label class="col-sm-1 control-label"><i class="fa fa-trash-o select-del" title="删除" style="font-size:18px; cursor:pointer;"></i></label></div>';
+                    }
+                }
+            }
+            content += '</div>';
             break;
     }
     return content;
@@ -617,6 +751,70 @@ $(document).on("click", ".edit-link", function(ev) {
                 $modal.modal("hide");
                 return false;
                 break;
+            case "image":
+                //评分
+                $el.find("label:eq(0)").html($(this).parent().find("input:eq(0)").val() + "：");
+                var this_file = $(this).parent().find("input:eq(1)")[0].files[0]
+                var oFReader = new FileReader();
+                oFReader.readAsDataURL(this_file);
+                oFReader.onloadend = function (oFRevent) {
+                    this_file = oFRevent.target.result;
+                    $el.find("img:eq(0)").attr('src',oFRevent.target.result);
+                };
+                $modal.modal("hide");
+                return false;
+                break;
+            case "product":
+                //商品
+                $el.find("label:eq(0)").html($(this).parent().find("input:eq(0)").val() + "：");
+                $el.find("label:eq(1)").html("￥" + $(this).parent().find("input:eq(1)").val());
+                $modal.modal("hide");
+                return false;
+                break;
+            case "juzhen":
+                //矩阵
+                var juzhen = "";
+                var panduan = 1
+                $(this).parent().find('input').each(function(index, element) {
+                    if($(this).val() == ""){
+                        panduan = 0
+                    }
+                });
+                if(panduan == 0){
+                    alert("不能有空值！");
+                    return;
+                }
+                var radom = Math.ceil(Math.random() * 100000);
+                juzhen = juzhen + "                                                        <table class=\"tab02\" style=\"width: 100%\">\n" +
+                    "                                                            <tr>\n" +
+                    "                                                                <td style=\"width: 25%\"></td>\n" +
+                    "                                                                <td style=\"width: 25%\">" + $(this).parent().find("input:eq(1)").val() + "</td>\n" +
+                    "                                                                <td style=\"width: 25%\">" + $(this).parent().find("input:eq(2)").val() + "</td>\n" +
+                    "                                                                <td style=\"width: 25%\">" + $(this).parent().find("input:eq(3)").val() + "</td>\n" +
+                    "                                                            </tr>\n" +
+                    "                                                            <tr>\n" +
+                    "                                                                <td>" + $(this).parent().find("input:eq(4)").val() + "</td>\n" +
+                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(1)").val() + "\"></td>\n" +
+                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(2)").val() + "\"></td>\n" +
+                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(3)").val() + "\"></td>\n" +
+                    "                                                            </tr>"
+                radom = Math.ceil(Math.random() * 100000);
+                juzhen = juzhen + "                                                            <tr>\n" +
+                    "                                                                <td>" + $(this).parent().find("input:eq(5)").val() + "</td>\n" +
+                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(1)").val() + "\"></td>\n" +
+                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(2)").val() + "\"></td>\n" +
+                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(3)").val() + "\"></td>\n" +
+                    "                                                            </tr>"
+                radom = Math.ceil(Math.random() * 100000);
+                juzhen = juzhen + "                                                            <tr>\n" +
+                    "                                                                <td>" + $(this).parent().find("input:eq(6)").val() + "</td>\n" +
+                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(1)").val() + "\"></td>\n" +
+                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(2)").val() + "\"\"></td>\n" +
+                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(3)").val() + "\"></td>\n" +
+                    "                                                            </tr>\n" +
+                    "                                                        </table>"
+                $el.find("div[class='col-sm-7']").html(juzhen);
+                $modal.modal("hide");
         }
 
     })

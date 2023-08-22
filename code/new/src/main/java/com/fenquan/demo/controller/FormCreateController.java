@@ -161,12 +161,10 @@ public class FormCreateController {
      *修改
      * */
     @RequestMapping(value = "/updateBody", method = RequestMethod.POST)
-    public ResultInfo updateBody(String formBody,int id,String bodyUpd,HttpSession session){
-        FormCreate formCreate = new FormCreate();
+    public ResultInfo updateBody(@RequestBody String menuSettingsJson ,HttpSession session){
+        FormCreate formCreate = null;
         try{
-            formCreate.setFormBody(formBody);
-            formCreate.setBodyUpd(bodyUpd);
-            formCreate.setId(id);
+            formCreate = DecodeUtil.decodeToJson(menuSettingsJson, FormCreate.class);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date();
             String formattedDate = formatter.format(date);
@@ -188,7 +186,7 @@ public class FormCreateController {
      *修改
      * */
     @RequestMapping(value = "/updateImg", method = RequestMethod.POST)
-    public ResultInfo updateBody(@RequestBody String menuSettingsJson ,HttpSession session){
+    public ResultInfo updateImg(@RequestBody String menuSettingsJson ,HttpSession session){
         FormCreate formCreate = null;
         try{
             formCreate = DecodeUtil.decodeToJson(menuSettingsJson, FormCreate.class);
