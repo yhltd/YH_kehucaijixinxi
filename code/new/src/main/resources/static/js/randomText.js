@@ -581,19 +581,19 @@ function tabUp(tabL, $el) {
                 console.log($el.find("tr").eq(0).find("td").eq(1).html())
                 for(var i=1; i<xuanxiang.length; i++){
                     if(i == 1){
-                        content += '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">选项' + i + '：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("tr").eq(0).find("td").eq(i).html() + '" placeholder="请输入选项"></div><label class="col-sm-1 control-label"><i class="fa fa-plus-square select-add" title="添加" style="font-size:18px; cursor:pointer;"></i></label></div>';
+                        content += '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">选项' + i + '：</label><div class="col-sm-8"><input type="text" class="form-control" value="' + $el.find("tr").eq(0).find("td").eq(i).html() + '" placeholder="请输入选项"></div><label class="col-sm-1 control-label"><i class="fa fa-plus-square select-add2" title="添加" style="font-size:18px; cursor:pointer;"></i></label></div>';
                     }else{
-                        content += '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">选项' + i + '：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("tr").eq(0).find("td").eq(i).html() + '" placeholder="请输入选项"></div><label class="col-sm-1 control-label"><i class="fa fa-trash-o select-del" title="删除" style="font-size:18px; cursor:pointer;"></i></label></div>';
+                        content += '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">选项' + i + '：</label><div class="col-sm-8"><input type="text" class="form-control" value="' + $el.find("tr").eq(0).find("td").eq(i).html() + '" placeholder="请输入选项"></div><label class="col-sm-1 control-label"><i class="fa fa-trash-o select-del" title="删除" style="font-size:18px; cursor:pointer;"></i></label></div>';
                     }
                 }
             }
             var wenti = $el.find("tr")
             if(wenti.length > 0){
-                for(var i=1; i<xuanxiang.length; i++){
+                for(var i=1; i<wenti.length; i++){
                     if(i == 1){
-                        content += '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">问题' + i + '：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("tr").eq(i).find("td").eq(0).html() + '" placeholder="请输入问题"></div><label class="col-sm-1 control-label"><i class="fa fa-plus-square select-add" title="添加" style="font-size:18px; cursor:pointer;"></i></label></div>';
+                        content += '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">问题' + i + '：</label><div class="col-sm-8"><input type="text" class="form-control" value="' + $el.find("tr").eq(i).find("td").eq(0).html() + '" placeholder="请输入问题"></div><label class="col-sm-1 control-label"><i class="fa fa-plus-square select-add2" title="添加" style="font-size:18px; cursor:pointer;"></i></label></div>';
                     }else{
-                        content += '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">问题' + i + '：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("tr").eq(i).find("td").eq(0).html() + '" placeholder="请输入问题"></div><label class="col-sm-1 control-label"><i class="fa fa-trash-o select-del" title="删除" style="font-size:18px; cursor:pointer;"></i></label></div>';
+                        content += '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">问题' + i + '：</label><div class="col-sm-8"><input type="text" class="form-control" value="' + $el.find("tr").eq(i).find("td").eq(0).html() + '" placeholder="请输入问题"></div><label class="col-sm-1 control-label"><i class="fa fa-trash-o select-del" title="删除" style="font-size:18px; cursor:pointer;"></i></label></div>';
                     }
                 }
             }
@@ -784,35 +784,70 @@ $(document).on("click", ".edit-link", function(ev) {
                     alert("不能有空值！");
                     return;
                 }
-                var radom = Math.ceil(Math.random() * 100000);
-                juzhen = juzhen + "                                                        <table class=\"tab02\" style=\"width: 100%\">\n" +
-                    "                                                            <tr>\n" +
-                    "                                                                <td style=\"width: 25%\"></td>\n" +
-                    "                                                                <td style=\"width: 25%\">" + $(this).parent().find("input:eq(1)").val() + "</td>\n" +
-                    "                                                                <td style=\"width: 25%\">" + $(this).parent().find("input:eq(2)").val() + "</td>\n" +
-                    "                                                                <td style=\"width: 25%\">" + $(this).parent().find("input:eq(3)").val() + "</td>\n" +
-                    "                                                            </tr>\n" +
-                    "                                                            <tr>\n" +
-                    "                                                                <td>" + $(this).parent().find("input:eq(4)").val() + "</td>\n" +
-                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(1)").val() + "\"></td>\n" +
-                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(2)").val() + "\"></td>\n" +
-                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(3)").val() + "\"></td>\n" +
-                    "                                                            </tr>"
-                radom = Math.ceil(Math.random() * 100000);
-                juzhen = juzhen + "                                                            <tr>\n" +
-                    "                                                                <td>" + $(this).parent().find("input:eq(5)").val() + "</td>\n" +
-                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(1)").val() + "\"></td>\n" +
-                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(2)").val() + "\"></td>\n" +
-                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(3)").val() + "\"></td>\n" +
-                    "                                                            </tr>"
-                radom = Math.ceil(Math.random() * 100000);
-                juzhen = juzhen + "                                                            <tr>\n" +
-                    "                                                                <td>" + $(this).parent().find("input:eq(6)").val() + "</td>\n" +
-                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(1)").val() + "\"></td>\n" +
-                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(2)").val() + "\"\"></td>\n" +
-                    "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(3)").val() + "\"></td>\n" +
-                    "                                                            </tr>\n" +
-                    "                                                        </table>"
+
+                var wenti_arr = []
+                var xuanxiang_arr = []
+                var list = $(this).parent().eq(0).children().eq(0).children()
+                list.each(function(index, element) {
+                    var title = $(this).children().eq(0)[0].innerHTML
+                    if(title.indexOf("选项") != -1){
+                        xuanxiang_arr.push($(this).children().eq(1).children().eq(0).val())
+                    }else if(title.indexOf("问题") != -1){
+                        wenti_arr.push($(this).children().eq(1).children().eq(0).val())
+                    }
+                })
+                console.log(wenti_arr)
+                console.log(xuanxiang_arr)
+
+                juzhen = juzhen + "<table class=\"tab02\" style=\"width: 100%\">"
+                var column_width = 75 / xuanxiang_arr.length
+                console.log(column_width)
+
+                juzhen = juzhen + "<tr>" + "<td style=\"width: 25%\"></td>"
+                for(var i=0; i<xuanxiang_arr.length; i++){
+                    juzhen = juzhen + "<td style=\"width: " + column_width + "%\">" + xuanxiang_arr[i] + "</td>"
+                }
+                juzhen = juzhen + "</tr>"
+                for(var i=0; i< wenti_arr.length; i++){
+                    juzhen = juzhen + "<tr>" + "<td>" + wenti_arr[i] + "</td>"
+                    var radom = Math.ceil(Math.random() * 100000);
+                    for(var j=0; j< xuanxiang_arr.length; j++){
+                        juzhen = juzhen + "<td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + xuanxiang_arr[j] + "\"></td>\n"
+                    }
+                    juzhen = juzhen + "</tr>"
+                }
+                juzhen = juzhen + " </table>"
+
+                // var radom = Math.ceil(Math.random() * 100000);
+                // juzhen = juzhen + "                                                        <table class=\"tab02\" style=\"width: 100%\">\n" +
+                //     "                                                            <tr>\n" +
+                //     "                                                                <td style=\"width: 25%\"></td>\n" +
+                //     "                                                                <td style=\"width: 25%\">" + $(this).parent().find("input:eq(1)").val() + "</td>\n" +
+                //     "                                                                <td style=\"width: 25%\">" + $(this).parent().find("input:eq(2)").val() + "</td>\n" +
+                //     "                                                                <td style=\"width: 25%\">" + $(this).parent().find("input:eq(3)").val() + "</td>\n" +
+                //     "                                                            </tr>\n" +
+                //     "                                                            <tr>\n" +
+                //     "                                                                <td>" + $(this).parent().find("input:eq(4)").val() + "</td>\n" +
+                //     "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(1)").val() + "\"></td>\n" +
+                //     "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(2)").val() + "\"></td>\n" +
+                //     "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(3)").val() + "\"></td>\n" +
+                //     "                                                            </tr>"
+                // radom = Math.ceil(Math.random() * 100000);
+                // juzhen = juzhen + "                                                            <tr>\n" +
+                //     "                                                                <td>" + $(this).parent().find("input:eq(5)").val() + "</td>\n" +
+                //     "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(1)").val() + "\"></td>\n" +
+                //     "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(2)").val() + "\"></td>\n" +
+                //     "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(3)").val() + "\"></td>\n" +
+                //     "                                                            </tr>"
+                // radom = Math.ceil(Math.random() * 100000);
+                // juzhen = juzhen + "                                                            <tr>\n" +
+                //     "                                                                <td>" + $(this).parent().find("input:eq(6)").val() + "</td>\n" +
+                //     "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(1)").val() + "\"></td>\n" +
+                //     "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(2)").val() + "\"\"></td>\n" +
+                //     "                                                                <td><input type=\"radio\" name=\"rad" + radom + "\" value=\"" + $(this).parent().find("input:eq(3)").val() + "\"></td>\n" +
+                //     "                                                            </tr>\n" +
+                //     "                                                        </table>"
+                $el.find("label:eq(0)").html($(this).parent().find("input:eq(0)").val() + "：");
                 $el.find("div[class='col-sm-7']").html(juzhen);
                 $modal.modal("hide");
         }
@@ -838,6 +873,48 @@ $(document).on("click", ".edit-link", function(ev) {
             }
         });
     });
+
+    //select 增加和删除
+    $modal.find(".select-add2").click(function() {
+        //窗口中每行元素
+        var list = $(this).parents().eq(2).children()
+        //当前点击元素的label
+        var title = $(this).parents().eq(1).children().eq(0)[0].innerHTML.replace("1：","")
+
+
+        var wenti_num = 1
+        var xuanxiang_num = 1
+        list.each(function(index, element) {
+            var title = $(this).children().eq(0)[0].innerHTML.replace("：","")
+            if(title.indexOf("问题") != -1){
+                title = title.replace("问题","")
+                title = title * 1
+                console.log(title)
+                if(title >= wenti_num){
+                    wenti_num = title + 1
+                }
+            }else if(title.indexOf("选项") != -1){
+                title = title.replace("选项","")
+                title = title * 1
+                console.log(title)
+                if(title >= xuanxiang_num){
+                    xuanxiang_num = title + 1
+                }
+            }
+        })
+        console.log(wenti_num)
+        console.log(xuanxiang_num)
+        var this_num = 0
+        if(title =='问题'){
+            this_num = wenti_num
+        }else{
+            this_num = xuanxiang_num
+        }
+        var str = '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">' + title + this_num + '：</label><div class="col-sm-8"><input type="text" class="form-control" value="" placeholder="请输入" + title + "></div><label class="col-sm-1 control-label"><i class="fa fa-trash-o select-del" title="删除" style="font-size:18px; cursor:pointer;"></i></label></div>';
+        $(this).parent().parent().parent().parent().find("div[class='row tabup']").append(str);
+
+    });
+
     $(".select-del").unbind('click');
     $modal.find(".select-del").click(function() {
 

@@ -35,6 +35,20 @@ function getList() {
     })
 }
 
+$(document).on("click", ".add", function() {
+    var number = $(this).parent().eq(0).children('input').eq(0).val()
+    $(this).parent().eq(0).children('input').eq(0).val((number * 1) + 1)
+});
+
+$(document).on("click", ".reduce", function() {
+    var number = $(this).parent().eq(0).children('input').eq(0).val()
+    number = (number * 1) - 1
+    if(number < 0){
+        number = 0
+    }
+    $(this).parent().eq(0).children('input').eq(0).val(number)
+});
+
 $(function () {
 
     var id = getUrlParams("id")
@@ -116,6 +130,9 @@ $(function () {
             var check = $(this).children('.radio-inline')
             var city = $(this).children('.form-inline')
             var file = $(this).children('.file-input')
+            var table = $(this).children('.tab02')
+            var shangpin = $(this).children('.col-sm-2')
+            console.log(table)
             var pingfen = $(this).children('.webwidget_rating_sex')
             if(input.length >0){
                 input.each(function(){
@@ -213,6 +230,46 @@ $(function () {
                 }
                 formdata[xunhuan] = title + pingfen
                 xunhuan = xunhuan + 1
+            }else if(table.length > 0){
+                console.log(table)
+                console.log(table.eq(0).children().eq(0).children())
+                var tr_list = table.eq(0).children().eq(0).children()
+                console.log(tr_list)
+                var this_text = ""
+                for(var i=1; i<tr_list.length; i++){
+                    console.log(tr_list.eq(i).children())
+                    var td_list = tr_list.eq(i).children()
+                    for(var j=1; j<td_list.length; j++){
+                        var radio = td_list.eq(j).children().eq(0)
+                        if(radio.is(":checked")){
+                            if(this_text != ""){
+                                this_text = this_text + "，" + td_list.eq(0)[0].innerHTML + "：" + radio.val()
+                            }else{
+                                this_text = td_list.eq(0)[0].innerHTML + "：" + radio.val()
+                            }
+                        }
+                    }
+                }
+                console.log(this_text)
+                if(insertText == ""){
+                    insertText = title + this_text
+                }else{
+                    insertText = insertText + "<br/>" + title + this_text
+                }
+                formdata[xunhuan] = title + this_text
+                xunhuan = xunhuan + 1
+            }else if(shangpin.length > 0){
+                console.log(shangpin.html())
+                var price = shangpin.html()
+                var num = shangpin.parents().eq(0).children().eq(2).val()
+                this_text =  price + "  " + num
+                if(insertText == ""){
+                    insertText = title + this_text
+                }else{
+                    insertText = insertText + "<br/>" + title + this_text
+                }
+                formdata[xunhuan] = title + this_text
+                xunhuan = xunhuan + 1
             }
         });
 
@@ -225,27 +282,27 @@ $(function () {
             })
         console.log(json)
 
-        // if(formdata != ""){
-        //     $ajax({
-        //         type: 'post',
-        //         url: '/formShouJi/add',
-        //         data: {
-        //             userInfoJson: json
-        //         },
-        //         dataType: 'json',
-        //         contentType: 'application/json;charset=utf-8',
-        //         async: false,
-        //     }, false, '', function (res) {
-        //         if (res.code == 200) {
-        //             alert(res.msg);
-        //         } else {
-        //             alert(res.msg);
-        //         }
-        //     })
-        //
-        // }else{
-        //     alert("未读取到信息")
-        // }
+        if(formdata != ""){
+            $ajax({
+                type: 'post',
+                url: '/formShouJi/add',
+                data: {
+                    userInfoJson: json
+                },
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                async: false,
+            }, false, '', function (res) {
+                if (res.code == 200) {
+                    alert(res.msg);
+                } else {
+                    alert(res.msg);
+                }
+            })
+
+        }else{
+            alert("未读取到信息")
+        }
     })
 
 });
