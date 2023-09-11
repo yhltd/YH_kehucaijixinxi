@@ -27,6 +27,11 @@ public class UserInfoImpl extends ServiceImpl<UserInfoMapper, UserInfo> implemen
     }
 
     @Override
+    public List<UserInfo> getUserNum(String company) {
+        return userInfoMapper.getUserNum(company);
+    }
+
+    @Override
     public List<UserInfo> get_renyuan_List(String company) {
         return userInfoMapper.get_renyuan_List(company);
     }

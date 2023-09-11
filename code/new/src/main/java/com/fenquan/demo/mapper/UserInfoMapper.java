@@ -19,6 +19,9 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
     @Select("select company from userInfo GROUP BY company")
     List<UserInfo> get_select_List();
 
+    @Select("select COUNT(id) as id from userInfo where company = #{company}")
+    List<UserInfo> getUserNum(String company);
+
     @Select("select name from userInfo where company=#{company} GROUP BY name")
     List<UserInfo> get_renyuan_List(String company);
 
