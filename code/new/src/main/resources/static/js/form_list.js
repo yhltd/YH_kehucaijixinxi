@@ -177,7 +177,7 @@ function setTable(data) {
         pageSize : 10,//单页记录数
         clickToSelect: true,
         locale: 'zh-CN',
-        toolbar: '#table-toolbar',
+        // toolbar: '#table-toolbar',
         toolbarAlign: 'left',
         theadClasses: "thead-light",//这里设置表头样式
         columns: [
@@ -203,15 +203,7 @@ function setTable(data) {
                     return "<div title='"+value+"'; style='overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width: 100%;word-wrap:break-all;word-break:break-all;' href='javascript:edit(\""+row.id+"\",true)'>"+value+"</div>";
                 }
             },
-            {
-                field: '',
-                title: '操作',
-                align: 'center',
-                sortable: true,
-                width:300,
-                formatter: function (value, row, index) {
-                    return '<button onclick="javascript:pass(' + row.id + ')" class="btn-sm btn-primary">编辑表单</button>  <button onclick="javascript:pass2(' + row.id + ')" class="btn-sm btn-primary">预览表单</button>  <button onclick="javascript:pass3(' + row.id + ')" class="btn-sm btn-primary">收集列表</button>  <button onclick="javascript:pass4(' + row.id + ')" class="btn-sm btn-primary">收集链接</button>'                }
-            }, {
+           {
                 field: 'formType',
                 title: '表单类型',
                 align: 'center',
@@ -274,17 +266,47 @@ function setTable(data) {
                     }
                     return "<div title='"+value+"'; style='overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width: 100%;word-wrap:break-all;word-break:break-all;' href='javascript:edit(\""+row.id+"\",true)'>"+value+"</div>";
                 }
-            }
+            } ,{
+                field: '',
+                title: '操作',
+                align: 'center',
+                sortable: true,
+                width:300,
+                formatter: function (value, row, index) {
+                    return '<button onclick="javascript:pass(' + row.id + ')" class="btn-sm btn-default">编辑表单</button>  <button onclick="javascript:pass2(' + row.id + ')" class="btn-sm btn-default">预览表单</button>  <button onclick="javascript:pass3(' + row.id + ')" class="btn-sm btn-default">收集列表</button>  <button onclick="javascript:pass4(' + row.id + ')" class="btn-sm btn-default">收集链接</button>'                }
+                    // return '<div class="dropdown">\n' +
+                    //     '\t<button type="button" class="btn dropdown-toggle" id="dropdownMenu1" \n' +
+                    //     '\t\t\tdata-toggle="dropdown">\n' +
+                    //     '\t\t操作\n' +
+                    //     '\t\t<span class="caret"></span>\n' +
+                    //     '\t</button>\n' +
+                    //     '\t<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">\n' +
+                    //     '\t\t<li role="presentation">\n' +
+                    //     '\t\t\t<a role="menuitem" tabindex="-1" href="#">Java</a>\n' +
+                    //     '\t\t</li>\n' +
+                    //     '\t\t<li role="presentation">\n' +
+                    //     '\t\t\t<a role="menuitem" tabindex="-1" href="#">数据挖掘</a>\n' +
+                    //     '\t\t</li>\n' +
+                    //     '\t\t<li role="presentation">\n' +
+                    //     '\t\t\t<a role="menuitem" tabindex="-1" href="#">数据通信/网络</a>\n' +
+                    //     '\t\t</li>\n' +
+                    //     '\t\t<li role="presentation" class="divider"></li>\n' +
+                    //     '\t\t<li role="presentation">\n' +
+                    //     '\t\t\t<a role="menuitem" tabindex="-1" href="#">分离的链接</a>\n' +
+                    //     '\t\t</li>\n' +
+                    //     '\t</ul>\n' +
+                    //     '</div>' }
+                },
         ],
 
-        onClickRow: function (row, el) {
-            let isSelect = $(el).hasClass('selected')
-            if (isSelect) {
-                $(el).removeClass('selected')
-            } else {
-                $(el).addClass('selected')
-            }
-        }
+        // onClickRow: function (row, el) {
+        //     let isSelect = $(el).hasClass('selected')
+        //     if (isSelect) {
+        //         $(el).removeClass('selected')
+        //     } else {
+        //         $(el).addClass('selected')
+        //     }
+        // }
 
     })
 

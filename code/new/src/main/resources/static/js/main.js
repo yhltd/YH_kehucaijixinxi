@@ -207,7 +207,11 @@ $(function () {
         window.location.href = '/';
         location.reload();
     })
-
+    $(function () {
+        $('#nav-shouye').click(function () {
+            window.location.href = '/html/main.html';
+        })
+    })
     // //点击修改密码显示弹窗
     // $("#updPwd-a").click(function () {
     //     $('#update-modal').modal('show');

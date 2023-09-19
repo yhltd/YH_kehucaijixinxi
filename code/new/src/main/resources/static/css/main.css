@@ -107,6 +107,7 @@ a{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: -0.05rem;
 }
 table{
     table-layout: fixed;
@@ -148,12 +149,17 @@ table{
     no-repeat:背景图片不平铺
     repeat:背景图片平铺
      */
-    background: url("../img/backgroundImage.jpg") center fixed;
+    background: url("../img/bangong.jpg") center fixed;
     background-size: cover;
+
 }
 .log-image{
-    background: url("../img/111.jpg") center fixed;
+    background: url("../img/dlbg.jpg") center fixed;
     background-size: cover;
+}
+.col-md-5{
+    color: white;
+    text-shadow: 0 0 10px white,0 0 20px white,0 0 30px white;
 }
 .stamp-a{
     color: grey;
@@ -163,5 +169,23 @@ table{
 
 .table-head {
     color: #4d96e0;
-    height: 100px;
+    height: 60px;
+}
+#select-btn{
+
+    margin-left: 0.2rem;
+}
+#refresh-btn{
+    width: 5rem;
+    margin-left: -2rem;
+    margin-top: -0.5rem;
+}
+#add-btn{
+    margin-top: -0.5rem;
+    width: 8rem;
+    margin-left: 30%;
+}
+#biaoqian{
+
+    margin-left: 0.2rem;
 }

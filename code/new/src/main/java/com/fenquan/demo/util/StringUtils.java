@@ -1,7 +1,5 @@
 package com.fenquan.demo.util;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -452,34 +450,34 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
   }
 
 
-  public static File base64ToFile(String base64) {
-    //获取到前缀的定位
-    int index = base64.indexOf("base64,") + 7;
-    base64 = base64.substring(index, base64.length());//去除前缀
-
-    if (base64 == null || "".equals(base64)) {
-      return null;
-    }
-    byte[] buff = Base64.decode(base64);
-    File file = null;
-    FileOutputStream fout = null;
-    try {
-      file = File.createTempFile("tmp", null);
-      fout = new FileOutputStream(file);
-      fout.write(buff);
-    } catch (IOException e) {
-      e.printStackTrace();
-    } finally {
-      if (fout != null) {
-        try {
-          fout.close();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
-    }
-    return file;
-  }
+//  public static File base64ToFile(String base64) {
+//    //获取到前缀的定位
+//    int index = base64.indexOf("base64,") + 7;
+//    base64 = base64.substring(index, base64.length());//去除前缀
+//
+//    if (base64 == null || "".equals(base64)) {
+//      return null;
+//    }
+//    byte[] buff = Base64.decode(base64);
+//    File file = null;
+//    FileOutputStream fout = null;
+//    try {
+//      file = File.createTempFile("tmp", null);
+//      fout = new FileOutputStream(file);
+//      fout.write(buff);
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    } finally {
+//      if (fout != null) {
+//        try {
+//          fout.close();
+//        } catch (IOException e) {
+//          e.printStackTrace();
+//        }
+//      }
+//    }
+//    return file;
+//  }
 
 
   @SuppressWarnings("unchecked")

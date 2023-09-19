@@ -25,6 +25,7 @@ public class LoginConfig implements WebMvcConfigurer {
                 "/",
                 "/error",
                 "/index.html",
+                "/login.html",
                 "/user/login",
                 "/user/get_select_List",
                 "/img/**",

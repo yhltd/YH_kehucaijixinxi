@@ -6,76 +6,67 @@
     <title>云合信息采集系统</title>
 
     <script type="text/javascript" src="../js/Jquery.js"></script>
-    <script type="text/javascript" src="../js/jquerysession.js"></script>
-    <!--bootstrap-->
-    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/icons/bootstrap-icons.css">
-    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
-    <!--bTabs-->
-    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/b.tabs.css">
-    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/b.tabs.js"></script>
-    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/jquery-ui-1.10.3.custom.min.js"></script>
-
-    <link rel="stylesheet" href="../css/main.css">
-    <script type="text/javascript" src="../js/main.js"></script>
-    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/closable-tab-div.js"></script>
+    <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script  type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+    <script  type="text/javascript" src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
     <style>
-        .navbar-nav > li > a {
-            padding-top: 4px;
-            padding-bottom: 0;
-            height: 28px;
-            margin-top: 20px;
-        }
+    .navbar-header:hover{
+        cursor: pointer;
+    }
+    .nav navbar-nav li a:hover{
+        cursor: pointer;
+    }
 
-        .navbar {
-            min-height: 20px;
-            display: flow-root;
-        }
     </style>
 </head>
-<body style="padding-left: 180px;margin: 0" class="row">
-<nav class="navbar navbar-dark  bg-dark" style="width: 100%;height:100%;position: absolute;top: 0;left: 0;">
-    <ul class="navbar-nav mr-auto">
-        <!--href="main.html"-->
-        <span class="navbar-brand" style="font-size: 1rem;line-height: 30px">
-<!--            <img src="../img/logo.png" width="20" height="20" class="d-inline-block align-top rounded" alt=""/>-->
-            <img src="../img/1.png" width="30px" height="30px" style="margin-top: -10px">
-            信息采集系统
-        </span>
-
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dataNavbarDropdown1" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="../img/公司(1).png" width="20px" height="20px" style="margin-top: -4px">
-                <div style="width: 5px;height: 5px;display: inline-block"></div>
-                基础设置
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dataNavbarDropdown" style="width:15%;font-size: 14px">
-                <a class="dropdown-item" data-src="person-management.html"><img src="../img/新员工(1).png" width="20px" height="20px" style="margin-top: -4px"> <div style="width: 5px;height: 5px;display: inline-block"></div>账号管理</a>
+<body style=" margin: 0" class="row">
+ <nav class="navbar navbar-default navbar-fixed-top"  class="navbar navbar-dark  bg-dark" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header" >
+                <img src="../img/1.png" width="30" height="30" style="float:left;margin-top:8px; margin-right:10px"> <a class="navbar-brand"  data-src="main-item.html">云合未来信息采集系统</a>
             </div>
-        </li>
-
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dataNavbarDropdown2" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="../img/电脑(1).png" width="20px" height="20px" style="margin-top: -4px"> <div style="width: 5px;height: 5px;display: inline-block"></div>
-                表单相关
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dataNavbarDropdown" style="width:15%;font-size: 14px">
-                <a class="dropdown-item" data-src="form_list.html"><img src="../img/福利(1).png" width="20px" height="20px" style="margin-top: -4px"> <div style="width: 5px;height: 5px;display: inline-block"></div>表单列表</a>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li ><a data-src="form_list.html">表单</a></li>
+                    <li ><a href="#" >联系人</a></li>
+                    <li ><a href="#">小程序</a></li>
+                    <li style="float: left; width: 400px ;margin-top: 8px;margin-left:100px;margin-right: 250px" >
+                        <form class="bs-example bs-example-form" role="form">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control">
+                                        <span class="input-group-btn">
+						            <button class="btn btn-default" type="button">搜索</button>
+					                </span>
+                                    </div><!-- /input-group -->
+                                </div><!-- /.col-lg-6 -->
+                            </div><!-- /.row -->
+                        </form>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            个人中心 <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"  data-src="person-management.html">账号管理</a></li>
+                            <li><a href="#">会员中心</a></li>
+                            <li><a href="#">个人资料</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">更换账号</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">退出登录</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" data-src="">v1.0.0</a>
-        </li>
-
-    </ul>
+        </div>
 </nav>
 
-<div class="embed-responsive embed-responsive-1by1 h-100">
-    <iframe id="iframe" class="embed-responsive-item" src="main-item.html"></iframe>
+
+<div class="embed-responsive embed-responsive-1by1 h-100" style="position: absolute;top:50px;width: 1350px;height: 560px">
+    <iframe id="iframe" class="embed-responsive-item" src="main-item.html" width="1350" height="560"></iframe>
 </div>
 
 
@@ -92,5 +83,6 @@
             }
         })
     })
+
 </script>
 </html>
