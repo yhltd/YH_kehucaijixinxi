@@ -1,6 +1,8 @@
 package com.fenquan.demo.controller;
 
+import com.fenquan.demo.entity.SoftTime;
 import com.fenquan.demo.entity.UserInfo;
+import com.fenquan.demo.service.ISoftTimeService;
 import com.fenquan.demo.service.IUserInfoService;
 import com.fenquan.demo.util.*;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,9 @@ public class UserInfoController{
 
     @Autowired
     IUserInfoService iUserInfoService;
+
+    @Autowired
+    ISoftTimeService iSoftTimeService;
 
     //登录页面公司下拉查询
     @RequestMapping("/get_select_List")
@@ -57,8 +62,61 @@ public class UserInfoController{
     @RequestMapping("/login")
     public ResultInfo login(HttpSession session, String username, String password, String company) {
         try {
+
+            String endtime = "";
+            String mark1 = "";
+            String mark2 = "";
+            String mark3 = "";
+            String mark4 = "";
             //获取user
             SessionUtil.remove(session, "token");
+            List<SoftTime> softTime = iSoftTimeService.getList(company);
+            if (softTime.size() == 0) {
+                return ResultInfo.error(-1, "工具到期，请联系我公司续费。");
+            }else{
+                if(softTime.get(0).getEndtime() != null){
+                    endtime = softTime.get(0).getEndtime().trim();
+                }
+                if(softTime.get(0).getMark1() != null){
+                    mark1 = softTime.get(0).getMark1().trim();
+                }
+                if(softTime.get(0).getMark2() != null){
+                    mark2 = softTime.get(0).getMark2().trim();
+                }
+                if(softTime.get(0).getMark3() != null){
+                    mark3 = softTime.get(0).getMark3().trim();
+                    if(mark3 != ""){
+                        mark3 = mark3.split(":")[1];
+                        mark3 = mark3.replace("(","");
+                        mark3 = mark3.replace(")","");
+                    }
+                }
+                if(softTime.get(0).getMark4() != null){
+                    mark4 = softTime.get(0).getMark4().trim();
+                }
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                if(!mark1.equals("a8xd2s")){
+                    if(endtime == ""){
+                        return ResultInfo.error(-1, "工具到期，请联系我公司续费");
+                    }
+                    if(mark2 == ""){
+                        return ResultInfo.error(-1, "服务器到期，请联系我公司续费");
+                    }
+                    Date enddate = sdf.parse(endtime);
+                    Date fuwudate = sdf.parse(mark2);
+                    Date now = new Date();
+                    String this_time = sdf.format(now);
+                    now = sdf.parse(this_time);
+                    if(now.getTime() > enddate.getTime()){
+                        return ResultInfo.error(-1, "工具到期，请联系我公司续费");
+                    }
+                    if(now.getTime() > fuwudate.getTime()){
+                        return ResultInfo.error(-1, "服务器到期，请联系我公司续费");
+                    }
+                }
+//
+            }
+
             Map<String, Object> map = iUserInfoService.login(username, password, company);
             //为Null则查询不到
             if (StringUtils.isEmpty(map)) {
@@ -66,6 +124,7 @@ public class UserInfoController{
                 return ResultInfo.error(-1, "用户名密码错误或账号被锁定");
             } else {
                 SessionUtil.setToken(session, map.get("token").toString());
+                SessionUtil.setUserNum(session, StringUtils.cast(mark3));
                 return ResultInfo.success("登陆成功", null);
             }
         } catch (Exception e) {
@@ -122,6 +181,17 @@ public class UserInfoController{
         String[] token_list = token.split(",");
         token_list = token_list[5].split("\"");
         String login_company = token_list[3];
+
+        String userNum = SessionUtil.getUserNum(session);
+        if(userNum != ""){
+            int num = Integer.parseInt(userNum);
+            List<UserInfo> NumList = iUserInfoService.getUserNum(login_company);
+            int thisNum = NumList.get(0).getId();
+            if(thisNum >= num){
+                return ResultInfo.error("已有账号数量过多，请删除无用账号后再试", null);
+            }
+        }
+
         UserInfo iuser = new UserInfo();
         try{
             iuser.setName(name);

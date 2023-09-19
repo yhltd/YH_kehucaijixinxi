@@ -39,6 +39,12 @@ public class SessionUtil {
         session.setAttribute("token", data);
     }
 
+    public static void setUserNum(HttpSession session, String data) {
+        //设置session过期时间
+        session.setMaxInactiveInterval(MAX_INTERVAL);
+        session.setAttribute("userNum", data);
+    }
+
     /**
      * get
      * @param session session对象
@@ -48,6 +54,11 @@ public class SessionUtil {
 //        return checkToken(session) ? session.getAttribute("token").toString() : StringUtils.EMPTY;
         return StringUtils.cast(session.getAttribute("token"));
     }
+
+    public static String getUserNum(HttpSession session){
+        return StringUtils.cast(session.getAttribute("userNum"));
+    }
+
 
     /**
      * 删除某个键

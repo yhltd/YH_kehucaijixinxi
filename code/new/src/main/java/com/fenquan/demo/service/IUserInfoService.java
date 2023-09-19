@@ -17,6 +17,13 @@ public interface IUserInfoService {
     List<UserInfo> get_select_List();
 
     /**
+     * 查询账号数量
+     *
+     * @return 信息集合
+     */
+    List<UserInfo> getUserNum(String company);
+
+    /**
      * 查询人员下拉
      *
      * @return 信息集合
