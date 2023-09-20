@@ -20,13 +20,13 @@ public interface FormCreateMapper extends BaseMapper<FormCreate> {
     @Select("select id,form_name,form_type,insert_date,create_name,form_state,company,update_date from form_create where company = #{company}")
     List<FormCreate> getList(String company);
 
-    @Select("select id,form_name,form_type,insert_date,create_name,form_state,company,update_date from form_create from form_create where company = #{company} and form_name like '%' + #{query} + '%'")
+    @Select("select id,form_name,form_type,insert_date,create_name,form_state,company,update_date  from form_create where company = #{company} and form_name like '%' + #{query} + '%'")
     List<FormCreate> queryList(String company,String query);
 
-    @Select("select id,form_name,form_type,insert_date,create_name,form_state,company,update_date from form_create from form_create where company = #{company} and create_name = #{create}")
+    @Select("select id,form_name,form_type,insert_date,create_name,form_state,company,update_date  from form_create where company = #{company} and create_name = #{create}")
     List<FormCreate> getListByName(String company,String create);
 
-    @Select("select id,form_name,form_type,insert_date,create_name,form_state,company,update_date from form_create from form_create where company = #{company} and create_name = #{create} and form_name like '%' + #{query} + '%'")
+    @Select("select id,form_name,form_type,insert_date,create_name,form_state,company,update_date from form_create where company = #{company} and create_name = #{create} and form_name like '%' + #{query} + '%'")
     List<FormCreate> queryListByName(String company,String create,String query);
 
     @Select("select * from form_create where id = #{id}")

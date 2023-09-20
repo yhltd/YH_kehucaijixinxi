@@ -128,8 +128,8 @@ html{
 }
 
 .bootstrap-table .fixed-table-container .table tbody tr.selected td {
-    background-color: rgb(76, 178, 255)
-/*    background-color: rgba(0, 0, 0, 0.075)*/
+    /*background-color: #f9f2f4;*/
+    background-color: rgba(0, 0, 0, 0.085)
 }
 
 .bootstrap-table .fixed-table-container .table tbody tr.no-records-found {

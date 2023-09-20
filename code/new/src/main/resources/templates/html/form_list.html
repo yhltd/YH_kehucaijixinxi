@@ -8,9 +8,9 @@
     <script type="text/javascript" src="../js/jquerysession.js"></script>
 
 
-    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/icons/bootstrap-icons.css">
-    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap-3.3.7-dist/icons/bootstrap-icons.css">
+    <script type="text/javascript" src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
     <!--bootstrap-table-->
     <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap-table.css">
@@ -28,61 +28,43 @@
 </head>
 
 <body class="pt-2">
-<div class="top-toolbar row">
-    <div class="col-md-3 mb-2">
-        <input id="query" type="text" class="form-control" placeholder="表单名称" autocomplete="off">
+
+
+<div id="table-toolbar" >
+    <div class="top-toolbar row" style="width: 50%">
+        <div class="col-md-3 mb-2">
+            <input id="query" type="text" class="form-control" placeholder="表单名称" autocomplete="off">
+        </div>
+        <div class="col-md-2 mb-2" >
+            <button id="select-btn" class="btn btn-info">
+                <i class="glyphicon glyphicon-search"></i>
+                查询
+            </button>
+
+        </div>
+
     </div>
-    <div class="col-md-2 mb-2" style="width: 500px">
-        <button id="select-btn" class="btn btn-info">
-            <i class="bi bi-search icon"></i>
-            查询
+    <div class="btn-group" role="group">
+        <button id="refresh-btn" class="btn btn-default">
+            <i class="	glyphicon glyphicon-repeat"></i>
+            刷新
+        </button>
+        <button id="update-btn" class="btn btn-default">
+            <i class="	glyphicon glyphicon-pencil"></i>
+            修改
+        </button>
+        <button id="add-btn" class="btn btn-default">
+            <i class="glyphicon glyphicon-plus"></i>
+            创建表单
         </button>
 
-    </div>
-    <div id="table-toolbar">
-<!--        <div class="btn-group" role="group">-->
-            <button id="refresh-btn" type="button" class="btn btn-info">
-                <i class="bi bi-arrow-clockwise icon"></i>
-                刷新
-            </button>
-            <button id="add-btn"  type="button"  class="btn btn-info">
-                <i class="bi bi-plus-square icon"></i>
-                创建表单
-            </button>
-<!--            <button id="update-btn" class="btn btn-info">-->
-<!--                <i class="bi bi-pencil-square icon"></i>-->
-<!--                修改-->
-<!--            </button>-->
-<!--            <button id="delete-btn" class="btn btn-info">-->
-<!--                <i class="bi bi-trash icon"></i>-->
-<!--                删除-->
-<!--            </button>-->
-<!--            <a id="biaoqian" class="btn btn-info" style="color: white;padding-top: 8px">当前页：表单列表</a>-->
-<!--        </div>-->
-    </div>
-</div>
-
-<!--<div id="table-toolbar">-->
-<!--    <div class="btn-group" role="group">-->
-<!--        <button id="refresh-btn" class="btn btn-info">-->
-<!--            <i class="bi bi-arrow-clockwise icon"></i>-->
-<!--            刷新-->
-<!--        </button>-->
-<!--        <button id="add-btn" class="btn btn-info">-->
-<!--            <i class="bi bi-plus-square icon"></i>-->
-<!--            新增-->
-<!--        </button>-->
-<!--        <button id="update-btn" class="btn btn-info">-->
-<!--            <i class="bi bi-pencil-square icon"></i>-->
-<!--            修改-->
-<!--        </button>-->
-<!--        <button id="delete-btn" class="btn btn-info">-->
+<!--        <button id="delete-btn" class="btn btn-default">-->
 <!--            <i class="bi bi-trash icon"></i>-->
 <!--            删除-->
 <!--        </button>-->
-<!--        <a id="biaoqian" class="btn btn-info" style="color: white;padding-top: 8px">当前页：表单列表</a>-->
-<!--    </div>-->
-<!--</div>-->
+<!--        <a id="biaoqian" class="btn btn-default" style="padding-top: 8px">当前页：表单列表</a>-->
+    </div>
+</div>
 
 <div class="table-div border-top">
     <table id="labelTable"></table>
