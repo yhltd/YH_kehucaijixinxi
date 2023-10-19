@@ -34,8 +34,8 @@ function getList() {
                 head_pic = res.data[0].headImg
             }
             if(res.data[0].bodyImg != ""){
-                $('body').css('background','url(' + res.data[0].bodyImg + ') no-repeat')
-                $('body').css('background-size','cover')
+                $('.container-fluid').css('background','url(' + res.data[0].bodyImg + ') no-repeat')
+                $('.container-fluid').css('background-size','cover')
                 body_pic = res.data[0].bodyImg
             }
 
@@ -209,7 +209,7 @@ $(function () {
 
     $('#body_delete').click(function () {
         fileType = "body"
-        $('body').css('background','')
+        $('container-fluid').css('background','')
         body_pic = ""
     });
 
@@ -229,8 +229,8 @@ $(function () {
                 $('.set-til.col-md-10').css('background-size','cover')
             }else if(fileType = 'body'){
                 body_pic = this_file
-                $('body').css('background','url(' + this_file + ') no-repeat')
-                $('body').css('background-size','cover')
+                $('.container-fluid').css('background','url(' + this_file + ') no-repeat')
+                $('.container-fluid').css('background-size','cover')
             }
             $('#pic_file').val('')
         };

@@ -10,9 +10,8 @@
     </parent>
     <groupId>com.fenquan</groupId>
     <artifactId>demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>yh_kehuxinxicaiji</version>
     <name>demo</name>
-    <packaging>war</packaging>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
@@ -157,7 +156,7 @@
     </dependencies>
 
     <build>
-        <finalName>office_system_war exploded2</finalName>
+        <finalName>yh_kehuxinxicaiji</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
