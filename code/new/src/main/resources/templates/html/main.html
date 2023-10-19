@@ -17,6 +17,10 @@
     .nav navbar-nav li a:hover{
         cursor: pointer;
     }
+    body{
+        width:100%;
+        height: 100%;
+    }
 
     </style>
 </head>
@@ -24,14 +28,14 @@
  <nav class="navbar navbar-default navbar-fixed-top"  class="navbar navbar-dark  bg-dark" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header" >
-                <img src="../img/1.png" width="30" height="30" style="float:left;margin-top:8px; margin-right:10px"> <a class="navbar-brand"  data-src="main-item.html">云合未来信息采集系统</a>
+                <img src="../img/1.png"  style="float:left;width:30px ; height:30px;margin-top:8px; margin-right:10px"> <a class="navbar-brand"  data-src="main-item.html">云合未来信息采集系统</a>
             </div>
-            <div>
-                <ul class="nav navbar-nav">
+            <div style="float: left ;width: 77%;margin-left: 5%">
+                <ul class="nav navbar-nav" >
                     <li ><a data-src="form_list.html" style="cursor: pointer">表单</a></li>
                     <li ><a href="#" >联系人</a></li>
                     <li ><a href="#">小程序</a></li>
-                    <li style="float: left; width: 400px ;margin-top: 8px;margin-left:100px;margin-right: 250px" >
+                    <li style="float: left; width: 50% ;margin-top: 8px;margin-left:100px;" >
                         <form class="bs-example bs-example-form" role="form">
                             <div class="row">
                                 <div class="col-lg-6">
@@ -45,7 +49,7 @@
                             </div><!-- /.row -->
                         </form>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown" style="margin-right: 2%;margin-left: 7%">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             个人中心 <b class="caret"></b>
                         </a>
@@ -65,7 +69,7 @@
 </nav>
 
 
-<div class="embed-responsive embed-responsive-1by1 h-100" style="position: absolute;top:50px;width: 1366px;height: 575px">
+<div class="embed-responsive embed-responsive-1by1 h-100" style="position: absolute;top:50px;width: 100%;height: 92%">
     <iframe id="iframe" class="embed-responsive-item" src="main-item.html" width="100%" height="100%" frameborder="no"></iframe>
 </div>
 
