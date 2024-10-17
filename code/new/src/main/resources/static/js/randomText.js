@@ -203,13 +203,15 @@ $(function () {
     });
 
     $('#body_insert').click(function () {
-        $('#pic_file').trigger('click');
         fileType = "body"
+        $('#pic_file').trigger('click');
+        //fileType = "body"
     });
 
     $('#body_delete').click(function () {
         fileType = "body"
-        $('container-fluid').css('background','')
+        // $('#container-fluid').css('background','')
+        $('.col-md-12.column').css('background','')
         body_pic = ""
     });
 
@@ -229,8 +231,11 @@ $(function () {
                 $('.set-til.col-md-10').css('background-size','cover')
             }else if(fileType = 'body'){
                 body_pic = this_file
-                $('.container-fluid').css('background','url(' + this_file + ') no-repeat')
-                $('.container-fluid').css('background-size','cover')
+
+                $('.col-md-12.column').css('background','url(' + this_file + ') no-repeat')
+                $('.col-md-12.column').css('background-size','cover')
+                // $('.container-fluid').css('background','url(' + this_file + ') no-repeat')
+                // $('.container-fluid').css('background-size','cover')
             }
             $('#pic_file').val('')
         };

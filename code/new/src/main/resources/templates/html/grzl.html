@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <script type="text/javascript" src="../js/Jquery.js"></script>
+    <script type="text/javascript" src="../js/jquerysession.js"></script>
+
+
+    <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap-3.3.7-dist/icons/bootstrap-icons.css">
+    <script type="text/javascript" src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+    <!--bootstrap-table-->
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap-table.css">
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-table.js"></script>
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/colResizable-1.6.js"></script>
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-table-resizable.js"></script>
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-tagsinput.min.js"></script>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap-tagsinput.css">
+
+    <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/grxx.js"></script>
+    <style>
+        hr {
+            border: none;
+            border-top: 2px solid black;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .ziti {
+            font-size: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="bg-image2">
+
+<div class="top-toolbar row" style="background-color: white">
+    <div id="table-toolbar" style="float: left">
+        <div class="btn-group" role="group">
+
+            <button id="update-btn" class="btn btn-default" style="background-color: #0d8ddb;width: 90px;border: 1px;color: white;font-weight: bold;margin-top: 5px;margin-left: 3px">
+                <i class="bi bi-pencil-square icon"></i>
+                修改
+            </button>
+
+            <a id="biaoqian" class="btn btn-default" style="padding-top: 8px;margin-left: 10px;margin-top: 2px">当前页：个人信息</a>
+        </div>
+    </div>
+</div>
+<!--<div class="table-div border-top">-->
+<!--    <table id="labelTable"></table>-->
+<!--</div>-->
+
+
+<div id="update-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">编辑</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="update-form" class="needs-validation">
+                    <div class="form-group">
+                        <input id="id" name="id" type="hidden">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-name">姓名</label>
+                        <input id="update-name" name="name" type="text" class="form-control" autocomplete="off"
+                               style="width:100%">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-username">账号</label>
+                        <input id="update-username" name="username" type="text" class="form-control" autocomplete="off"
+                               style="width:100%">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-password">密码</label>
+                        <input id="update-password" name="password" type="text" class="form-control" autocomplete="off"
+                               style="width:100%">
+                    </div>
+                    <div class="form-group" hidden="hidden">
+                        <label for="update-power" hidden="hidden">权限</label>
+                        <select id="update-power" name="power" class="form-control" hidden="hidden">
+                            <option value="管理员">管理员</option>
+                            <option value="用户">用户</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="update-submit-btn" type="button" class="btn btn-primary">
+                    <i class="bi bi-arrow-bar-up icon"></i>
+                    提交
+                </button>
+                <button id="update-close-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="delete-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">提示</div>
+            </div>
+            <div id="delete-modal-body" class="modal-body">
+                确定删除吗？
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="delete-submit-btn" type="button" class="btn btn-primary">
+                    <i class="bi bi-arrow-bar-up icon"></i>
+                    确定
+                </button>
+                <button id="delete-close-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+<table style="margin: auto ;margin: auto; background-color: rgba(255, 255, 255, 0.5); border-radius: 20px; width: 400px; height: 400px">
+    <tr>
+        <td colspan="6"><div style="width: 100%;text-align: center"><img src="../img/tx9876.jpg" width="50px" height="50px"></div></td>
+    </tr>
+    <tr>
+
+        <td></td>
+        <td class="ziti" colspan="2">用户名:&nbsp;</td>
+        <td><input id="yhm" readonly class="ziti"
+                   style="background-color: transparent;border-right: 0px;border-top: 0px;border-left:0px"></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+
+        <td></td>
+        <td class="ziti" colspan="2">账号:&nbsp;</td>
+        <td><input id="zh" readonly class="ziti"
+                   style="background-color: transparent;border-right: 0px;border-top: 0px;border-left:0px"></td>
+
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+
+        <td></td>
+        <td class="ziti" colspan="2">密码:&nbsp;</td>
+        <td><input id="mm" readonly class="ziti"
+                   style="background-color: transparent;border-right: 0px;border-top: 0px;border-left:0px"></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr hidden="hidden">
+        <td></td>
+        <td></td>
+        <td class="ziti">密码</td>
+        <td><input id="power" hidden="hidden" class="ziti" style="opacity:0;"></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr hidden="hidden">
+        <td></td>
+        <td></td>
+        <td class="ziti">密码</td>
+        <td><input id="id123" hidden="hidden" class="ziti" style="opacity:0;"></td>
+        <td></td>
+        <td></td>
+    </tr>
+
+</table>
+
+</body>
+</html>

@@ -59,6 +59,7 @@
             <scope>runtime</scope>
         </dependency>
 
+
         <!--spring boot 单元测试-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -152,7 +153,22 @@
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
             <version>3.5.2</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.3.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.3.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin.external.google</groupId>
+            <artifactId>android-json</artifactId>
+            <version>0.0.20131108.vaadin1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

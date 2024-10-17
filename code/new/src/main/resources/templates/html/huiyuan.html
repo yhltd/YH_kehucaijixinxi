@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会员中心</title>
+    <script type="text/javascript" src="../js/Jquery.js"></script>
+    <script type="text/javascript" src="../js/jquerysession.js"></script>
+
+
+    <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <!--    <link rel="stylesheet" href="../bootstrap-3.3.7-dist/icons/bootstrap-icons.css">-->
+    <script type="text/javascript" src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+    <!--bootstrap-table-->
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap-table.css">
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-table.js"></script>
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/colResizable-1.6.js"></script>
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-table-resizable.js"></script>
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-tagsinput.min.js"></script>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap-tagsinput.css">
+
+    <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/huiyuan.js"></script>
+    <style>
+        /* 自定义进度条样式 */
+        progress {
+            width: 100%;
+            height: 20px;
+            color: #555;
+            background-color: #eee;
+            border: none;
+            border-radius: 3px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) inset;
+        }
+
+        /* 已完成部分的样式 */
+        progress::-webkit-progress-value {
+            background-color: #2ecc71;
+        }
+
+        /* 未完成部分的样式 */
+        progress::-webkit-progress-bar {
+            background-color: #eee;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+        .ziti{
+            font-size: 15px;
+
+            font-weight: bold;
+        }
+        .beijing{
+            background: url("static/img/beijing.jpg")center fixed;
+            background-size: cover;"
+        }
+    </style>
+
+
+</head>
+
+<body class="bg-image1">
+<div id="table-toolbar" >
+    <div class="top-toolbar row" style="width: 50%">
+        <div class="col-md-3 mb-2 ziti">
+           会员中心
+        </div>
+    </div>
+
+</div>
+<hr/>
+<div class="ziti" style="margin-left:50px ">空间管理</div>
+<hr/>
+<div>
+    <table style="width: 90%;margin: auto">
+        <tr>
+            <td class="ziti">0%</td>
+            <td colspan="6"></td>
+            <td class="ziti">100%</td>
+        </tr>
+        <tr>
+            <td colspan="8"><progress value="1" max="100"> </progress></td>
+        </tr>
+        <tr>
+            <td><span class="ziti">基础空间：</span><span class="ziti">500MB</span></td>
+            <td></td>
+            <td>|</td>
+            <td><span class="ziti">已使用</span></td>
+            <td><span class="ziti">剩余可用</span></td>
+            <td></td>
+            <td></td>
+
+            <td><button class="ziti">购买空间</button></td>
+        </tr>
+        <tr>
+            <td><span class="ziti">已购空间：</span><span class="ziti">0MB</span></td>
+            <td></td>
+            <td>|</td>
+            <td><span class="ziti">1MB </span></td>
+            <td><span class="ziti">499MB</span></td>
+
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+<div>
+</div>
+<br>
+<br>
+<br>
+<div  style="margin-left:50px " class="ziti">邮件服务</div>
+<hr>
+
+<div>
+
+    <table style="width: 90%;margin: auto">
+        <tr>
+            <td class="ziti" colspan="2">已累计为您成功投递了0封邮件</td>
+
+            <td>|</td>
+            <td class="ziti">剩余可用配额：0</td>
+            <td colspan="3"></td>
+            <td class="ziti"><button>邮件配额</button></td>
+        </tr>
+
+    </table>
+</div>
+<div>
+</div>
+<br>
+<br>
+<br>
+
+<div style="margin-left:50px " class="ziti">短信服务</div>
+<hr>
+
+<div>
+
+    <table style="width: 90%;margin: auto">
+        <tr>
+            <td class="ziti" colspan="2">购买配额可供所有短信服务消费</td>
+
+            <td>|</td>
+            <td class="ziti">剩余可用配额</td>
+            <td colspan="3"></td>
+            <td><button class="ziti">购买短信服务</button></td>
+        </tr>
+
+    </table>
+</div>
+
+
+
+
+
+</body>
+</html>

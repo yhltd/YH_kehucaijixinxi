@@ -161,6 +161,25 @@ table{
     background: url("../img/dlbg.jpg") center fixed;
     background-size: cover;
 }
+.bg-image1{
+    background: url("../img/beijing.jpg");
+    background-size: cover;
+    background-repeat: no-repeat; /* 背景图片不重复 */
+    background-position: center; /* 背景图片居中 */
+}
+.bg-image2{
+    background: url("../img/bangong.jpg");
+    background-size: cover;
+    background-repeat: no-repeat; /* 背景图片不重复 */
+    background-position: center; /* 背景图片居中 */
+}
+table123 {
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: rgba(255, 255, 255, 0.5); /* 半透明白色 */
+    border-radius: 10px; /* 圆角半径 */
+    overflow: hidden;
+}
 @keyframes blink {
     0% {
         text-shadow: none;

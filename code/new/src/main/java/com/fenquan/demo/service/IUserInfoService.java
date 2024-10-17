@@ -45,7 +45,10 @@ public interface IUserInfoService {
      * 登录查询
      */
     List<UserInfo> queryC(String company);
-
+    /**
+     * 登录查询
+     */
+    List<UserInfo> queryC1(String company,String username);
     /**
      * 登录查询
      */
@@ -68,4 +71,5 @@ public interface IUserInfoService {
      * @return 是否删除成功
      */
     boolean delete(List<Integer> idList);
+    boolean update1(String name, String username, String password,String power,int id);
 }

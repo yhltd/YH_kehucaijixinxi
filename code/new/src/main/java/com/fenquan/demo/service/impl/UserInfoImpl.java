@@ -64,6 +64,11 @@ public class UserInfoImpl extends ServiceImpl<UserInfoMapper, UserInfo> implemen
     public List<UserInfo> queryC(String query) {return userInfoMapper.queryC(query);}
 
     @Override
+    public List<UserInfo> queryC1(String company, String username) {
+        return userInfoMapper.queryC1(company,username);
+    }
+
+    @Override
     public List<UserInfo> queryC_Inquire(String company,String query) {
         return userInfoMapper.queryC_Inquire(company,query);
     }
@@ -80,5 +85,12 @@ public class UserInfoImpl extends ServiceImpl<UserInfoMapper, UserInfo> implemen
     public boolean delete(List<Integer> idList) {
         return removeByIds(idList);
     }
+
+    @Override
+    public boolean update1(String name, String username, String password, String power,int id) {
+        return userInfoMapper.update(name,username,password,power,id);
+    }
+
+
 
 }

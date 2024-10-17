@@ -141,18 +141,56 @@ public class UserInfoController{
     @RequestMapping("/queryC")
     public ResultInfo queryC(HttpSession session){
         String token = SessionUtil.getToken(session);
+        System.out.println(token);
+        System.out.println("---------------------------------------------------");
         String[] token_list = token.split(",");
-        token_list = token_list[5].split("\"");
-        String login_company = token_list[3];
+        //token_list = token_list[5].split("\"");
+       // String login_company = token_list[3];
+        String login_company = token_list[5].split("\"")[3];
+        String power = token_list[4].split("\"")[3];
+        System.out.println("Power: " + power);
+// 获取username
+        String username = token_list[2].split("\"")[3];
+        System.out.println("Username: " + username);
+        System.out.println("---------------------------------------------------");
         try {
-            List<UserInfo> queryC=iUserInfoService.queryC(login_company);
-            return ResultInfo.success("查询成功!",queryC);
+            if (power.equals("管理员")) {
+                List<UserInfo> queryC = iUserInfoService.queryC(login_company);
+                return ResultInfo.success("查询成功!",queryC);
+            }else{
+                List<UserInfo> queryC = iUserInfoService.queryC1(login_company,username);
+                return ResultInfo.success("查询成功!",queryC);
+            }
         }catch (Exception e){
             log.error("查询失败：{}",e.getMessage());
             return ResultInfo.error("错误!");
         }
     }
+    @RequestMapping("/queryC3")
+    public ResultInfo queryC3(HttpSession session){
+        String token = SessionUtil.getToken(session);
+        System.out.println(token);
+        System.out.println("---------------------------------------------------");
+        String[] token_list = token.split(",");
+        //token_list = token_list[5].split("\"");
+        // String login_company = token_list[3];
+        String login_company = token_list[5].split("\"")[3];
+        String power = token_list[4].split("\"")[3];
+        System.out.println("Power: " + power);
+// 获取username
+        String username = token_list[2].split("\"")[3];
+        System.out.println("Username: " + username);
+        System.out.println("---------------------------------------------------");
+        try {
 
+                List<UserInfo> queryC = iUserInfoService.queryC1(login_company,username);
+                return ResultInfo.success("查询成功!",queryC);
+
+        }catch (Exception e){
+            log.error("查询失败：{}",e.getMessage());
+            return ResultInfo.error("错误!");
+        }
+    }
     /*
      *人员信息页面条件查询
      * */
@@ -160,11 +198,22 @@ public class UserInfoController{
     public ResultInfo queryC_Inquire(HttpSession session,String query){
         String token = SessionUtil.getToken(session);
         String[] token_list = token.split(",");
-        token_list = token_list[5].split("\"");
-        String login_company = token_list[3];
+//        token_list = token_list[5].split("\"");
+//        String login_company = token_list[3];
+        String login_company = token_list[5].split("\"")[3];
+        String power = token_list[4].split("\"")[3];
+        System.out.println("Power: " + power);
+// 获取username
+        String username = token_list[2].split("\"")[3];
+        System.out.println("Username: " + username);
+        System.out.println("---------------------------------------------------");
         try {
-            List<UserInfo> queryC_Inquire=iUserInfoService.queryC_Inquire(login_company,query);
-            return ResultInfo.success("查询成功!",queryC_Inquire);
+            if(power.equals("管理员")) {
+                List<UserInfo> queryC_Inquire = iUserInfoService.queryC_Inquire(login_company, query);
+                return ResultInfo.success("查询成功!", queryC_Inquire);
+            }else{
+                return ResultInfo.error("非管理员只能查看自己!");
+            }
         }catch (Exception e){
             log.error("查询失败：{}",e.getMessage());
             return ResultInfo.error("错误!");
@@ -234,7 +283,29 @@ public class UserInfoController{
             return ResultInfo.error("修改失败");
         }
     }
+    @RequestMapping(value = "/update1", method = RequestMethod.POST)
+    public ResultInfo update1(int id,String name,String username,String password,
+                              String power){
 
+        try{
+            System.out.println("-----------------------------------------");
+            System.out.println(id);
+            System.out.println(name);
+            System.out.println(username);
+            System.out.println(power);
+            System.out.println(password);
+            System.out.println("-----------------------------------------");
+            if (iUserInfoService.update1(name,username,password,power,id)) {
+                return ResultInfo.success("修改成功");
+            } else {
+                return ResultInfo.success("修改失败");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("修改失败：{}", e.getMessage());
+            return ResultInfo.error("修改失败");
+        }
+    }
 
     /*
      *删除

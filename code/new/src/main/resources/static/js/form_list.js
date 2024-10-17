@@ -13,8 +13,28 @@ function getList() {
         }
     })
 }
-
-
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+function clearCookie(name) {
+    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
 $(function () {
     //刷新
     getList();
@@ -300,6 +320,9 @@ function setTable(data) {
             } else {
                 $(el).addClass('selected')
             }
+            pass5(row.id)
+            // var url = getCookie("url")
+            // alert(url)
         }
 
     })
@@ -396,7 +419,30 @@ function pass4(id) {
     if(formState != "可收集"){
         alert("此表单不可收集")
     }else{
+     getList()
+        clearCookie("url")
         var iframeUrl = window.top.location.href.replace("main.html","form_tianbao.html") + "?id=" + id
         alert(iframeUrl)
+        setCookie("url", iframeUrl, 1); // 设置过期时间为7天
+
+    }
+
+}
+function pass5(id) {
+    var formState = ""
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].id == id) {
+            formState = list[i].formState
+            break;
+        }
+    }
+    if (formState != "可收集") {
+
+    } else {
+        getList()
+        clearCookie("url")
+        var iframeUrl = window.top.location.href.replace("main.html", "form_tianbao.html") + "?id=" + id
+        setCookie("url", iframeUrl, 1); // 设置过期时间为7天
+
     }
 }
