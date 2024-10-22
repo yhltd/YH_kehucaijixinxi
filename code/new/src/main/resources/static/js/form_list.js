@@ -197,10 +197,17 @@ function setTable(data) {
         pageSize : 8,//单页记录数
         clickToSelect: true,
         locale: 'zh-CN',
+        checkbox: true,
         // toolbar: '#table-toolbar',
         toolbarAlign: 'left',
         theadClasses: "thead-light",//这里设置表头样式
         columns: [
+            {
+                field: 'state',
+                checkbox: true,
+                align: 'center',
+                valign: 'middle'
+            },
             {
                 field: 'id',
                 title: '序号',
@@ -314,12 +321,12 @@ function setTable(data) {
         ],
 
         onClickRow: function (row, el) {
-            let isSelect = $(el).hasClass('selected')
-            if (isSelect) {
-                $(el).removeClass('selected')
-            } else {
-                $(el).addClass('selected')
-            }
+             let isSelect = $(el).hasClass('selected')
+            // if (isSelect) {
+            //     $(el).removeClass('selected')
+            // } else {
+            //     $(el).addClass('selected')
+            // }
             pass5(row.id)
             // var url = getCookie("url")
             // alert(url)
