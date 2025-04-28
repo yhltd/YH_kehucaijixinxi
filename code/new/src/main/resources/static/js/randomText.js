@@ -730,7 +730,8 @@ $(document).on("click", ".edit-link", function(ev) {
                             $(this).focus();
                             return false;
                         } else {
-                            option += '<label class="radio-inline"><input type="checkbox" name="' + $(this).val() + '"> ' + $(this).val() + '</label>';
+                            // option += '<label class="radio-inline"><input type="checkbox" name="' + $(this).val() + '"> ' + $(this).val() + '</label>';
+                            option += '<label class="checkbox-inline"><input type="checkbox" name="' + $(this).val() + '"> ' + $(this).val() + '</label>';
                         }
                     } else {
                         if ($(this).val() == "") {
@@ -738,7 +739,8 @@ $(document).on("click", ".edit-link", function(ev) {
                             $(this).focus();
                             return false;
                         } else {
-                            option += '<label class="radio-inline"><input type="checkbox" name="' + $(this).val() + '" > ' + $(this).val() + '</label>';
+                            // option += '<label class="radio-inline"><input type="checkbox" name="' + $(this).val() + '" > ' + $(this).val() + '</label>';
+                            option += '<label class="checkbox-inline"><input type="checkbox" name="' + $(this).val() + '" > ' + $(this).val() + '</label>';
                         }
                     }
                 });
@@ -915,7 +917,7 @@ $(document).on("click", ".edit-link", function(ev) {
         }else{
             this_num = xuanxiang_num
         }
-        var str = '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">' + title + this_num + '：</label><div class="col-sm-8"><input type="text" class="form-control" value="" placeholder="请输入" + title + "></div><label class="col-sm-1 control-label"><i class="fa fa-trash-o select-del" title="删除" style="font-size:18px; cursor:pointer;"></i></label></div>';
+        var str = '<div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">' + title + this_num + '：</label><div class="col-sm-8"><input type="text" class="form-control" value="" placeholder="请输入" + title + "></div><label class="col-sm-1 control-label"><a class="remove-link"><i class="fa fa-trash-o select-del" title="删除" style="font-size:18px; cursor:pointer;"></i></a></label></div>';
         $(this).parent().parent().parent().parent().find("div[class='row tabup']").append(str);
 
     });

@@ -128,6 +128,7 @@ $(function () {
             console.log(title)
             var input = $(this).children('.form-control')
             var check = $(this).children('.radio-inline')
+            var check1 = $(this).children('.checkbox-inline')
             var city = $(this).children('.form-inline')
             var file = $(this).children('.file-input')
             var table = $(this).children('.tab02')
@@ -144,9 +145,81 @@ $(function () {
                     formdata[xunhuan] = title + $(this).val()
                     xunhuan = xunhuan + 1
                 });
-            }else if(check.length >0){
+            }
+            else if(check.length >0){
+//                 // var this_text = ""
+//                 // check.each(function(){
+//                 //     var radio = $(this).children('input')
+//                 //     radio.each(function(){
+//                 //         if($(this).attr('checked')=='checked'){
+//                 //             if(this_text == ""){
+//                 //                 this_text = $(this).val()
+//                 //             }else{
+//                 //                 this_text = this_text + "，" + $(this).val()
+//                 //             }
+//                 //         }else if($(this).is(":checked")){
+//                 //             if(this_text == ""){
+//                 //                 this_text = $(this).attr('name')
+//                 //             }else{
+//                 //                 this_text = this_text + "，" + $(this).attr('name')
+//                 //             }
+//                 //         }
+//                 //     });
+//                 // });
+//                 // if(insertText == ""){
+//                 //     insertText = title + this_text
+//                 // }else{
+//                 //     insertText = insertText + "<br/>" + title + this_text
+//                 // }
+//                 // formdata[xunhuan] = title + this_text
+//                 // xunhuan = xunhuan + 1
+//
+//
+//
+                var this_text = "";
+                check.each(function() {
+                    var group = $(this);
+                    var selectedValue = '';
+                    var selectedName = '';
+
+                    // 仅处理单选按钮
+                    group.find('input[type="radio"]').each(function() {
+                        if ($(this).is(':checked')) {
+                            selectedValue = $(this).val() || '';  // 优先取value值
+                            selectedName = $(this).attr('name');   // 保留name属性
+                            return false; // 找到第一个选中项后立即退出循环
+                        }
+                    });
+
+                    // 拼接逻辑（value优先，空值时用name替代）
+                    var displayText = selectedValue || selectedName;
+
+                    if (this_text === "") {
+                        this_text = displayText;
+                    } else {
+                        this_text += "" + displayText;
+                    }
+                });
+
+// 结果拼接逻辑
+                if (insertText === "") {
+                    insertText = title + this_text;
+                } else {
+                    insertText += "<br/>" + title + this_text;
+                }
+
+// 表单数据存储（结构化存储）
+                formdata[xunhuan] = {
+                    title: title,
+                    value: this_text
+                };
+                xunhuan++;
+
+            }
+            else if(check1.length >0){
+
                 var this_text = ""
-                check.each(function(){
+                check1.each(function(){
                     var radio = $(this).children('input')
                     radio.each(function(){
                         if($(this).attr('checked')=='checked'){
@@ -171,7 +244,9 @@ $(function () {
                 }
                 formdata[xunhuan] = title + this_text
                 xunhuan = xunhuan + 1
-            }else if(city.length > 0){
+
+            }
+            else if(city.length > 0){
                 var this_text = ""
                 var this_select = $(this).eq(0).children().eq(0).children().eq(0).children()
                 this_select.each(function(){

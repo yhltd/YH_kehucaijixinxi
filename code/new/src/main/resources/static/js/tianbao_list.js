@@ -130,38 +130,86 @@ $(function () {
             return;
         }
         $('#update-modal').modal('show');
-        var this_body = $("#update_modal_list")
-        var data = rows[0].data
-        var this_html = ""
-        console.log(rows[0].data)
-        console.log(this_body)
-        for(var i=0; i<list_len; i++){
-            if(data[i] != undefined){
-                var this_list = data[i].split("：")
-                if(this_list.length > 1){
-                    this_title = this_list[0]
+    //     var this_body = $("#update_modal_list")
+    //     var data = rows[0].data
+    //     var this_html = ""
+    //     console.log(rows[0].data)
+    //     console.log(this_body)
+    //     for(var i=0; i<list_len; i++){
+    //         if(data[i] != undefined){
+    //             var this_list = data[i].split("：")
+    //             if(this_list.length > 1){
+    //                 this_title = this_list[0]
+    //
+    //                 if(this_list[1].indexOf("```") != -1){
+    //                     this_html = this_html + "<div class=\"form-group\">\n" +
+    //                         "                    <label >" + this_list[0] + "：</label>\n" +
+    //                         '                    <a href="#" onclick="javascript:downloadFileByBase64(\'' + this_list[1].split("```")[1] + '\',\''+ this_list[1].split("```")[2] +'\')">' + this_list[1].split("```")[1] + '</a>' +
+    //                         "                </div>"
+    //                 }else{
+    //                     this_html = this_html + "<div class=\"form-group\">\n" +
+    //                         "                    <label >" + this_list[0] + "：</label>\n" +
+    //                         "                    <label style=\"margin-left: 5px\">" + this_list[1] + "</label>\n" +
+    //                         "                </div>"
+    //                 }
+    //             }else{
+    //                 this_html = this_html + "<div class=\"form-group\">\n" +
+    //                         "                    <label >" + this_list[0] + "：</label>\n" +
+    //                         "                    <label style=\"margin-left: 5px\"></label>\n" +
+    //                         "                </div>"
+    //             }
+    //         }
+    //     }
+    //     console.log(this_html)
+    //     $("#update_modal_list").html(this_html)
+    // })
+        var this_body = $("#update_modal_list");
+        var data = rows[0].data || []; // 增加空值保护
+        var this_html = "";
 
-                    if(this_list[1].indexOf("```") != -1){
-                        this_html = this_html + "<div class=\"form-group\">\n" +
-                            "                    <label >" + this_list[0] + "：</label>\n" +
-                            '                    <a href="#" onclick="javascript:downloadFileByBase64(\'' + this_list[1].split("```")[1] + '\',\''+ this_list[1].split("```")[2] +'\')">' + this_list[1].split("```")[1] + '</a>' +
-                            "                </div>"
-                    }else{
-                        this_html = this_html + "<div class=\"form-group\">\n" +
-                            "                    <label >" + this_list[0] + "：</label>\n" +
-                            "                    <label style=\"margin-left: 5px\">" + this_list[1] + "</label>\n" +
-                            "                </div>"
+        // 确保循环次数正确
+        for(var i = 0; i < list_len; i++) {
+            if(typeof data[i] === 'undefined') continue;
+
+            // 优化分割逻辑
+            var this_list = data[i].split(/[:：]/);
+
+            // 增加分割结果验证
+            if(this_list.length >= 2) {
+                var this_title = this_list[0].trim();
+                var this_value = this_list.slice(1).join("："); // 保留原始冒号类型
+
+                // 处理文件下载类型
+                if(this_value.includes("```")) {
+                    var parts = this_value.split("```");
+                    if(parts.length >= 3) {
+                        this_html += `
+                <div class="form-group">
+                    <label>${this_title}：</label>
+                    <a href="#" onclick="downloadFileByBase64('${parts[1]}', '${parts[2]}')">${parts[1]}</a>
+                </div>`;
                     }
-                }else{
-                    this_html = this_html + "<div class=\"form-group\">\n" +
-                            "                    <label >" + this_list[0] + "：</label>\n" +
-                            "                    <label style=\"margin-left: 5px\"></label>\n" +
-                            "                </div>"
+                }
+                // 处理普通文本
+                else {
+                    this_html += `
+            <div class="form-group">
+                <label>${this_title}：</label>
+                <label style="margin-left: 5px">${this_value}</label>
+            </div>`;
                 }
             }
+            // 处理无效数据格式
+            else {
+                this_html += `
+        <div class="form-group">
+            <label>${data[i]}：</label>
+            <label style="margin-left: 5px" class="text-danger">格式错误</label>
+        </div>`;
+            }
         }
-        console.log(this_html)
-        $("#update_modal_list").html(this_html)
+
+        this_body.html(this_html);
     })
 
     //修改弹窗点击关闭按钮
