@@ -111,7 +111,7 @@ a{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: -0.05rem;
+    /*margin-top: -0.05rem;*/
 }
 table{
     table-layout: fixed;
@@ -153,7 +153,8 @@ table{
     no-repeat:背景图片不平铺
     repeat:背景图片平铺
      */
-    background: url("../img/bangong.jpg") center fixed;
+    /*background: url("../img/bangong.jpg") center fixed;*/
+    background: url("../img/xinxicaiajizhuye.png") center fixed;
     background-size: cover;
 
 }
@@ -168,7 +169,7 @@ table{
     background-position: center; /* 背景图片居中 */
 }
 .bg-image2{
-    background: url("../img/bangong.jpg");
+    background: url("../img/gerenziliao.png");
     background-size: cover;
     background-repeat: no-repeat; /* 背景图片不重复 */
     background-position: center; /* 背景图片居中 */
@@ -253,3 +254,13 @@ table123 {
 #dropdownMenu1{
 
 }
+
+
+
+
+
+
+
+
+
+

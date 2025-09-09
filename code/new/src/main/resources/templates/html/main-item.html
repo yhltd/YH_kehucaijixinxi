@@ -12,10 +12,122 @@
     <link rel="stylesheet" href="../css/main.css">
 </head>
 <body class="bg-image">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: linear-gradient(135deg, #1F1C2C 0%, #2A2470 40%, #4A42B5 80%, #7678ed 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Noto Serif SC', serif;
+        color: white;
+        padding: 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1200px;
+    }
+
+    .row {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        height: 100vh;
+        flex-direction: column;
+    }
+
+    .zt {
+        text-align: center;
+        font-size: 4rem;
+        white-space: nowrap;
+        max-width: 100%;
+        font-weight: 700;
+        line-height: 1.4;
+
+        /* 深色渐变文字效果 */
+        background: linear-gradient(to right, #1a237e, #303f9f, #5e35b1);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+
+        /* 确保文字清晰 */
+        text-shadow: none;
+        filter: none;
+
+        /* 字母间距优化 */
+        letter-spacing: 2px;
+
+        /* 动画效果 */
+        animation: fadeIn 1.5s ease-out;
+    }
+
+    /* 响应式调整 */
+    @media (max-width: 768px) {
+        .zt {
+            font-size: 3rem;
+            white-space: normal;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .zt {
+            font-size: 2.2rem;
+            line-height: 1.3;
+        }
+    }
+
+    /* 动画效果 */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* 装饰元素（保持不变） */
+    .decoration {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: -1;
+        overflow: hidden;
+    }
+
+    .circle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.03);
+        animation: float 15s infinite ease-in-out;
+    }
+
+    /* 圆的位置和动画（保持不变） */
+    /* ... 省略 ... */
+
+</style>
+
 <div class="row justify-content-center align-content-center h-100">
-    <div class="col-md-5" style="text-align: center; margin-left: 400px;font-size: 4rem;white-space: nowrap;max-width: 100%">
+    <div class="col-md-5 zt" style="text-align: center; font-size: 4rem;white-space: nowrap;max-width: 100%">
         云合未来<br>
         &nbsp&nbsp愿未来更美好！
+    </div>
+    <div class="decoration">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
     </div>
 </div>
 </body>

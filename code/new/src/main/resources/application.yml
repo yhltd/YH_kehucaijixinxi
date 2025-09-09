@@ -21,6 +21,12 @@ spring:
           url: jdbc:sqlserver://bds28428944.my3w.com;DatabaseName=bds28428944_db
           username: bds28428944
           password: 07910Lyh
+        db3:
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          type: com.alibaba.druid.pool.DruidDataSource
+          url: jdbc:sqlserver://yhocn.cn;DatabaseName=yh_notice
+          username: sa
+          password: Lyh07910_001
   mvc:
     view:
       suffix: .html
