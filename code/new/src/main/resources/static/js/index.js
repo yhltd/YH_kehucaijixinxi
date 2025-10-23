@@ -64,6 +64,8 @@ $(function () {
             }, false, '', function (res) {
                 alert(res.msg)
                 if (res.code > 0) {
+                    localStorage.setItem('savedCompany', params.company);
+
                     window.location.href = "html/main.html";
                 }
             })

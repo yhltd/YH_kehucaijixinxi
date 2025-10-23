@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface PushNewsService {
     List<PushNews> getList(String companyName);
+    List<PushNews> getLogin(String companyName);
 }

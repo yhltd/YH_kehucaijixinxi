@@ -9,6 +9,7 @@ import com.fenquan.demo.util.ResultInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -41,6 +42,12 @@ public class PushNewsController {
             log.error("获取失败：{}", e.getMessage());
             return ResultInfo.error("错误!");
         }
+    }
+
+    @RequestMapping("/getlogin")
+    public ResultInfo getlogin(@RequestParam(required = false) String companyName) {
+        List<PushNews> select_list = pushNewsService.getLogin(companyName);
+        return ResultInfo.success("获取成功", select_list);
     }
 
 }

@@ -256,7 +256,10 @@ table123 {
 }
 
 
-
+.col-md-7{
+    display: flex;
+    justify-content: center;
+}
 
 
 

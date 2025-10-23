@@ -28,6 +28,7 @@ public class LoginConfig implements WebMvcConfigurer {
                 "/login.html",
                 "/user/login",
                 "/user/get_select_List",
+                "/psuhnews/getlogin",
                 "/img/**",
                 "/css/**",
                 "/js/**",

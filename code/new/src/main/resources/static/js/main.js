@@ -25,7 +25,84 @@ var carouselInterval = null;
 $(function() {
     console.log("方法调用");
     getList();
+    getLogin();
 });
+
+function getLogin(){
+    var savedCompany = localStorage.getItem('savedCompany');
+    console.log("从本地存储获取的公司名称:", savedCompany);
+    if(!savedCompany || savedCompany.trim() === "") {
+        console.log("公司名称为空，退出getLogin方法");
+        return;
+    }
+
+
+    $ajax({
+        type: 'post',
+        url: '/psuhnews/getlogin',
+        data: {
+            companyName: savedCompany
+        }
+    }, false, '', function(res) {
+        if (res.code == 200) {
+            if (res.data[0].beizhu2 && res.data[0].beizhu2.trim() !== "") {
+                var logoImage = "data:image/jpg;base64," + res.data[0].beizhu2;
+                console.log("检测到beizhu2，替换logo图片");
+
+                // 替换login页面中的logo图片
+                var logoImg = document.querySelector('.col-md-7 img');
+                if (logoImg) {
+                    logoImg.src = logoImage;
+                    console.log("logo图片已替换为:", logoImage);
+                } else {
+                    console.log("未找到logo图片元素");
+                }
+            } else {
+                console.log("未检测到beizhu2，使用默认logo");
+            }
+
+            if (res.data[0].beizhu3 && res.data[0].beizhu3.trim() !== "") {
+                var systemName = res.data[0].beizhu3;
+                console.log("检测到beizhu3，替换系统名称");
+
+                // 只替换特定的元素，避免修改title
+                var titleElement = document.querySelector('p.biaoti');
+                if (titleElement) {
+                    titleElement.textContent = systemName;
+                    console.log("系统名称已替换为:", systemName);
+                } else {
+                    console.log("未找到.biaoti标题元素");
+                }
+
+                // 如果需要更新页面标题，单独设置
+                document.title = systemName;
+            }
+            if (res.data[0].beizhu3 && res.data[0].beizhu3.trim() !== "") {
+                var systemName = res.data[0].beizhu3;
+                console.log("检测到beizhu3，替换系统名称");
+
+                // 替换login页面中的系统名称文字
+                var titleElement = document.querySelector('.col-md-7 p.biaoti');
+                if (titleElement) {
+                    titleElement.textContent = systemName;
+                    console.log("系统名称已替换为:", systemName);
+                } else {
+                    console.log("未找到.biaoti标题元素");
+                }
+
+                // 更新页面标题
+                document.title = systemName;
+            } else {
+                console.log("未检测到beizhu3，使用默认系统名称");
+            }
+
+        } else {
+            console.error("获取登录信息失败:", res.msg);
+        }
+    }, function(error) {
+        console.error("请求失败:", error);
+    });
+}
 
 function getList() {
     console.log("方法内部");
@@ -34,6 +111,49 @@ function getList() {
         url: '/psuhnews/getnews',
     }, false, '', function(res) {
         if (res.code == 200) {
+
+            // 监测beizhu2和beizhu3字段 - 添加在最开始
+            if (res.data[0].beizhu2 && res.data[0].beizhu2.trim() !== "") {
+                var logoImage = "data:image/jpg;base64," + res.data[0].beizhu2;
+                console.log("检测到beizhu2，替换logo图片");
+                // 替换main.html中的logo图片
+                var logoImg = document.querySelector('.navbar-header img');
+                if (logoImg) {
+                    logoImg.src = logoImage;
+                    console.log("导航栏logo图片已替换为:", logoImage);
+                } else {
+                    console.log("未找到导航栏logo图片元素");
+                }
+            }
+
+            if (res.data[0].beizhu3 && res.data[0].beizhu3.trim() !== "") {
+                var systemName = res.data[0].beizhu3;
+                console.log("检测到beizhu3，替换系统名称");
+
+                // 只替换main.html中导航栏的系统名称文字
+                var navbarBrand = document.querySelector('.navbar-brand');
+                if (navbarBrand) {
+                    // 直接替换文本内容
+                    if (navbarBrand.textContent.includes('云合未来信息采集系统')) {
+                        navbarBrand.textContent = navbarBrand.textContent.replace('云合未来信息采集系统', systemName);
+                        console.log("导航栏系统名称已替换为:", systemName);
+                    }
+                } else {
+                    console.log("未找到导航栏元素");
+                }
+            }
+
+
+            if (res.data[0].beizhu1 && res.data[0].beizhu1.trim() === "隐藏广告") {
+                console.log("检测到隐藏广告，隐藏轮播图容器");
+                // 隐藏两个div容器
+                $(".carousel-container").hide();
+                $(".carousel-index").hide();
+                return; // 直接返回，不执行后面的逻辑
+            }
+
+
+
             // 清除之前的定时器
             if (carouselInterval) {
                 clearInterval(carouselInterval);

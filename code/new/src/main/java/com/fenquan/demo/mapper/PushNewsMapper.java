@@ -24,4 +24,9 @@ public interface PushNewsMapper extends BaseMapper<PushNews> {
             ")")
     List<PushNews> getList(@Param("companyName") String companyName);
 
+    @Select("SELECT beizhu2,beizhu3 FROM product_pushnews " +
+            "WHERE xtname = '云合未来信息采集系统' " +
+            "AND gsname = #{companyName} " )
+    List<PushNews> getLogin(@Param("companyName") String companyName);
+
 }
