@@ -190,16 +190,29 @@ function getList() {
             tankuan = res.data[0].xuankuan;
             dingkuan = 100;
             dinggao = res.data[0].topgao;
+
+            function setIframePosition(dinggao) {
+                // 方法一：设置 CSS 变量（推荐）
+                document.documentElement.style.setProperty('--dinggao', dinggao + 'px');
+            }
+
             textboxValue = res.data[0].textbox;
             localStorage.setItem('marqueeTextValue', textboxValue);
 
             // 创建轮播图数据
+            // var carouselImages = [
+            //     { url: images[0].tptop2 || "https://picsum.photos/id/10/800/500", alt: "图1" },
+            //     { url: images[1].tptop3 || "https://picsum.photos/id/11/800/500", alt: "图2" },
+            //     { url: images[2].tptop4 || "https://picsum.photos/id/12/800/500", alt: "图3" },
+            //     { url: images[3].tptop5 || "https://picsum.photos/id/13/800/500", alt: "图4" },
+            //     { url: images[4].tptop6 || "https://picsum.photos/id/14/800/500", alt: "图5" }
+            // ];
             var carouselImages = [
-                { url: images[0].tptop2 || "https://picsum.photos/id/10/800/500", alt: "图1" },
-                { url: images[1].tptop3 || "https://picsum.photos/id/11/800/500", alt: "图2" },
-                { url: images[2].tptop4 || "https://picsum.photos/id/12/800/500", alt: "图3" },
-                { url: images[3].tptop5 || "https://picsum.photos/id/13/800/500", alt: "图4" },
-                { url: images[4].tptop6 || "https://picsum.photos/id/14/800/500", alt: "图5" }
+                { url: images[0].tptop2  },
+                { url: images[1].tptop3  },
+                { url: images[2].tptop4  },
+                { url: images[3].tptop5  },
+                { url: images[4].tptop6  }
             ];
 
             console.log(carouselImages, "轮播图图片数据");
@@ -326,10 +339,15 @@ $(window).on('beforeunload', function() {
     }
 });
 
+function setIframePosition(dinggao) {
+    // 设置 CSS 变量
+    document.documentElement.style.setProperty('--dinggao', dinggao + 'px');
 
+}
 
 function yinClick() {
     document.querySelector('.carousel-container').classList.add('hidden');  // 隐藏顶部元素
+    setIframePosition(0);
 }
 function tanClick() {
     document.querySelector('.carousel-index').classList.add('hidden');  // 隐藏弹窗元素
