@@ -44,6 +44,9 @@
             删除
         </button>
         <a id="biaoqian" class="btn btn-primary" style="color: white;padding-top: 8px">当前页：收集列表</a>
+        <button id="back-btn" class="btn btn-primary">
+            <i class="fa fa-arrow-left"></i> 返回表单列表
+        </button>
     </div>
 </div>
 
@@ -115,4 +118,18 @@
 </div>
 
 </body>
+<script>
+    $(function() {
+        // 返回按钮点击事件
+        $("#back-btn").click(function() {
+            // 返回到main.html页面
+            window.location.href = 'form_list.html';
+            // 或者使用历史记录返回
+            // window.history.back();
+        });
+
+        // 如果需要保持原来的getList等功能，继续保留原有代码
+        // ... 原有代码 ...
+    });
+</script>
 </html>

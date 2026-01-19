@@ -321,15 +321,11 @@ function setTable(data) {
         ],
 
         onClickRow: function (row, el) {
-             let isSelect = $(el).hasClass('selected')
-            // if (isSelect) {
-            //     $(el).removeClass('selected')
-            // } else {
-            //     $(el).addClass('selected')
-            // }
-            pass5(row.id)
-            // var url = getCookie("url")
-            // alert(url)
+            // 移除自定义的选中逻辑，让 Bootstrap Table 处理
+            // 直接执行业务逻辑
+            if (typeof pass5 === 'function') {
+                pass5(row.id);
+            }
         }
 
     })
@@ -435,6 +431,24 @@ function pass4(id) {
     }
 
 }
+// function pass5(id) {
+//     var formState = ""
+//     for (var i = 0; i < list.length; i++) {
+//         if (list[i].id == id) {
+//             formState = list[i].formState
+//             break;
+//         }
+//     }
+//     if (formState != "可收集") {
+//
+//     } else {
+//         getList()
+//         clearCookie("url")
+//         var iframeUrl = window.top.location.href.replace("main.html", "form_tianbao.html") + "?id=" + id
+//         setCookie("url", iframeUrl, 1); // 设置过期时间为7天
+//
+//     }
+// }
 function pass5(id) {
     var formState = ""
     for (var i = 0; i < list.length; i++) {
@@ -443,13 +457,18 @@ function pass5(id) {
             break;
         }
     }
+
     if (formState != "可收集") {
-
+        clearCookie("url");
+        // 显示提示信息
+        alert("此表单当前不可收集");
     } else {
-        getList()
-        clearCookie("url")
-        var iframeUrl = window.top.location.href.replace("main.html", "form_tianbao.html") + "?id=" + id
-        setCookie("url", iframeUrl, 1); // 设置过期时间为7天
-
+        clearCookie("url");
+        var iframeUrl = window.top.location.href.replace("main.html", "form_tianbao.html") + "?id=" + id;
+        setCookie("url", iframeUrl, 1);
+        // 可以显示成功提示，但不重新加载表格
+        console.log("表单链接已复制到cookie");
+        // 可选：显示成功提示
+        // alert("表单收集链接已准备就绪");
     }
 }

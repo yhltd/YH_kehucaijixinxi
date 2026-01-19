@@ -74,17 +74,22 @@ function getList() {
                         sortable: true,
                         width: 150,
                         formatter: function (value, row, index) {
-                            if(value.indexOf("```") != -1){
+                            // 修复：添加空值检查
+                            if (!value || typeof value !== 'string') {
+                                return '';
+                            }
+
+                            if (value.indexOf("```") != -1) {
                                 var this_text = ""
                                 var text_arr = value.split("：")
                                 this_text = text_arr[0] + "："
-                                if(text_arr.length > 1){
+                                if (text_arr.length > 1) {
                                     var text = text_arr[1].split("```")[1]
                                     this_text = this_text + text
                                 }
-                                return '<a href="#" onclick="javascript:downloadFileByBase64(\'' + text_arr[1].split("```")[1] + '\',\''+ text_arr[1].split("```")[2] +'\')">' + this_text + '</a>'
+                                return '<a href="#" onclick="javascript:downloadFileByBase64(\'' + text_arr[1].split("```")[1] + '\',\'' + text_arr[1].split("```")[2] + '\')">' + this_text + '</a>'
                                 // return this_text;
-                            }else{
+                            } else {
                                 return value;
                             }
                         }
