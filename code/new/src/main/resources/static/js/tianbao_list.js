@@ -60,7 +60,7 @@ function getList() {
                             ]
                 var arr = list[0].insertText.split("<br/>")
                 for(var i=0; i<list.length; i++){
-                    var this_arr = list[0].insertText.split("<br/>")
+                    var this_arr = list[i].insertText.split("<br/>")
                     if(arr.length < this_arr.length){
                         arr = this_arr
                     }
@@ -84,10 +84,19 @@ function getList() {
                                 var text_arr = value.split("：")
                                 this_text = text_arr[0] + "："
                                 if (text_arr.length > 1) {
-                                    var text = text_arr[1].split("```")[1]
-                                    this_text = this_text + text
+                                    //原base64方法
+                                    // var text = text_arr[1].split("```")[1]
+                                    // this_text = this_text + text
+
+                                    var text = text_arr[1].split("```")[2]
+                                    this_text = text
                                 }
-                                return '<a href="#" onclick="javascript:downloadFileByBase64(\'' + text_arr[1].split("```")[1] + '\',\'' + text_arr[1].split("```")[2] + '\')">' + this_text + '</a>'
+                                //原base64方法
+                                // return '<a href="#" onclick="javascript:downloadFileByBase64(\'' + text_arr[1].split("```")[1] + '\',\'' + text_arr[1].split("```")[2] + '\')">' + this_text + '</a>'
+                                // // return this_text;
+
+                                return '<a href="' + this_text + '" target="_blank" title="' + this_text + '">' + this_text + '</a>';
+                                // return '<a href="#" onclick="javascript:downloadFileByBase64(\'' + text_arr[1].split("```")[1] + '\',\'' + text_arr[1].split("```")[2] + '\')">' + this_text + '</a>'
                                 // return this_text;
                             } else {
                                 return value;
@@ -222,19 +231,119 @@ $(function () {
         $('#update-modal').modal('hide');
     })
 
+    //原base64方法
+    // //点击删除按钮
+    // $('#delete-btn').click(function () {
+    //     var msg = confirm("确认要删除吗？")
+    //     if (msg) {
+    //         let rows = getTableSelection("#labelTable");
+    //         if (rows.length != 1) {
+    //             alert('请选择1行要删除的数据！')
+    //             return;
+    //         }
+    //         let idList = [];
+    //         $.each(rows, function (index, row) {
+    //             idList.push(row.data.id)
+    //         })
+    //         $ajax({
+    //             type: 'post',
+    //             url: '/formShouJi/delete',
+    //             data: JSON.stringify({
+    //                 idList: idList
+    //             }),
+    //             dataType: 'json',
+    //             contentType: 'application/json;charset=utf-8'
+    //         }, false, '', function (res) {
+    //             alert(res.msg);
+    //             if (res.code == 200) {
+    //                 getList();
+    //             }
+    //         })
+    //     }
+    // })
+
     //点击删除按钮
-    $('#delete-btn').click(function () {
+    $('#delete-btn').click(async function () {  // 添加 async
         var msg = confirm("确认要删除吗？")
         if (msg) {
             let rows = getTableSelection("#labelTable");
-            if (rows.length == 0) {
-                alert('请选择要删除的数据！')
+            if (rows.length != 1) {
+                alert('请选择1行要删除的数据！')
                 return;
             }
+
             let idList = [];
+            let fileUrls = [];
+            let deletePromises = []; // 存储所有删除文件的 Promise
+
             $.each(rows, function (index, row) {
-                idList.push(row.data.id)
-            })
+                // 获取ID
+                idList.push(row.data.id);
+
+                // 获取选中行的所有链接
+                $('.selected').first().find('td a').each(function() {
+                    var $link = $(this);
+                    var onclickAttr = $link.attr('onclick');
+
+                    if (onclickAttr) {
+                        var match = onclickAttr.match(/'([^']+)',\s*'([^']+)'/);
+                        if (match && match.length >= 3) {
+                            var fileName = match[1];
+                            var fileUrl = match[2];
+
+                            fileUrls.push({
+                                fileName: fileName,
+                                fileUrl: fileUrl
+                            });
+
+                            // 分离路径和文件名
+                            const lastSlashIndex = fileUrl.lastIndexOf('/');
+                            const path = fileUrl.substring(0, lastSlashIndex + 1);
+
+                            // 存储 Promise
+                            deletePromises.push(deleteFiles(fileName, path));
+                        }
+                    }
+                });
+            });
+
+            console.log('所有文件URL:', fileUrls);
+
+            // 等待所有文件删除完成
+            if (deletePromises.length > 0) {
+                try {
+                    // 显示删除中状态
+                    $(this).prop('disabled', true);
+                    $(this).text('删除文件中...');
+
+                    // 等待所有文件删除完成
+                    const results = await Promise.all(deletePromises);
+
+                    // 检查是否有失败的
+                    const hasFailure = results.some(r => !r.success);
+
+                    if (hasFailure) {
+                        alert('部分文件删除失败，是否继续删除记录？');
+                        // 可以选择继续或返回
+                    }
+
+                } catch (error) {
+                    console.error('文件删除过程出错:', error);
+                    alert('文件删除过程出错，请重试');
+                    $(this).prop('disabled', false);
+                    $(this).text('删除');
+                    return;
+                }
+            }
+
+            // 所有文件删除完成后，执行原来的删除逻辑
+            console.log('文件删除完成，开始删除记录:', idList);
+
+            // 恢复按钮状态
+            $(this).prop('disabled', true);
+            $(this).text('删除中...');
+
+            // 原来的删除逻辑
             $ajax({
                 type: 'post',
                 url: '/formShouJi/delete',
@@ -248,11 +357,87 @@ $(function () {
                 if (res.code == 200) {
                     getList();
                 }
-            })
+                // 恢复按钮状态
+                $('#delete-btn').prop('disabled', false);
+                $('#delete-btn').text('删除');
+            });
         }
-    })
+    });
 
 })
+
+async function deleteFiles(orderNumber,path) {
+    try {
+
+
+        if (orderNumber.includes('.')) {
+            cleanOrderNumber = orderNumber.split('.')[0];
+
+        }
+
+        const params = new URLSearchParams({
+            order_number: cleanOrderNumber,
+            path:"/xinxicaiji/"
+        });
+
+        // 尝试两种可能的端口
+        const endpoints = [
+            'https://yhocn.cn:9097/file/delete'
+        ];
+
+        let success = false;
+        let errorMessage = '所有接口都不可用';
+        let result;
+
+        // 尝试所有可能的端点
+        for (const baseUrl of endpoints) {
+            const url = `${baseUrl}?${params.toString()}`;
+            console.log('尝试请求URL:', url);
+
+            try {
+                // 先尝试POST
+                let response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+
+                console.log('响应状态:', response.status);
+
+                if (response.ok) {
+                    result = await response.json();
+                    success = true;
+                    break;
+                } else {
+                    // 尝试GET
+                    const getResponse = await fetch(url, {
+                        method: 'GET'
+                    });
+
+                    if (getResponse.ok) {
+                        result = await getResponse.json();
+                        console.log('GET删除成功:', result);
+                        success = true;
+                        break;
+                    } else {
+                        errorMessage = `服务器返回错误: ${getResponse.status} ${getResponse.statusText}`;
+                    }
+                }
+            } catch (error) {
+                console.log(`${baseUrl} 请求失败:`, error.message);
+                errorMessage = `网络请求失败: ${error.message}`;
+            }
+        }
+
+        return { success, result };
+
+    } catch (error) {
+
+        return { success: false, error: error.message };
+    }
+}
+
 
 function setTable(data) {
     if ($('#labelTable').html != '') {
