@@ -65,6 +65,7 @@ $(function () {
                 alert(res.msg)
                 if (res.code > 0) {
                     localStorage.setItem('savedCompany', params.company);
+                    localStorage.setItem('storageSpace', res.data.storageSpace);
 
                     window.location.href = "html/main.html";
                 }

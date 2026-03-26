@@ -3,6 +3,8 @@ let file_panduan = true
 let isSubmitted = false;
 //自定义表单开始
 $(document).ready(function() {
+    var savedCompany = localStorage.getItem('savedCompany');
+    var storageSpaceKB = localStorage.getItem('storageSpace');
 
 });
 
@@ -387,7 +389,6 @@ $(function () {
     //         });
     //     }
     // })
-
     $("#add-submit-btn").click(async function () {
         // 防止重复提交
         if (isSubmitted) {
@@ -399,6 +400,10 @@ $(function () {
             alert('正在读取上传文件，请稍后再试');
             return;
         }
+
+        // ========== 获取存储空间限制和公司名 ==========
+        var savedCompany = localStorage.getItem('savedCompany');
+        var storageSpaceKB = localStorage.getItem('storageSpace');
 
         var formdata = {};
         var xunhuan = 1;
@@ -515,32 +520,7 @@ $(function () {
                 }
                 formdata[xunhuan] = title + this_text
                 xunhuan = xunhuan + 1
-            }else if(file.length > 0){
-                // var this_text = ""
-                // var file_list = file.eq(0).children().eq(4).children('input')[0].files
-                // console.log(file_list)
-                // var this_file = file_list[0];
-                // console.log(this_file)
-                // var fileName = ""
-                // if(this_file != undefined){
-                //     fileName = file_list[0].name;
-                //     if(insertText == ""){
-                //         insertText = title + "上传文件```" + fileName + "```" + file_obj[fileName]
-                //     }else{
-                //         insertText = insertText + "<br/>" + title + "上传文件```" + fileName + "```" + file_obj[fileName]
-                //     }
-                //     formdata[xunhuan] = title + "上传文件```" + fileName + "```" + file_obj[fileName]
-                //     xunhuan = xunhuan + 1
-                // }else{
-                //     if(insertText == ""){
-                //         insertText = title
-                //     }else{
-                //         insertText = insertText + "<br/>" + title
-                //     }
-                //     formdata[xunhuan] = title;
-                //     xunhuan = xunhuan + 1;
-                // }
-                // 获取文件输入框
+            } else if (file.length > 0) {
                 var fileInput = file.eq(0).find('input[type="file"]')[0];
                 if (fileInput && fileInput.files.length > 0) {
                     var this_file = fileInput.files[0];
@@ -548,13 +528,40 @@ $(function () {
                     var currentTitle = title;
                     var currentXunhuan = xunhuan;
 
+                    // 文件大小验证（不能超过 500MB）
+                    var maxSizeMB = 500;
+                    var maxSizeBytes = maxSizeMB * 1024 * 1024;
+                    var fileSizeMB = this_file.size / (1024 * 1024);
+
+                    if (this_file.size > maxSizeBytes) {
+                        alert("文件大小超过限制！\n当前文件: " + fileSizeMB.toFixed(2) + " MB\n最大允许: " + maxSizeMB + " MB");
+                        hasFileError = true;
+                        return false; // 跳出 each 循环
+                    }
+                    console.log("文件大小验证通过:", fileSizeMB.toFixed(2), "MB /", maxSizeMB, "MB");
+
+                    var path = "/xinxicaiji/" + savedCompany + "/";
+
                     // 创建上传任务的Promise
-                    var uploadPromise = new Promise(function (resolve, reject) {
+                    var uploadPromise = new Promise(async function (resolve, reject) {
+                        // 先检查空间
+                        try {
+                            var spaceResult = await checkTotalSpace(savedCompany, storageSpaceKB);
+                            if (!spaceResult.canUpload) {
+                                reject("存储空间不足，无法上传！");
+                                return;
+                            }
+                        } catch (error) {
+                            reject("空间检查失败: " + error);
+                            return;
+                        }
+
                         var formData = new FormData();
                         formData.append('file', this_file);
                         formData.append('name', fileName);
-                        formData.append('path', '/xinxicaiji/');
-                        formData.append('kongjian', '3');
+                        formData.append('path', path);
+                        var storageSpaceGB = (storageSpaceKB / 1024 / 1024).toFixed(0);
+                        formData.append('kongjian', storageSpaceGB);
 
                         $.ajax({
                             url: "https://yhocn.cn:9097/file/upload",
@@ -564,10 +571,7 @@ $(function () {
                             contentType: false,
                             success: function (res) {
                                 if (res.code === 200) {
-                                    // 假设服务器返回文件URL，如果没有则用默认地址
-                                    var fileUrl = res.data && res.data.url ? res.data.url :
-                                        "http://yhocn.cn:9088/xinxicaiji/" + fileName;
-
+                                    var fileUrl = "http://yhocn.cn:9088" + path + fileName;
                                     resolve({
                                         title: currentTitle,
                                         fileName: fileName,
@@ -584,7 +588,6 @@ $(function () {
                         });
                     });
 
-                    // 存储上传任务
                     uploadTasks.push({
                         promise: uploadPromise,
                         xunhuan: currentXunhuan
@@ -668,17 +671,14 @@ $(function () {
 
         // 如果有文件上传任务，等待所有上传完成
         if (uploadTasks.length > 0) {
-            // 显示上传中状态
             $(this).prop('disabled', true);
             $(this).text('上传文件中...');
 
             try {
-                // 等待所有文件上传完成
                 var uploadResults = await Promise.all(
                     uploadTasks.map(task => task.promise)
                 );
 
-                // 将上传结果添加到 insertText 和 formdata
                 uploadResults.forEach(function (result) {
                     var fileText = "上传文件```" + result.fileName + "```" + result.fileUrl;
                     if (insertText == "") {
@@ -759,6 +759,92 @@ $(function () {
     });
 
 });
+
+
+function checkTotalSpace(companyName, limitKB) {
+    return new Promise((resolve, reject) => {
+        // 并行请求数据库大小和文件夹大小
+        var dbRequest = $.ajax({
+            url: "/formShouJi/getCompanyTableSizes",
+            type: "GET",
+            data: { companyName: companyName }
+        });
+
+        var path = "/xinxicaiji/" + companyName + "/";
+        var folderRequest = $.ajax({
+            url: "https://yhocn.cn:9097/file/getFolderSize",
+            type: 'GET',
+            data: { path: path }
+        });
+
+        $.when(dbRequest, folderRequest).done(function(dbRes, folderRes) {
+            var dbData = dbRes[0];
+            var folderData = folderRes[0];
+
+            // 检查数据库请求是否成功
+            if (dbData.code !== 200) {
+                reject("获取数据库大小失败: " + (dbData.msg || "未知错误"));
+                return;
+            }
+
+            var dbSizeKB = dbData.data.totalSizeKB;
+            var folderSizeKB = 0;
+
+            // 检查文件夹请求结果
+            if (folderData.code === 200) {
+                // 文件夹存在，获取大小
+                folderSizeKB = folderData.data.sizeBytes / 1024;
+                console.log("文件夹大小:", folderSizeKB.toFixed(2), "KB");
+            } else if (folderData.code === 500 && folderData.msg === "文件夹不存在") {
+                // 文件夹不存在，大小设为 0
+                folderSizeKB = 0;
+                console.log("文件夹不存在，大小设为 0 KB");
+            } else {
+                // 其他错误，也设为 0 继续执行
+                console.warn("获取文件夹大小失败:", folderData.msg);
+                folderSizeKB = 0;
+            }
+
+            // 总使用空间（KB）
+            var totalUsedKB = dbSizeKB + folderSizeKB;
+
+            // 使用率
+            var usagePercent = (totalUsedKB / limitKB) * 100;
+
+            console.log("数据库大小:", dbSizeKB, "KB");
+            console.log("文件夹大小:", folderSizeKB.toFixed(2), "KB");
+            console.log("总使用:", totalUsedKB.toFixed(2), "KB", "(", usagePercent.toFixed(2), "%)");
+            console.log("限制:", limitKB, "KB", "(", (limitKB / 1024 / 1024).toFixed(2), "GB)");
+
+            var canUpload = true;
+            var message = "";
+
+            if (totalUsedKB >= limitKB * 1.1) {
+                canUpload = false;
+                message = "空间使用已超100%（" + usagePercent.toFixed(2) + "%），无法上传！";
+                alert(message);
+                $("#upload-btn").prop("disabled", true);
+            } else if (totalUsedKB >= limitKB * 0.9) {
+                message = "空间使用已超90%（" + usagePercent.toFixed(2) + "%），请注意清理！";
+                alert(message);
+                $("#upload-btn").prop("disabled", false);
+            } else {
+                $("#upload-btn").prop("disabled", false);
+            }
+
+            resolve({
+                canUpload: canUpload,
+                usagePercent: usagePercent,
+                totalUsedKB: totalUsedKB,
+                limitKB: limitKB
+            });
+
+        }).fail(function(err) {
+            console.error("获取空间信息失败:", err);
+            reject("请求失败");
+        });
+    });
+}
 
 
 function getUrlParams(key) {

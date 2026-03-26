@@ -131,7 +131,11 @@ public class UserInfoController{
 
                 SessionUtil.setToken(session, map.get("token").toString());
                 SessionUtil.setUserNum(session, StringUtils.cast(mark3));
-                return ResultInfo.success("登陆成功", null);
+                SessionUtil.setStorageSpace(session, mark4);
+
+                Map<String, Object> resultData = new HashMap<>();
+                resultData.put("storageSpace", mark4);
+                return ResultInfo.success("登陆成功", resultData);
             }
         } catch (Exception e) {
             log.error("登陆失败：{}", e.getMessage());

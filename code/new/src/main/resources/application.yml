@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     dynamic:
-      primary: control
+      primary: druid
       strict: false
       datasource:
         druid:
